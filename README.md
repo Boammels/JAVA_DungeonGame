@@ -382,11 +382,11 @@ Marks will be deducted for poor git and GitLab usage. For example, meaningless c
 
 ### Week-05
 
-Fill in here.
+Worked on milestone 1 epic user stories and sub stories with acceptance criteria together in voice call together.
 
 ### Week-06
 
-Fill in here.
+Finished off milestone 1 by working out the user story points and priorities of each epic substory in a voice call together.
 
 ### Week-07
 
