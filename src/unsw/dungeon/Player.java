@@ -30,7 +30,7 @@ public class Player extends Entity {
             if (isOnWall())
                 y().set(getY() + 1);
         }
-        meetTools()
+        meetTools();
     }
 
     public void moveDown() {
@@ -39,7 +39,7 @@ public class Player extends Entity {
             if (isOnWall())
                 y().set(getY() - 1);
         }
-        meetTools()
+        meetTools();
     }
 
     public void moveLeft() {
@@ -48,7 +48,7 @@ public class Player extends Entity {
             if (isOnWall())
                 x().set(getX() + 1);
         }
-        meetTools()
+        meetTools();
     }
 
     public void moveRight() {
@@ -57,7 +57,7 @@ public class Player extends Entity {
             if (isOnWall())
                 x().set(getX() - 1);
         }
-        meetTools()
+        meetTools();
     }
 
     private boolean isOnWall() {

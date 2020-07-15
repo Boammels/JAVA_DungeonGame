@@ -38,7 +38,6 @@ public class Enemy extends Entity {
         } else {
             towards();
         }
-        
         if(meetPlayer(getX(), getY())) {
             fight();
         }
@@ -122,11 +121,11 @@ public class Enemy extends Entity {
         for (Entity e : dungeon.getEntities()) {
             if (e instanceof Wall) {
                 if(x == e.getX() && y == e.getY()) {
-                    return 1;
+                    return true;
                 }
             }
         }
-        return 0;
+        return false;
     }
 
     public void fight() {
