@@ -13,6 +13,7 @@ public class Weapon extends Entity{
     }
 
     public void handlePlayer(Player p) {
+        // TODO do we want to stack the hit points of weapons or cap them?
         p.setWeapon(p.getWeapon() + 5);
         this.pickedup();
     }

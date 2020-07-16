@@ -26,6 +26,10 @@ public class Player extends Entity {
         weapon = 0;
     }
 
+    public boolean havePotion() {
+        return this.potion;
+    }
+
     public void setPotion(boolean potion) {
         this.potion = potion;
     }
@@ -127,13 +131,9 @@ public class Player extends Entity {
         }
     }
 
-    public boolean havePotion() {
-        return this.potion;
-    }
-
-/************************************************************
- *  collectable tools part                                  *
- ***********************************************************/
+    /************************************************************
+     *  collectable tools part                                  *
+     ***********************************************************/
     public void checkMoveToSquare() {
         for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
