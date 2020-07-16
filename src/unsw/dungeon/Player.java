@@ -10,6 +10,7 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private boolean potion;
     private int weapon;
+    private int lastX, lastY;
 
     /**
      * Create a player positioned in square (x,y)
@@ -18,75 +19,111 @@ public class Player extends Entity {
      */
     public Player(Dungeon dungeon, int x, int y) {
         super(x, y);
+        this.lastX = x;
+        this.lastY = y;
         this.dungeon = dungeon;
         potion = false;
         weapon = 0;
     }
 
-/************************************************************
- *  Movement part                                           *
- ***********************************************************/
-    public void moveUp() {
-        if (getY() > 0) {
-            y().set(getY() - 1);
-            if (isOnWall())
-                y().set(getY() + 1);
-        }
-        meetTools();
+    public void setPotion(boolean potion) {
+        this.potion = potion;
     }
 
-    public void moveDown() {
-        if (getY() < dungeon.getHeight() - 1) {
-            y().set(getY() + 1);
-            if (isOnWall())
-                y().set(getY() - 1);
-        }
-        meetTools();
+    public void setWeapon(int weapon) {
+        this.weapon = weapon;
     }
 
-    public void moveLeft() {
-        if (getX() > 0) {
-            x().set(getX() - 1);
-            if (isOnWall())
-                x().set(getX() + 1);
-        }
-        meetTools();
+    public int getLastX() {
+        return lastX;
     }
 
-    public void moveRight() {
-        if (getX() < dungeon.getWidth() - 1) {
-            x().set(getX() + 1);
-            if (isOnWall())
-                x().set(getX() - 1);
-        }
-        meetTools();
+    public int getLastY() {
+        return lastY;
     }
 
-    private boolean isOnWall() {
-        for (Entity e : dungeon.getEntities()) {
-            // This is probably bad... hopefully we can make this class more dynamic
-            // maybe not isOnWall, but isOnEntity, then it can be reused for weapons and other things.
-            if (e instanceof Wall) {
-                if (getX() == e.getX() && getY() == e.getY()) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public void setLastX(int lastX) {
+        this.lastX = lastX;
     }
 
-/************************************************************
- *  Enemy part                                              *
- ***********************************************************/
+    public void setLastY(int lastY) {
+        this.lastY = lastY;
+    }
+
     public boolean haveWeapon() {
         return this.weapon > 0;
     }
+
+    public int getWeapon() {
+        return this.weapon;
+    }
+
+    /************************************************************
+     *  Movement part                                           *
+     ***********************************************************/
+    public void moveUp() {
+        if (dungeon.getGameCompleted() != 0) {
+            return;
+        }
+        lastX = getX();
+        lastY = getY();
+        if (getY() > 0) {
+            setY(getY() - 1);
+        }
+        checkMoveToSquare();
+    }
+
+    public void moveDown() {
+        if (dungeon.getGameCompleted() != 0) {
+            return;
+        }
+        lastX = getX();
+        lastY = getY();
+        if (getY() < dungeon.getHeight() - 1) {
+            setY(getY() + 1);
+        }
+        checkMoveToSquare();
+    }
+
+    public void moveLeft() {
+        if (dungeon.getGameCompleted() != 0) {
+            return;
+        }
+        lastX = getX();
+        lastY = getY();
+        if (getX() > 0) {
+            setX(getX() - 1);
+        }
+        checkMoveToSquare();
+    }
+
+    public void moveRight() {
+        if (dungeon.getGameCompleted() != 0) {
+            return;
+        }
+        lastX = getX();
+        lastY = getY();
+        if (getX() < dungeon.getWidth() - 1) {
+            setX(getX() + 1);
+        }
+        checkMoveToSquare();
+    }
+
+    public void handlePlayer(Player p) {
+        // This player will always be on the same coords as player so do nothing, alternatively
+        // use a singular instanceof to make sure the entity is not a player
+        ;
+    }
+
+    /************************************************************
+     *  Enemy part                                              *
+     ***********************************************************/
 
     public void beAttacked() {
         if (this.weapon > 0) {
             this.weapon --;
         } else {
-            //==TODO== game fails
+            dungeon.endGame();
         }
     }
 
@@ -97,45 +134,46 @@ public class Player extends Entity {
 /************************************************************
  *  collectable tools part                                  *
  ***********************************************************/
-    public void meetTools() {
-        for (Entity e :dungeon.getEntities()) {
+    public void checkMoveToSquare() {
+        for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
-                if (e instanceof Weapon) {
-                    pickupWeapon((Weapon)e);
-                } else if (e instanceof Potion) {
-                    pickupPotion((Potion)e);
-                } else if (e instanceof Exit) {
-                    //  ==TODO== what to do if it is an Exit
-                } else if (e instanceof Treasure) {
-                    pickupTreasure((Treasure)e);
-                } else if (e instanceof Portal) {
-                    teleport((Portal)e);
-                }
+                e.handlePlayer(this);
+                // if (e instanceof Weapon) {
+                //     pickupWeapon((Weapon)e);
+                // } else if (e instanceof Potion) {
+                //     pickupPotion((Potion)e);
+                // } else if (e instanceof Exit) {
+                //     //  ==TODO== what to do if it is an Exit
+                // } else if (e instanceof Treasure) {
+                //     pickupTreasure((Treasure)e);
+                // } else if (e instanceof Portal) {
+                //     teleport((Portal)e);
+                // }
             }
         }
     }
 
-    private void pickupTreasure(Treasure treasure) {
-        treasure.pickedup();
-    }
+    // private void pickupTreasure(Treasure treasure) {
+    //     treasure.pickedup();
+    // }
 
-    public void pickupWeapon(Weapon weapon) {
-        this.weapon += 5;
-        weapon.pickedup();
-    }
+    // public void pickupWeapon(Weapon weapon) {
+    //     this.weapon += 5;
+    //     weapon.pickedup();
+    // }
 
-    public void pickupPotion(Potion potion) {
-        this.potion = true;
-        potion.pickedup();
-    }
+    // public void pickupPotion(Potion potion) {
+    //     this.potion = true;
+    //     potion.pickedup();
+    // }
 
-    public void teleport (Portal portal) {
-        if(portal.getExit() == null) {
-            return;
-        }
-        int newX = portal.getExitX();
-        int newY = portal.getExitY();
-        x().set(newX);
-        y().set(newY);
-    }
+    // public void teleport (Portal portal) {
+    //     if(portal.getExit() == null) {
+    //         return;
+    //     }
+    //     int newX = portal.getExitX();
+    //     int newY = portal.getExitY();
+    //     x().set(newX);
+    //     y().set(newY);
+    // }
 }

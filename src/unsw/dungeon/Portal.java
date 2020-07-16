@@ -31,4 +31,14 @@ public class Portal extends Entity{
     public Portal getExit() {
         return exit;
     }
+
+    public void handlePlayer(Player p) {
+        if(this.getExit() == null) {
+            return;
+        }
+        int newX = this.getExitX();
+        int newY = this.getExitY();
+        p.setX(newX);
+        p.setY(newY);
+    }
 }

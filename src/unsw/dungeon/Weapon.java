@@ -11,4 +11,9 @@ public class Weapon extends Entity{
     public void pickedup() {
         dungeon.getEntities().remove(this);
     }
+
+    public void handlePlayer(Player p) {
+        p.setWeapon(p.getWeapon() + 5);
+        this.pickedup();
+    }
 }

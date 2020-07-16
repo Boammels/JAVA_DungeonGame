@@ -20,12 +20,15 @@ public class Dungeon {
     private int width, height;
     private List<Entity> entities;
     private Player player;
+    // Store as an int so we can differentiate in the future between successful completion and a game over
+    private int gameComplete;
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+        this.gameComplete = 0;
     }
 
     public int getWidth() {
@@ -50,5 +53,18 @@ public class Dungeon {
 
     public List<Entity> getEntities() {
         return entities;
+    }
+
+    private void setGameCompleted(int gameComplete) {
+        this.gameComplete = gameComplete;
+    }
+
+    public int getGameCompleted() {
+        return gameComplete;
+    }
+
+    public void endGame() {
+        // TODO handle logical boolean operators here!
+        setGameCompleted(1);
     }
 }

@@ -11,4 +11,9 @@ public class Potion extends Entity{
     public void pickedup() {
         dungeon.getEntities().remove(this);
     }
+
+    public void handlePlayer(Player p) {
+        p.setPotion(true);
+        this.pickedup();
+    }
 }

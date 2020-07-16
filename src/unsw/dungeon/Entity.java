@@ -39,4 +39,21 @@ public class Entity {
     public int getX() {
         return x().get();
     }
+
+    public void setY(int newY) {
+        this.y().set(newY);
+    }
+
+    public void setX(int newX) {
+        this.x().set(newX);
+    }
+    
+    /**
+     * When a player is on an entity, handle what happens
+     * OVERWRITTEN by each respective entity
+     * @param p - player object
+     */
+    public void handlePlayer(Player p) {
+        throw new java.lang.UnsupportedOperationException("Handle player not yet written for: " + this.getClass());
+    }
 }

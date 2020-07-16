@@ -32,14 +32,14 @@ public class Enemy extends Entity {
         }
         if (target.havePotion()) {
             if(meetPlayer(getX(), getY())) {
-                fight();
+                handlePlayer(target);
             }
             return;
         } else {
             towards();
         }
         if(meetPlayer(getX(), getY())) {
-            fight();
+            handlePlayer(target);
         }
     }
 
@@ -128,7 +128,8 @@ public class Enemy extends Entity {
         return false;
     }
 
-    public void fight() {
+    public void handlePlayer(Player p) {
+        // If the player is touching an enemy, this method is called
         if(target.haveWeapon()) {
             alive = false;
         }
