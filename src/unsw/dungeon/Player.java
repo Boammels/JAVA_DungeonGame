@@ -23,7 +23,9 @@ public class Player extends Entity {
         weapon = 0;
     }
 
-    // For each valid movement, we check if the player is on a wall, if it is, push it back.
+/************************************************************
+ *  Movement part                                           *
+ ***********************************************************/
     public void moveUp() {
         if (getY() > 0) {
             y().set(getY() - 1);
@@ -73,18 +75,28 @@ public class Player extends Entity {
         return false;
     }
 
-    public int getWeapon() {
-        return this.weapon;
+/************************************************************
+ *  Enemy part                                              *
+ ***********************************************************/
+    public boolean haveWeapon() {
+        return this.weapon > 0;
     }
 
     public void beAttacked() {
         if (this.weapon > 0) {
             this.weapon --;
         } else {
-            //==TODO== end the game;
+            //==TODO== game fails
         }
     }
 
+    public boolean havePotion() {
+        return this.potion;
+    }
+
+/************************************************************
+ *  collectable tools part                                  *
+ ***********************************************************/
     public void meetTools() {
         for (Entity e :dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
@@ -92,13 +104,19 @@ public class Player extends Entity {
                     pickupWeapon((Weapon)e);
                 } else if (e instanceof Potion) {
                     pickupPotion((Potion)e);
+                } else if (e instanceof Exit) {
+                    //  ==TODO== what to do if it is an Exit
+                } else if (e instanceof Treasure) {
+                    pickupTreasure((Treasure)e);
+                } else if (e instanceof Portal) {
+                    teleport((Portal)e);
                 }
             }
         }
     }
 
-    public boolean havePotion() {
-        return this.potion;
+    private void pickupTreasure(Treasure treasure) {
+        treasure.pickedup();
     }
 
     public void pickupWeapon(Weapon weapon) {
@@ -109,5 +127,15 @@ public class Player extends Entity {
     public void pickupPotion(Potion potion) {
         this.potion = true;
         potion.pickedup();
+    }
+
+    public void teleport (Portal portal) {
+        if(portal.getExit() == null) {
+            return;
+        }
+        int newX = portal.getExitX();
+        int newY = portal.getExitY();
+        x().set(newX);
+        y().set(newY);
     }
 }

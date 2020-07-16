@@ -129,7 +129,7 @@ public class Enemy extends Entity {
     }
 
     public void fight() {
-        if(target.getWeapon() > 0) {
+        if(target.haveWeapon()) {
             alive = false;
         }
         target.beAttacked();
