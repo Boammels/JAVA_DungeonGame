@@ -12,9 +12,12 @@ public class Weapon extends Entity{
         dungeon.getEntities().remove(this);
     }
 
-    public void handlePlayer(Player p) {
+    @Override
+    public int handlePlayer(Player p) {
         // TODO do we want to stack the hit points of weapons or cap them?
         p.setWeapon(p.getWeapon() + 5);
+        System.out.println(p.getWeapon());
         this.pickedup();
+        return 1;
     }
 }

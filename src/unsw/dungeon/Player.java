@@ -113,10 +113,11 @@ public class Player extends Entity {
         checkMoveToSquare();
     }
 
-    public void handlePlayer(Player p) {
+    @Override
+    public int handlePlayer(Player p) {
         // This player will always be on the same coords as player so do nothing, alternatively
         // use a singular instanceof to make sure the entity is not a player
-        ;
+        return 0;
     }
 
     /************************************************************
@@ -137,43 +138,11 @@ public class Player extends Entity {
     public void checkMoveToSquare() {
         for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
-                e.handlePlayer(this);
-                // if (e instanceof Weapon) {
-                //     pickupWeapon((Weapon)e);
-                // } else if (e instanceof Potion) {
-                //     pickupPotion((Potion)e);
-                // } else if (e instanceof Exit) {
-                //     //  ==TODO== what to do if it is an Exit
-                // } else if (e instanceof Treasure) {
-                //     pickupTreasure((Treasure)e);
-                // } else if (e instanceof Portal) {
-                //     teleport((Portal)e);
-                // }
+                int a = e.handlePlayer(this);
+                if (a == 1) {
+                    break;
+                }
             }
         }
     }
-
-    // private void pickupTreasure(Treasure treasure) {
-    //     treasure.pickedup();
-    // }
-
-    // public void pickupWeapon(Weapon weapon) {
-    //     this.weapon += 5;
-    //     weapon.pickedup();
-    // }
-
-    // public void pickupPotion(Potion potion) {
-    //     this.potion = true;
-    //     potion.pickedup();
-    // }
-
-    // public void teleport (Portal portal) {
-    //     if(portal.getExit() == null) {
-    //         return;
-    //     }
-    //     int newX = portal.getExitX();
-    //     int newY = portal.getExitY();
-    //     x().set(newX);
-    //     y().set(newY);
-    // }
 }

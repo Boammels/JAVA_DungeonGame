@@ -12,8 +12,11 @@ public class Treasure extends Entity{
         dungeon.getEntities().remove(this);
     }
 
-    public void handlePlayer(Player p) {
+    @Override
+    public int handlePlayer(Player p) {
         this.pickedup();
+        System.out.println("hello world");
+        return 1;
     }
     
 }
