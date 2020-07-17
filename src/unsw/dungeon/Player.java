@@ -138,10 +138,9 @@ public class Player extends Entity {
     public void checkMoveToSquare() {
         for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
-                int a = e.handlePlayer(this);
-                if (a == 1) {
+                if (e.handlePlayer(this) == 1) {
                     break;
-                }
+                } //e.handlePlayer(this) would return 1 if e is not the user;
             }
         }
     }
