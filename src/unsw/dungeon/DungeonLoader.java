@@ -39,6 +39,10 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        dungeon.checkSwitchedOn();
+        JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        loadGoals(dungeon, jsonGoals);
+
         return dungeon;
     }
 
@@ -72,9 +76,10 @@ public abstract class DungeonLoader {
             entity = boulder;
             break;
         case "switch":
-            Switch switchObject = new Switch(x, y);
+            Switch switchObject = new Switch(dungeon, x, y);
             onLoad(switchObject);
             entity = switchObject;
+            break;
         case "potion":
             Potion potion = new Potion(dungeon, x, y);
             onLoad(potion);
@@ -104,6 +109,14 @@ public abstract class DungeonLoader {
         dungeon.addEntity(entity);
     }
 
+    private void loadGoals(Dungeon dungeon, JSONObject json) {
+        String type = json.getString("goal");
+        // if (type.equals("or"))
+        // else if type.equals("and")
+        // else treat like a normal goal
+        dungeon.addGoal(type);
+    }
+
     public abstract void onLoad(Entity player);
 
     public abstract void onLoad(Wall wall);
@@ -114,7 +127,7 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Boulder boulder);
 
     public abstract void onLoad(Switch boulder);
-    
+
     public abstract void onLoad(Potion potion);
 
     public abstract void onLoad(Treasure treasure);

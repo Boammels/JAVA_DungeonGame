@@ -62,11 +62,15 @@ public class Player extends Entity {
         return this.weapon;
     }
 
+    public Dungeon getDungeon() {
+        return dungeon;
+    }
+
     /************************************************************
      *  Movement part                                           *
      ***********************************************************/
     public void moveUp() {
-        if (dungeon.getGameCompleted() != 0) {
+        if (dungeon.getGameStatus() != 0) {
             return;
         }
         lastX = getX();
@@ -78,7 +82,7 @@ public class Player extends Entity {
     }
 
     public void moveDown() {
-        if (dungeon.getGameCompleted() != 0) {
+        if (dungeon.getGameStatus() != 0) {
             return;
         }
         lastX = getX();
@@ -90,7 +94,7 @@ public class Player extends Entity {
     }
 
     public void moveLeft() {
-        if (dungeon.getGameCompleted() != 0) {
+        if (dungeon.getGameStatus() != 0) {
             return;
         }
         lastX = getX();
@@ -102,7 +106,7 @@ public class Player extends Entity {
     }
 
     public void moveRight() {
-        if (dungeon.getGameCompleted() != 0) {
+        if (dungeon.getGameStatus() != 0) {
             return;
         }
         lastX = getX();
@@ -128,7 +132,7 @@ public class Player extends Entity {
         if (this.weapon > 0) {
             this.weapon --;
         } else {
-            dungeon.endGame();
+            dungeon.setGameStatus(-1);
         }
     }
 
