@@ -32,6 +32,8 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image portalImage;
     private Image weaponImage;
     private Image enemyImage;
+    private Image doorImage;
+    private Image keyImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -45,6 +47,8 @@ public class DungeonControllerLoader extends DungeonLoader {
         portalImage = new Image((new File("images/portal.png")).toURI().toString());
         weaponImage = new Image((new File("images/greatsword_1_new.png")).toURI().toString());
         enemyImage = new Image((new File("images/deep_elf_master_archer.png")).toURI().toString());
+        doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
+        keyImage = new Image((new File("images/key.png")).toURI().toString());
     }
 
     @Override
@@ -93,6 +97,18 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(Enemy enemy) {
         ImageView view = new ImageView(enemyImage);
         addEntity(enemy, view);
+    }
+
+    @Override
+    public void onLoad(Door door) {
+        ImageView view = new ImageView(doorImage);
+        addEntity(door, view);
+    }
+
+    @Override
+    public void onLoad(Key key) {
+        ImageView view = new ImageView(keyImage);
+        addEntity(key, view);
     }
 
     private void addEntity(Entity entity, ImageView view) {

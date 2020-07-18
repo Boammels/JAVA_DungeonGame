@@ -69,4 +69,5 @@ public class Entity {
     public void move() {
         return;
     }
+
 }

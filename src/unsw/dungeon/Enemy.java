@@ -114,7 +114,7 @@ public class Enemy extends Entity {
     @Override
     public int handlePlayer(Player p) {
         // If the player is touching an enemy, this method is called
-        if(target.haveWeapon()) {
+        if(target.haveWeapon() || target.havePotion()) {
             dungeon.getEntities().remove(this);
             setX(0);
             setY(0);
