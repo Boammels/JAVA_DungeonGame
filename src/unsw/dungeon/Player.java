@@ -136,7 +136,7 @@ public class Player extends Entity {
      ***********************************************************/
     public void checkMoveToSquare() {
         for (Entity e : dungeon.getEntities()) {
-            if(e.getX() == getX() && e.getY() == getY()) {
+            if(e.getX() == getX() && e.getY() == getY() && e != null) {
                 e.handlePlayer(this);
                 // if (e instanceof Weapon) {
                 //     pickupWeapon((Weapon)e);
