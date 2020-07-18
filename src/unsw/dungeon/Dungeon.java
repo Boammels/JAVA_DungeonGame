@@ -23,7 +23,8 @@ public class Dungeon {
     private List <Boulder> boulders;
     private Player player;
     // Store as an int so we can differentiate in the future between successful completion and a game over
-    private List<String> goals;
+    // private List<String> goals;
+    private GoalGroup goals;
     private int gameStatus;
 
     private static final int IN_PROGRESS = 0;
@@ -37,7 +38,7 @@ public class Dungeon {
         this.switches = new ArrayList<>();
         this.boulders = new ArrayList<>();
         this.player = null;
-        this.goals = new ArrayList<>();
+        // this.goals = new ArrayList<>();
         this.gameStatus = IN_PROGRESS;
     }
 
@@ -66,8 +67,8 @@ public class Dungeon {
         }
     }
 
-    public void addGoal(String goal) {
-        goals.add(goal);
+    public void addGoal(GoalGroup goal) {
+        goals = goal;
     }
 
     public List<Entity> getEntities() {
@@ -110,13 +111,15 @@ public class Dungeon {
 
     public void completeGoal(String goalCompleted) {
         //This will handle ALL goals must be compelted to finish dungeon
-        // TODO handle OR goals
-        if (goals.contains(goalCompleted)) {
-            goals.remove(goalCompleted);
-            if (goals.isEmpty()) {
-                setGameStatus(GAME_COMPLETE);
-            }
+        if (goals.remove(goalCompleted) == 2) {
+            setGameStatus(GAME_COMPLETE);
         }
+        // if (goals.contains(goalCompleted)) {
+        //     goals.remove(goalCompleted);
+        //     if (goals.isEmpty()) {
+        //         setGameStatus(GAME_COMPLETE);
+        //     }
+        // }
     }
 
     public void moveEnemy(){

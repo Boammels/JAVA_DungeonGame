@@ -41,7 +41,9 @@ public abstract class DungeonLoader {
         }
         dungeon.checkSwitchedOn();
         JSONObject jsonGoals = json.getJSONObject("goal-condition");
-        loadGoals(dungeon, jsonGoals);
+        GoalGroup allGoals = new GoalGroup();
+        allGoals = loadGoals(dungeon, jsonGoals, allGoals);
+        dungeon.addGoal(allGoals);
 
         return dungeon;
     }
@@ -109,12 +111,25 @@ public abstract class DungeonLoader {
         dungeon.addEntity(entity);
     }
 
-    private void loadGoals(Dungeon dungeon, JSONObject json) {
+    private GoalGroup loadGoals(Dungeon dungeon, JSONObject json, GoalGroup allGoals) {
         String type = json.getString("goal");
-        // if (type.equals("or"))
-        // else if type.equals("and")
-        // else treat like a normal goal
-        dungeon.addGoal(type);
+        if (type.equals("OR")) {
+            JSONArray subgoals = json.getJSONArray("subgoals");
+            for (int i = 0; i < subgoals.length(); i++) {
+                GoalGroup goalGroup = new GoalGroup();
+                GoalGroup subGoalGroup = loadGoals(dungeon, subgoals.getJSONObject(i), goalGroup);
+                allGoals.addGoal(subGoalGroup);
+            }
+        } else if (type.equals("AND")) {
+            JSONArray subgoals = json.getJSONArray("subgoals");
+            for (int i = 0; i < subgoals.length(); i++) {
+                allGoals = loadGoals(dungeon, subgoals.getJSONObject(i), allGoals);
+            }
+        } else {
+            // else treat like a normal goal
+            allGoals.addGoal(type);
+        }
+        return allGoals;
     }
 
     public abstract void onLoad(Entity player);
