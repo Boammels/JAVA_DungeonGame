@@ -10,6 +10,8 @@ public class Potion extends Entity{
 
     public void pickedup() {
         dungeon.getEntities().remove(this);
+        setX(0);
+        setY(0);
     }
 
     @Override

@@ -140,6 +140,9 @@ public class Player extends Entity {
      *  collectable tools part                                  *
      ***********************************************************/
     public void checkMoveToSquare() {
+        dungeon.moveEnemy();
+        //we need to make enemy move here.
+
         for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
                 if (e.handlePlayer(this) == 1) {

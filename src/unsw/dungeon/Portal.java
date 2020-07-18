@@ -9,7 +9,7 @@ public class Portal extends Entity{
         super(x,y);
         this.dungeon = dungeon;
         this.exit = null;
-        for(Entity e :dungeon.getEntities()) {
+        for(Entity e : this.dungeon.getEntities()) {
             e.addPortal(this);
         }
     }

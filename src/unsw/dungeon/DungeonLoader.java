@@ -80,7 +80,7 @@ public abstract class DungeonLoader {
             onLoad(switchObject);
             entity = switchObject;
             break;
-        case "potion":
+        case "invincibility":
             Potion potion = new Potion(dungeon, x, y);
             onLoad(potion);
             entity = potion;
@@ -95,7 +95,7 @@ public abstract class DungeonLoader {
             onLoad(portal);
             entity = portal;
             break;
-        case "weapon":
+        case "sword":
             Weapon weapon = new Weapon(dungeon, x, y);
             onLoad(weapon);
             entity = weapon;
