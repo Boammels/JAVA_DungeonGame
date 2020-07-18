@@ -29,6 +29,11 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image exitImage;
     private Image boulderImage;
     private Image switchImage;
+    private Image potionImage;
+    private Image treasureImage;
+    private Image portalImage;
+    private Image weaponImage;
+    private Image enemyImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -39,6 +44,11 @@ public class DungeonControllerLoader extends DungeonLoader {
         exitImage = new Image((new File("images/exit.png")).toURI().toString());
         boulderImage = new Image((new File("images/boulder.png")).toURI().toString());
         switchImage = new Image((new File("images/pressure_plate.png")).toURI().toString());
+        potionImage = new Image((new File("images/brilliant_blue_new.png")).toURI().toString());
+        treasureImage = new Image((new File("images/gold_pile.png")).toURI().toString());
+        portalImage = new Image((new File("images/portal.png")).toURI().toString());
+        weaponImage = new Image((new File("images/greatsword_1_new.png")).toURI().toString());
+        enemyImage = new Image((new File("images/deep_elf_master_archer.png")).toURI().toString());
     }
 
     @Override
@@ -69,6 +79,35 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(Switch switchObject) {
         ImageView view = new ImageView(switchImage);
         addEntity(switchObject, view);
+    }
+    
+    public void onLoad(Potion potion) {
+        ImageView view = new ImageView(potionImage);
+        addEntity(potion, view);
+    }
+
+    @Override
+    public void onLoad(Treasure treasure) {
+        ImageView view = new ImageView(treasureImage);
+        addEntity(treasure, view);
+    }
+
+    @Override
+    public void onLoad(Portal portal) {
+        ImageView view = new ImageView(portalImage);
+        addEntity(portal, view);
+    }
+
+    @Override
+    public void onLoad(Weapon weapon) {
+        ImageView view = new ImageView(weaponImage);
+        addEntity(weapon, view);
+    }
+
+    @Override
+    public void onLoad(Enemy enemy) {
+        ImageView view = new ImageView(enemyImage);
+        addEntity(enemy, view);
     }
 
     private void addEntity(Entity entity, ImageView view) {

@@ -7,9 +7,9 @@ public class Switch extends Entity {
         super(x, y);
     }
 
-    public void handlePlayer(Player p) {
+    public int handlePlayer(Player p) {
         // Will do nothing if the player is on, will do something however if a boulder is on,
         // possibly find a way to make this class more dynamic. 
-        ;
+        return 0;
     }
 }

@@ -128,12 +128,14 @@ public class Enemy extends Entity {
         return false;
     }
 
-    public void handlePlayer(Player p) {
+    @Override
+    public int handlePlayer(Player p) {
         // If the player is touching an enemy, this method is called
         if(target.haveWeapon()) {
             alive = false;
         }
         target.beAttacked();
+        return 1;
     }
     
 }

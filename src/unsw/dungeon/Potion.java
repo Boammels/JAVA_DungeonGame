@@ -12,8 +12,10 @@ public class Potion extends Entity{
         dungeon.getEntities().remove(this);
     }
 
-    public void handlePlayer(Player p) {
+    @Override
+    public int handlePlayer(Player p) {
         p.setPotion(true);
         this.pickedup();
+        return 1;
     }
 }

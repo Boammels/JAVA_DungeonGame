@@ -52,8 +52,13 @@ public class Entity {
      * When a player is on an entity, handle what happens
      * OVERWRITTEN by each respective entity
      * @param p - player object
+     * @return 
      */
-    public void handlePlayer(Player p) {
+    public int handlePlayer(Player p) {
         throw new java.lang.UnsupportedOperationException("Handle player not yet written for: " + this.getClass());
     }
+
+	public void addPortal(Portal portal) {
+        return;
+	}
 }
