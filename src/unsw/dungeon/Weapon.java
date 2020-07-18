@@ -17,9 +17,7 @@ public class Weapon extends Entity{
 
     @Override
     public int handlePlayer(Player p) {
-        // TODO do we want to stack the hit points of weapons or cap them?
         p.setWeapon(p.getWeapon() + WEAPONSIZE);
-        
         this.pickedup();
         return 1;
     }
