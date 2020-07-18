@@ -2,6 +2,9 @@ package unsw.dungeon;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Enemy extends Entity {
 
@@ -15,6 +18,7 @@ public class Enemy extends Entity {
     private Player target;
     private int lastX;
     private int lastY;
+    private Timer timer;
 
     public Enemy (Dungeon dungeon, Player player, int x, int y) {
         super(x,y);
@@ -23,12 +27,19 @@ public class Enemy extends Entity {
         this.target = player;
         lastX = 0;
         lastY = 0;
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                move();
+                target.checkMoveToSquare();
+            }
+        },1000,1000);
     }
 
-    @Override
     public void move () {
         if (target.havePotion()) {
-            return ;
+            leave();
         } else {
             towards();
         }
@@ -91,7 +102,131 @@ public class Enemy extends Entity {
         setY(y);
     }
 
+    public void leave() {
+        int x = getX();
+        int y = getY();
+        int playerX = target.getX();
+        int playerY = target.getY();
+        lastX = x;
+        lastY = y;
+        if(playerX > x) {
+            if(playerY >= y) {
+                moveLeftUp(x, y, playerX, playerY);
+            } else {
+                moveLeftDown(x, y, playerX, playerY);
+            }   
+        } else {
+            if (playerY >= y) {
+                moveRightUp(x, y, playerX, playerY);
+            } else {
+                moveRightDown(x, y, playerX, playerY);
+            }
+        }
+    }
 
+    public void moveLeftUp(int x, int y, int playerX, int playerY) {
+        if(!checkWall(x-1,y)) { 
+            setX(x-1);
+            setY(y);
+        } else if (!checkWall(x,y-1)) {
+            setX(x);
+            setY(y-1);
+        } else if (playerX - x > playerY - y ) {
+            
+            if(!checkWall(x,y+1)) {
+                setX(x);
+                setY(y+1);
+            } else {
+                setX(x+1);
+                setY(y);
+            }
+        } else {
+            if(!checkWall(x+1,y)) {
+                setX(x+1);
+                setY(y);
+            } else {
+                setX(x);
+                setY(y+1);
+            }
+        }
+    }
+    public void moveLeftDown(int x, int y, int playerX, int playerY) {
+        if(!checkWall(x-1,y)) { 
+            setX(x-1);
+            setY(y);
+        } else if (!checkWall(x,y+1)) {
+            setX(x);
+            setY(y+1);
+        } else if (playerX - x > y - playerY ) {
+            if(!checkWall(x,y-1)) {
+                setX(x);
+                setY(y-1);
+            } else {
+                setX(x+1);
+                setY(y);
+            }
+        } else {
+            if(!checkWall(x+1,y)) {
+                setX(x+1);
+                setY(y);
+            } else {
+                setX(x);
+                setY(y-1);
+            }
+        }
+    }
+    public void moveRightUp(int x, int y, int playerX, int playerY) {
+        if(!checkWall(x+1,y)) { 
+            setX(x+1);
+            setY(y);
+        } else if (!checkWall(x,y-1)) {
+            setX(x);
+            setY(y-1);
+        } else if ( x - playerX > playerY - y ) {
+            
+            if(!checkWall(x,y+1)) {
+                setX(x);
+                setY(y+1);
+            } else {
+                setX(x-1);
+                setY(y);
+            }
+        } else {
+            if(!checkWall(x-1,y)) {
+                setX(x-1);
+                setY(y);
+            } else {
+                setX(x);
+                setY(y+1);
+            }
+        }
+    }
+    public void moveRightDown(int x, int y, int playerX, int playerY) {
+        if(!checkWall(x+1,y)) { 
+            setX(x+1);
+            setY(y);
+        } else if (!checkWall(x,y+1)) {
+            setX(x);
+            setY(y+1);
+        } else if (x - playerX > y - playerY ) {
+            
+            if(!checkWall(x,y-1)) {
+                setX(x);
+                setY(y-1);
+            } else {
+                setX(x-1);
+                setY(y);
+            }
+        } else {
+            if(!checkWall(x-1,y)) {
+                setX(x-1);
+                setY(y);
+            } else {
+                setX(x);
+                setY(y-1);
+            }
+        }
+    }
 
     public boolean checkWall(int x,int y) {
         if(x < 0 || y < 0 || x >= dungeon.getWidth() || y >=dungeon.getHeight()) {
@@ -114,7 +249,8 @@ public class Enemy extends Entity {
     @Override
     public int handlePlayer(Player p) {
         // If the player is touching an enemy, this method is called
-        if(target.haveWeapon()) {
+        if(target.haveWeapon() || target.havePotion()) {
+            timer.cancel();
             dungeon.getEntities().remove(this);
             dungeon.decreaseEnemyCount();
             // dungeon.checkEnemyGoal();

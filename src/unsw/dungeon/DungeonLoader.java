@@ -73,7 +73,6 @@ public abstract class DungeonLoader {
             onLoad(wall);
             entity = wall;
             break;
-        // TODO Handle other possible entities
         case "exit":
             Exit exit = new Exit(dungeon, x, y);
             onLoad(exit);
@@ -114,6 +113,16 @@ public abstract class DungeonLoader {
             onLoad(enemy);
             entity = enemy;
             break;
+        case "door":
+            Door door = new Door(dungeon, x, y, 1);
+            onLoad(door);
+            entity = door;
+            break; 
+        case "key":
+            Key key = new Key(dungeon, x, y, 1);
+            onLoad(key);
+            entity = key;
+            break;    
         }
         dungeon.addEntity(entity);
     }
@@ -146,7 +155,6 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Wall wall);
 
-    // TODO Create additional abstract methods for the other entities
     public abstract void onLoad(Exit exit);
 
     public abstract void onLoad(Boulder boulder);
@@ -163,4 +171,7 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Enemy enemy);
 
+    public abstract void onLoad(Door door);
+
+    public abstract void onLoad(Key key);
 }

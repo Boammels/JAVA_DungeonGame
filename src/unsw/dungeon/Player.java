@@ -10,7 +10,9 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private boolean potion;
     private int weapon;
-    private int lastX, lastY;
+    private int lastX;
+    private int lastY;
+    private int key;
 
     /**
      * Create a player positioned in square (x,y)
@@ -24,6 +26,7 @@ public class Player extends Entity {
         this.dungeon = dungeon;
         potion = false;
         weapon = 0;
+        key = -1;
     }
 
     public boolean havePotion() {
@@ -64,6 +67,13 @@ public class Player extends Entity {
 
     public Dungeon getDungeon() {
         return dungeon;
+    }
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int pairCode) {
+        this.key = pairCode;
     }
 
     /************************************************************
@@ -129,7 +139,9 @@ public class Player extends Entity {
      ***********************************************************/
 
     public void beAttacked() {
-        if (this.weapon > 0) {
+        if (this.potion == true) {
+            return;
+        } else if (this.weapon > 0) {
             this.weapon --;
         } else {
             dungeon.setGameStatus(-1);
@@ -140,7 +152,6 @@ public class Player extends Entity {
      *  collectable tools part                                  *
      ***********************************************************/
     public void checkMoveToSquare() {
-        dungeon.moveEnemy();
         // Entity removeEntity = null;
         //we need to make enemy move here.
 

@@ -160,9 +160,4 @@ public class Dungeon {
         // }
     }
 
-    public void moveEnemy(){
-        for(Entity e: entities) {
-            e.move();
-        }
-    }
 }

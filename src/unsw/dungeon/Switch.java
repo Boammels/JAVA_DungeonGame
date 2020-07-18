@@ -9,6 +9,7 @@ public class Switch extends Entity {
         this.dungeon = dungeon;
     }
 
+    @Override
     public int handlePlayer(Player p) {
         // If a player has managed to get on this switch, a boulder cannot be on it.
         switchedOn = false;
