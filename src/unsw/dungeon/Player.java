@@ -141,14 +141,24 @@ public class Player extends Entity {
      ***********************************************************/
     public void checkMoveToSquare() {
         dungeon.moveEnemy();
+        // Entity removeEntity = null;
         //we need to make enemy move here.
 
         for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY()) {
-                if (e.handlePlayer(this) == 1) {
+                int handlePlayerResult = e.handlePlayer(this);
+                if (handlePlayerResult == 1) {
                     break;
-                } //e.handlePlayer(this) would return 1 if e is not the user;
+                } //else if (handlePlayerResult == 2) {
+                //     removeEntity = e;
+                //     break;
+                // }//e.handlePlayer(this) would return 1 if e is not the user;
             }
         }
+        dungeon.checkTreasureGoal();
+        dungeon.checkEnemyGoal();
+        // if (removeEntity != null) {
+        //     dungeon.getEntities().remove(removeEntity);
+        // }
     }
 }

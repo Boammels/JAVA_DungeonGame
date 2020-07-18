@@ -116,6 +116,8 @@ public class Enemy extends Entity {
         // If the player is touching an enemy, this method is called
         if(target.haveWeapon()) {
             dungeon.getEntities().remove(this);
+            dungeon.decreaseEnemyCount();
+            // dungeon.checkEnemyGoal();
             setX(0);
             setY(0);
         }

@@ -24,11 +24,7 @@ public class Boulder extends Entity {
             // Move the player back to its original sqaure
             p.setX(p.getLastX());
             p.setY(p.getLastY());
-        // Has the boulder hit a switch that has completed the game?
-        } else if (result == 1) {
-            // Set this goal to complete in the dungeon
-            dungeon.completeGoal("boulders");
-        }
+        } 
 
         return 0;
         // Set the boulder move in the same way the player has to be what xDiff indicates
@@ -51,10 +47,8 @@ public class Boulder extends Entity {
         }
         if (checkSwitch != null) {
             checkSwitch.setSwitchedOn(true);
-            if (dungeon.checkAllOn()) {
-                return 1;
-            }
-            
+            // Check if this switch turn on has completed a goal
+            dungeon.checkSwitchGoal();   
         }
         return 0;
     }

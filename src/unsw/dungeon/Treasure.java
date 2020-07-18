@@ -9,7 +9,10 @@ public class Treasure extends Entity{
     }
 
     public void pickedup() {
+        // System.out.println(dungeon.getTreasures().size());
         dungeon.getEntities().remove(this);
+        // System.out.println(dungeon.getTreasures().size());
+        dungeon.decreaseTreasureCount();
         setX(0);
         setY(0);
     }

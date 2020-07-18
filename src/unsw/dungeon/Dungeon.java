@@ -18,13 +18,15 @@ import java.util.List;
 public class Dungeon {
 
     private int width, height;
-    private List<Entity> entities;
-    private List<Switch> switches;
-    private List <Boulder> boulders;
+    private List<Entity> entities = new ArrayList<>();
+    private List<Switch> switches = new ArrayList<>();
+    private List <Boulder> boulders = new ArrayList<>();
+    private int treasureCount = 0;
+    private int enemyCount = 0;
     private Player player;
     // Store as an int so we can differentiate in the future between successful completion and a game over
     // private List<String> goals;
-    private GoalGroup goals;
+    private GoalComponent goals;
     private int gameStatus;
 
     private static final int IN_PROGRESS = 0;
@@ -34,9 +36,9 @@ public class Dungeon {
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
-        this.entities = new ArrayList<>();
-        this.switches = new ArrayList<>();
-        this.boulders = new ArrayList<>();
+        // this.entities ;
+        // this.switches = new ArrayList<>();
+        // this.boulders = new ArrayList<>();
         this.player = null;
         // this.goals = new ArrayList<>();
         this.gameStatus = IN_PROGRESS;
@@ -64,9 +66,16 @@ public class Dungeon {
             switches.add((Switch) entity);
         } else if (entity instanceof Boulder) {
             boulders.add((Boulder) entity);
+        } else if (entity instanceof Treasure) {
+            treasureCount++;
+        } else if (entity instanceof Enemy) {
+            enemyCount++;
         }
     }
 
+    public void addGoal(Goal goal) {
+        goals = goal;
+    }
     public void addGoal(GoalGroup goal) {
         goals = goal;
     }
@@ -99,19 +108,48 @@ public class Dungeon {
         }
     }
 
+    
     // Checks if all switches in the dungeon are turned on
-    public boolean checkAllOn() {
-        for (Switch s : getAllSwitches()) {
+    public void checkSwitchGoal() {
+        for (Switch s : switches) {
             if (!s.getSwitchedOn()) {
-                return false;
+                return;
             }
         }
-        return true;
+        completeGoal("boulders");
+    }
+    
+    public void checkTreasureGoal() {
+        if (treasureCount == 0) {
+            System.out.println("treasure goal completed");
+            completeGoal("treasure");
+        }
+    }
+    
+    public void decreaseTreasureCount() {
+        treasureCount--;
+    }
+    
+    public void checkEnemyGoal() {
+        if (enemyCount == 0) {
+            System.out.println("enemy goal complete");
+            completeGoal("enemies");
+        }
+    }
+
+    public void decreaseEnemyCount() {
+        enemyCount--;
     }
 
     public void completeGoal(String goalCompleted) {
         //This will handle ALL goals must be compelted to finish dungeon
-        if (goals.remove(goalCompleted) == 2) {
+        boolean change = goals.complete(goalCompleted);
+        // if (!(goals instanceof Goal)) {
+        //     goals.isLayerComplete();
+        // }
+        int result = goals.getSize();
+        // No uncompleted goals at the top level...
+        if (result == 0) {
             setGameStatus(GAME_COMPLETE);
         }
         // if (goals.contains(goalCompleted)) {

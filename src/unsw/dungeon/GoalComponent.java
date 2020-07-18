@@ -6,5 +6,8 @@ package unsw.dungeon;
  */
 public interface GoalComponent {
     public String getGoals();
-    public int remove(String goal);
+    public boolean complete(String goal);
+    public int getSize();
+    public void setGoalComplete(boolean complete);
+    public boolean getGoalComplete();
 }
