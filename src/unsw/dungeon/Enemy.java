@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Enemy extends Entity {
 
@@ -10,17 +12,12 @@ public class Enemy extends Entity {
     public static final int FAILMOVE = Integer.MAX_VALUE;
     
     private Dungeon dungeon;
-    //private int visited[][];
     private Player target;
 
     public Enemy (Dungeon dungeon, Player player, int x, int y) {
         super(x,y);
         this.dungeon = dungeon;
-        /*for (int i = 0; i < dungeon.getWidth(); i++) {
-            for (int j = 0; j < dungeon.getHeight(); j++) {
-                visited[i][j] = 0;
-            } 
-        }*/
+        
         this.target = player;
 
     }
@@ -35,19 +32,62 @@ public class Enemy extends Entity {
     }
 
     public void towards() {
+        BFSNode [][] visited = new BFSNode[dungeon.getWidth()][dungeon.getHeight()];
+        for (int i = 0; i < dungeon.getWidth(); i++) {
+            for (int j = 0; j < dungeon.getHeight(); j++) {
+                visited[i][j] = null;
+            } 
+        }
         int x = getX();
         int y = getY();
-        if(!checkWall(x-1,y)) {
-            x().set(x-1);
-        } else if (!checkWall(x+1,y)) {
-            x().set(x+1);
-        } else if (!checkWall(x,y-1)) {
-            y().set(y-1);
-        } else if (!checkWall(x,y+1)) {
-            y().set(y+1);
+        Queue<BFSNode> queue = new LinkedList<BFSNode>();
+        BFSNode now = new BFSNode(x,y,x,y);
+        queue.add(now);
+        BFSNode node = queue.poll();
+        while(node != null) {
+            x = node.getx();
+            y = node.gety();
+            if(checkWall(x,y)) {
+                node = queue.poll();
+            } else if (visited[x][y] != null) {
+                node = queue.poll();
+            } else if (meetPlayer(x,y)){
+                visited[x][y] = node;
+                break;
+            } else {
+                BFSNode left = new BFSNode(x-1,y,x,y);
+                BFSNode right = new BFSNode(x+1,y,x,y);
+                BFSNode down = new BFSNode(x,y+1,x,y);
+                BFSNode up = new BFSNode(x,y-1,x,y);
+                queue.add(left);
+                queue.add(right);
+                queue.add(up);
+                queue.add(down);
+                visited[x][y] = node;
+                node = queue.poll();
+            }
         }
-        
+
+        x = target.getX();
+        y = target.getY();
+
+        if (visited[x][y] == null) {
+            return;
+        }
+        int fatherX = visited[x][y].getfatherX();
+        int fatherY = visited[x][y].getfatherY();
+        while(fatherX != getX() || fatherY != getY()) {
+            x = fatherX;
+            y = fatherY;
+            fatherX = visited[x][y].getfatherX();
+            fatherY = visited[x][y].getfatherY();
+        }
+        setX(x);
+        setY(y);
+
     }
+
+
 
     public boolean checkWall(int x,int y) {
         if(x < 0 || y < 0 || x >= dungeon.getWidth() || y >=dungeon.getHeight()) {
@@ -62,76 +102,6 @@ public class Enemy extends Entity {
         }
         return false;
     }
-/*
-    public void towards() {
-        int x = getX();
-        int y = getY();
-        int left = dfs(x-1, y);
-        int right = dfs(x+1, y);
-        int up = dfs(x,y-1);
-        int down = dfs(x, y+1);
-        int direction = getDirection(left,right,up,down);
-        if (direction == LEFT){
-            x().set(x-1);
-        } else if (direction == RIGHT) {
-            x().set(x+1);
-        } else if (direction == UP) {
-            y().set(y-1);
-        } else if (direction == DOWN) {
-            y().set(y+1);
-        }
-    } 
-
-    public int getDirection (int left, int right, int up, int down) {
-        if(left <= right && left <= up && left <= down && left != FAILMOVE) {
-            return LEFT;  //(1 means left)
-        } else if(right <= up && right <= down && right != FAILMOVE) {
-            return RIGHT; //2 means right;
-        } else if(up <= down && up != FAILMOVE) {
-            return UP;   //3 means up
-        } else {
-            return DOWN;   //4 means down
-        }
-    }
-
-    public int dfs(int x, int y) {
-        if(x >= dungeon.getWidth() || x < 0) {
-            return FAILMOVE;
-        } else if (y >= dungeon.getHeight() || y < 0) {
-            return FAILMOVE;
-        } else if (isWall(x,y)) {
-            return FAILMOVE;
-        } else if (visited[x][y] == 1) {
-            return FAILMOVE;
-        } else if (meetPlayer(x,y)) {
-            return 1;
-        }
-
-        visited[x][y] = 1;
-        int left = dfs(x-1,y);
-        int right = dfs(x+1,y);
-        int up = dfs(x,y-1);
-        int down = dfs(x,y+1);
-        
-        visited[x][y] = 0;
-        int ans = min(left,right,up,down);
-        if (ans == FAILMOVE) {
-            return FAILMOVE;
-        } else {
-            return ans+1;
-        }
-    }
-    
-
-    public int min(int a, int b, int c, int d) {
-        if(a<=b && a<=c && a<=d) {
-            return a;
-        } else if (b<=c && b<=d) {
-            return b;
-        } else if (c<=d) {
-            return c;
-        } else return d;
-    }*/
 
     public boolean meetPlayer(int x, int y) {
         return x == target.getX() && y == target.getY();
