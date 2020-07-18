@@ -12,7 +12,8 @@ public class Entity {
 
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
-    private IntegerProperty x, y;
+    private IntegerProperty x;
+    private IntegerProperty y;
 
     /**
      * Create an entity positioned in square (x,y)
@@ -65,9 +66,4 @@ public class Entity {
     public boolean isWall() {
         return false;
     }
-
-    public void move() {
-        return;
-    }
-
 }

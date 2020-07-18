@@ -17,7 +17,8 @@ import java.util.List;
  */
 public class Dungeon {
 
-    private int width, height;
+    private int width; 
+    private int height;
     private List<Entity> entities;
     private List<Switch> switches;
     private List <Boulder> boulders;
@@ -119,9 +120,4 @@ public class Dungeon {
         }
     }
 
-    public void moveEnemy(){
-        for(Entity e: entities) {
-            e.move();
-        }
-    }
 }

@@ -10,7 +10,8 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private boolean potion;
     private int weapon;
-    private int lastX, lastY;
+    private int lastX;
+    private int lastY;
     private int key;
 
     /**
@@ -151,7 +152,6 @@ public class Player extends Entity {
      *  collectable tools part                                  *
      ***********************************************************/
     public void checkMoveToSquare() {
-        dungeon.moveEnemy();
         //we need to make enemy move here.
 
         for (Entity e : dungeon.getEntities()) {

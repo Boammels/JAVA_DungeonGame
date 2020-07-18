@@ -2,6 +2,9 @@ package unsw.dungeon;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Enemy extends Entity {
 
@@ -15,6 +18,7 @@ public class Enemy extends Entity {
     private Player target;
     private int lastX;
     private int lastY;
+    private Timer timer;
 
     public Enemy (Dungeon dungeon, Player player, int x, int y) {
         super(x,y);
@@ -23,9 +27,16 @@ public class Enemy extends Entity {
         this.target = player;
         lastX = 0;
         lastY = 0;
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                move();
+                target.checkMoveToSquare();
+            }
+        },1000,1000);
     }
 
-    @Override
     public void move () {
         if (target.havePotion()) {
             leave();
@@ -239,6 +250,7 @@ public class Enemy extends Entity {
     public int handlePlayer(Player p) {
         // If the player is touching an enemy, this method is called
         if(target.haveWeapon() || target.havePotion()) {
+            timer.cancel();
             dungeon.getEntities().remove(this);
             setX(0);
             setY(0);
