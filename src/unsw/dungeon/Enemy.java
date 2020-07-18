@@ -13,19 +13,22 @@ public class Enemy extends Entity {
     
     private Dungeon dungeon;
     private Player target;
+    private int lastX;
+    private int lastY;
 
     public Enemy (Dungeon dungeon, Player player, int x, int y) {
         super(x,y);
         this.dungeon = dungeon;
         
         this.target = player;
-
+        lastX = 0;
+        lastY = 0;
     }
 
     @Override
     public void move () {
         if (target.havePotion()) {
-            return;
+            return ;
         } else {
             towards();
         }
@@ -51,6 +54,8 @@ public class Enemy extends Entity {
                 node = queue.poll();
             } else if (visited[x][y] != null) {
                 node = queue.poll();
+            } else if (x == lastX && y == lastY) {
+                node = queue.poll();
             } else if (meetPlayer(x,y)){
                 visited[x][y] = node;
                 break;
@@ -67,10 +72,8 @@ public class Enemy extends Entity {
                 node = queue.poll();
             }
         }
-
         x = target.getX();
         y = target.getY();
-
         if (visited[x][y] == null) {
             return;
         }
@@ -82,9 +85,10 @@ public class Enemy extends Entity {
             fatherX = visited[x][y].getfatherX();
             fatherY = visited[x][y].getfatherY();
         }
+        lastX = getX();
+        lastY = getY();
         setX(x);
         setY(y);
-
     }
 
 
