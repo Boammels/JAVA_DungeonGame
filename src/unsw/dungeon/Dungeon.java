@@ -67,4 +67,10 @@ public class Dungeon {
         // TODO handle logical boolean operators here!
         setGameCompleted(1);
     }
+
+    public void moveEnemy(){
+        for(Entity e: entities) {
+            e.move();
+        }
+    }
 }

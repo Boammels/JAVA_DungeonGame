@@ -60,5 +60,13 @@ public class Entity {
 
 	public void addPortal(Portal portal) {
         return;
-	}
+    }
+    
+    public boolean isWall() {
+        return false;
+    }
+
+    public void move() {
+        return;
+    }
 }
