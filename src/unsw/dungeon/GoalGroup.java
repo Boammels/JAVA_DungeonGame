@@ -44,6 +44,9 @@ public class GoalGroup implements GoalComponent {
                     // int valid = 0;
                     for (GoalComponent gg : goalComponents){
                         if (!gg.getGoalComplete()) {
+                            if (goalPassed.equals("exit") && g.getGoals().equals("exit")) {
+                                g.setGoalComplete(false);
+                            }
                             return false;
                         }
                     }
@@ -56,6 +59,9 @@ public class GoalGroup implements GoalComponent {
                             return true;
                         }
                     }
+                    // if (goalPassed.equals("exit") && g.getGoals().equals("exit")) {
+                    //     g.setGoalComplete(false);
+                    // }
                     return false;
                 }
             }
