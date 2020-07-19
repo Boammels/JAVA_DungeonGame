@@ -129,7 +129,7 @@ public class Player extends Entity {
      * Handles player moving up
      */
     public void moveUp() {
-        if (dungeon.getGameStatus() != 0) {
+        if (!dungeon.getState().equals("GameInProgress")) {
             return;
         }
         // Keep track of the last position the player has been before it moves
@@ -147,7 +147,7 @@ public class Player extends Entity {
      * Handles player moving down
      */
     public void moveDown() {
-        if (dungeon.getGameStatus() != 0) {
+        if (!dungeon.getState().equals("GameInProgress")) {
             return;
         }
         lastX = getX();
@@ -162,7 +162,7 @@ public class Player extends Entity {
      * Handles player moving left
      */
     public void moveLeft() {
-        if (dungeon.getGameStatus() != 0) {
+        if (!dungeon.getState().equals("GameInProgress")) {
             return;
         }
         lastX = getX();
@@ -177,7 +177,7 @@ public class Player extends Entity {
      * Handles player moving right
      */
     public void moveRight() {
-        if (dungeon.getGameStatus() != 0) {
+        if (!dungeon.getState().equals("GameInProgress")) {
             return;
         }
         lastX = getX();

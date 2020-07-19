@@ -29,9 +29,13 @@ public class Dungeon {
     private GoalComponent goals;
     private int gameStatus;
 
-    private static final int IN_PROGRESS = 0;
-    private static final int GAME_OVER = -1;
-    private static final int GAME_COMPLETE = 1;
+    State dungeonCompleState = new DungeonCompleteState(this);
+    State gameInProgressState = new GameInProgressState(this);
+    State playerDeadState = new PlayerDeadState(this);
+    State state;
+    // private static final int IN_PROGRESS = 0;
+    // private static final int GAME_OVER = -1;
+    // private static final int GAME_COMPLETE = 1;
 
     /**
      * Create a dungeon of size (width, height)
@@ -42,7 +46,24 @@ public class Dungeon {
         this.width = width;
         this.height = height;
         this.player = null;
-        this.gameStatus = IN_PROGRESS;
+        this.state = gameInProgressState;
+        // this.gameStatus = IN_PROGRESS;
+    }
+
+    public State getDungeonCompleteState() {
+        return dungeonCompleState;
+    }
+
+    public State getPlayerDeadState() {
+        return playerDeadState;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public String getState() {
+        return state.toString();
     }
 
     public int getWidth() {
@@ -145,7 +166,8 @@ public class Dungeon {
         // the dungeon completing
         boolean allComplete = goals.complete(goalCompleted);
         if (allComplete) {
-            setGameStatus(GAME_COMPLETE);
+            state.clearDungeon();
+            // setGameStatus(GAME_COMPLETE);
         }
     }
 
