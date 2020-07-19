@@ -66,6 +66,10 @@ public class Dungeon {
         return state.toString();
     }
 
+    public void killPlayer() {
+        state.die();
+    }
+
     public int getWidth() {
         return width;
     }
