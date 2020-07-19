@@ -70,4 +70,21 @@ public class Portal extends Entity{
         p.setY(newY);
         return 1;
     }
+    @Override
+    public void teleportEnemy(Enemy enemy) {
+        if(getExit() != null) {
+            System.out.println("WOWOWO");
+            enemy.setX(getExitX());
+            enemy.setY(getExitY());
+        }
+    }
+
+    @Override
+    public void teleportBoulder(Boulder boulder) {
+        if(getExit() != null) {
+            System.out.println("WOWOWO");
+            boulder.setX(getExitX());
+            boulder.setY(getExitY());
+        }
+    }
 }

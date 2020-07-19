@@ -1,7 +1,13 @@
 package unsw.dungeon;
 
 public class Boulder extends Entity {
+
+    public static final int LEFT = 1;
+    public static final int RIGHT = 2;
+    public static final int UP = 3;
+    public static final int DOWN = 4;
     private Dungeon dungeon;
+    ///private int portalDir;
     
     /**
      * Create an instance of a boulder positioned at square (x,y)
@@ -12,10 +18,12 @@ public class Boulder extends Entity {
     public Boulder(Dungeon dungeon, int x, int y) {
         super(x, y);
         this.dungeon = dungeon;
+        //this.portalDir = 0;
     }
 
     @Override
     public int handlePlayer(Player p) {
+        
         int xDiff = p.getX() - p.getLastX();
         int yDiff = p.getY() - p.getLastY();
         // Move the boulder in the same way the player has.
@@ -31,7 +39,19 @@ public class Boulder extends Entity {
             // Move the player back to its original sqaure
             p.setX(p.getLastX());
             p.setY(p.getLastY());
-        } 
+        } else if (result == 3) {
+            setX(getX() + xDiff);
+            setY(getY() + yDiff);
+            result = checkMoveToSquare();
+            if (result == 2) {
+                // Move the boulder back to its original square
+                setX(p.getX());
+                setY(p.getY());
+                // Move the player back to its original sqaure
+                p.setX(p.getLastX());
+                p.setY(p.getLastY());
+            }
+        }
 
         return 0;
         // Set the boulder move in the same way the player has to be what xDiff indicates
@@ -49,6 +69,9 @@ public class Boulder extends Entity {
                     return 2;
                 } else if (e instanceof Switch) {
                     checkSwitch = (Switch) e;
+                } else if (e instanceof Portal) {
+                    e.teleportBoulder(this);
+                   return 3;
                 }
             }
         }

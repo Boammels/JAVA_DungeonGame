@@ -7,12 +7,6 @@ import java.util.TimerTask;
 
 
 public class Enemy extends Entity {
-
-    public static final int LEFT = 1;
-    public static final int RIGHT = 2;
-    public static final int UP = 3;
-    public static final int DOWN = 4;
-    public static final int FAILMOVE = Integer.MAX_VALUE;
     
     private Dungeon dungeon;
     private Player target;
@@ -34,7 +28,9 @@ public class Enemy extends Entity {
                 // After the enemy moves, the player could potentially be on the enemies square
                 // hence, we need to check this.
                 move();
-                target.checkMoveToSquare();
+                if(getX() == target.getX() && getY() == target.getY()) {
+                    handlePlayer(target);
+                }
             }
         },1000,1000);
     }
@@ -44,6 +40,15 @@ public class Enemy extends Entity {
             leave();
         } else {
             towards();
+        }
+        for(Entity e : dungeon.getEntities()) {
+            if(getX() == e.getX() && getY() == e.getY()) {
+                if(!e.equals(this)) {
+                    e.teleportEnemy(this);
+                    break;
+                }
+            }
+
         }
     }
 

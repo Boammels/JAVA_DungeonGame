@@ -60,7 +60,6 @@ public class Entity {
     }
 
 	public void addPortal(Portal portal) {
-        return;
     }
     
     /**
@@ -69,5 +68,11 @@ public class Entity {
      */
     public boolean isWall() {
         return false;
+    }
+
+	public void teleportEnemy(Enemy enemy) {
+    }
+    
+    public void teleportBoulder(Boulder boulder) {
     }
 }
