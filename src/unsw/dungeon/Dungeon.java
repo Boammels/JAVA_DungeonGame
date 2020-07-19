@@ -27,7 +27,7 @@ public class Dungeon {
     // Store as an int so we can differentiate in the future between successful completion and a game over
     // private List<String> goals;
     private GoalComponent goals;
-    private int gameStatus;
+    // private int gameStatus;
 
     State dungeonCompleState = new DungeonCompleteState(this);
     State gameInProgressState = new GameInProgressState(this);
@@ -114,13 +114,13 @@ public class Dungeon {
         return switches;
     }
 
-    public void setGameStatus(int gameStatus) {
-        this.gameStatus = gameStatus;
-    }
+    // public void setGameStatus(int gameStatus) {
+    //     this.gameStatus = gameStatus;
+    // }
 
-    public int getGameStatus() {
-        return gameStatus;
-    }
+    // public int getGameStatus() {
+    //     return gameStatus;
+    // }
 
     public void checkSwitchedOn() {
         // called initially to see if any boulders start on switches

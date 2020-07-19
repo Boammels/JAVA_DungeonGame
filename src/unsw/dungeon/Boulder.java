@@ -59,7 +59,7 @@ public class Boulder extends Entity {
 
     /**
      * Will handle what the boulder does when it has been pushed
-     * @return 2 - hit a wall or another boulder, push back | 0 - nothing eventful
+     * @return 2 - hit a wall or another boulder, push back | 0 - nothing eventful | 3 - teleport boulder
      */
     private int checkMoveToSquare() {
         Switch checkSwitch = null;
