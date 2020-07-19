@@ -31,6 +31,8 @@ public class Enemy extends Entity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                // After the enemy moves, the player could potentially be on the enemies square
+                // hence, we need to check this.
                 move();
                 target.checkMoveToSquare();
             }

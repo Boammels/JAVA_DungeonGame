@@ -33,14 +33,15 @@ public class Dungeon {
     private static final int GAME_OVER = -1;
     private static final int GAME_COMPLETE = 1;
 
+    /**
+     * Create a dungeon of size (width, height)
+     * @param width
+     * @param height
+     */
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
-        // this.entities ;
-        // this.switches = new ArrayList<>();
-        // this.boulders = new ArrayList<>();
         this.player = null;
-        // this.goals = new ArrayList<>();
         this.gameStatus = IN_PROGRESS;
     }
 
@@ -121,7 +122,6 @@ public class Dungeon {
     
     public void checkTreasureGoal() {
         if (treasureCount == 0) {
-            System.out.println("treasure goal completed");
             completeGoal("treasure");
         }
     }
@@ -132,7 +132,6 @@ public class Dungeon {
     
     public void checkEnemyGoal() {
         if (enemyCount == 0) {
-            System.out.println("enemy goal complete");
             completeGoal("enemies");
         }
     }
@@ -142,22 +141,12 @@ public class Dungeon {
     }
 
     public void completeGoal(String goalCompleted) {
-        //This will handle ALL goals must be compelted to finish dungeon
-        boolean change = goals.complete(goalCompleted);
-        // if (!(goals instanceof Goal)) {
-        //     goals.isLayerComplete();
-        // }
-        int result = goals.getSize();
-        // No uncompleted goals at the top level...
-        if (result == 0) {
+        // Finish the goal, the return value will indicate whether this change resulted in
+        // the dungeon completing
+        boolean allComplete = goals.complete(goalCompleted);
+        if (allComplete) {
             setGameStatus(GAME_COMPLETE);
         }
-        // if (goals.contains(goalCompleted)) {
-        //     goals.remove(goalCompleted);
-        //     if (goals.isEmpty()) {
-        //         setGameStatus(GAME_COMPLETE);
-        //     }
-        // }
     }
 
 }

@@ -5,11 +5,17 @@ public class Portal extends Entity{
     private Dungeon dungeon;
     private Portal exit;
 
-    public Portal (Dungeon dungeon, int x,int y) {
+    /**
+     * Creates a portal at position (x, y)
+     * @param dungeon
+     * @param x
+     * @param y
+     */
+    public Portal (Dungeon dungeon, int x, int y) {
         super(x,y);
         this.dungeon = dungeon;
         this.exit = null;
-        for(Entity e : this.dungeon.getEntities()) {
+        for (Entity e : this.dungeon.getEntities()) {
             e.addPortal(this);
         }
     }
@@ -20,27 +26,44 @@ public class Portal extends Entity{
         linkPortal(exit);
     }
 
+    /**
+     * Sets the portal that this one is connected to
+     * @param exit
+     */
     public void linkPortal (Portal exit) {
         this.exit = exit;
     }
 
+    /**
+     * Gets the x coordinate of the exit portal (the one that you get teleported to when entering this one)
+     * @return
+     */
     public int getExitX() {
         return exit.getX();
     }
 
+    /**
+     * Gets the y coordinate of the exit portal
+     * @return
+     */
     public int getExitY() {
         return exit.getY();
     }
 
+    /**
+     * Gets the entire exit portal
+     * @return
+     */
     public Portal getExit() {
         return exit;
     }
 
     @Override
     public int handlePlayer(Player p) {
-        if(this.getExit() == null) {
+        if (this.getExit() == null) {
             return 1;
         }
+        // If this portal has a portal it is connected to, set the player to its coordinates
         int newX = this.getExitX();
         int newY = this.getExitY();
         p.setX(newX);

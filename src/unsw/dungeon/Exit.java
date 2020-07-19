@@ -2,6 +2,12 @@ package unsw.dungeon;
 
 public class Exit extends Entity {
 
+    /**
+     * Create an exit an position (x, y)
+     * @param dungeon
+     * @param x
+     * @param y
+     */
     public Exit(Dungeon dungeon, int x, int y) {
         super(x, y);
     }

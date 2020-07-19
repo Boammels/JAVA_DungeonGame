@@ -3,11 +3,18 @@ package unsw.dungeon;
 public class Boulder extends Entity {
     private Dungeon dungeon;
     
+    /**
+     * Create an instance of a boulder positioned at square (x,y)
+     * @param dungeon
+     * @param x
+     * @param y
+     */
     public Boulder(Dungeon dungeon, int x, int y) {
         super(x, y);
         this.dungeon = dungeon;
     }
 
+    @Override
     public int handlePlayer(Player p) {
         int xDiff = p.getX() - p.getLastX();
         int yDiff = p.getY() - p.getLastY();
@@ -32,7 +39,7 @@ public class Boulder extends Entity {
 
     /**
      * Will handle what the boulder does when it has been pushed
-     * @return 2 - hit a wall or another boulder, push back | 1 - boulder move successfully completed an objective | 0 - nothing eventful
+     * @return 2 - hit a wall or another boulder, push back | 0 - nothing eventful
      */
     private int checkMoveToSquare() {
         Switch checkSwitch = null;
@@ -51,5 +58,10 @@ public class Boulder extends Entity {
             dungeon.checkSwitchGoal();   
         }
         return 0;
+    }
+
+    @Override 
+    public boolean isWall(){
+        return true;
     }
 }

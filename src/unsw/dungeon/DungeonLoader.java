@@ -39,22 +39,26 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        // Must do an initial check on all switches to turn them on if boulders are on them.
         dungeon.checkSwitchedOn();
         JSONObject jsonGoals = json.getJSONObject("goal-condition");
         String type = jsonGoals.getString("goal");
-        // GoalComponent allGoals = null;
         if (type.equals("OR") || type.equals("AND")) {
             GoalGroup allGoals = new GoalGroup(type);
-            allGoals = loadGoals(dungeon, jsonGoals, allGoals);
+            allGoals = loadGoals(jsonGoals, allGoals);
             dungeon.addGoal(allGoals);
         } else {
             Goal allGoals = new Goal(type);
             dungeon.addGoal(allGoals);
         }
-        // System.out.println(allGoals.getGoals());
         return dungeon;
     }
 
+    /**
+     * Loads in an entity to the backend in accordance with its json object
+     * @param dungeon - dungeon the entity will be added to
+     * @param json - the json obect the contains the information about the entity
+     */
     private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
         int x = json.getInt("x");
@@ -127,25 +131,26 @@ public abstract class DungeonLoader {
         dungeon.addEntity(entity);
     }
 
-    private GoalGroup loadGoals(Dungeon dungeon, JSONObject json, GoalGroup allGoals) {
+    /**
+     * Recursively load the goals making use of the given json file
+     * @param json - current json object
+     * @param allGoals - GoalGroup to be added to
+     * @return - new GoalGroup after changes
+     */
+    private GoalGroup loadGoals(JSONObject json, GoalGroup allGoals) {
         String type = json.getString("goal");
-        // System.out.println(type);
-        if (type.equals("OR")) {
-            GoalGroup goalGroup = new GoalGroup("OR");
+        // If goal is of type OR or AND - this must become a group of goals
+        if (type.equals("OR") || type.equals("AND")) {
+            // Add subgoals to a new goal group - then add this goal group to allGoals
+            // This builds up a logical tree of goals. With groups representing AND/OR
+            GoalGroup goalGroup = new GoalGroup(type);
             JSONArray subgoals = json.getJSONArray("subgoals");
             for (int i = 0; i < subgoals.length(); i++) {
-                goalGroup = loadGoals(dungeon, subgoals.getJSONObject(i), goalGroup);
-            }
-            allGoals.addGoal(goalGroup);
-        } else if (type.equals("AND")) {
-            GoalGroup goalGroup = new GoalGroup("AND");
-            JSONArray subgoals = json.getJSONArray("subgoals");
-            for (int i = 0; i < subgoals.length(); i++) {
-                goalGroup = loadGoals(dungeon, subgoals.getJSONObject(i), goalGroup);
+                goalGroup = loadGoals(subgoals.getJSONObject(i), goalGroup);
             }
             allGoals.addGoal(goalGroup);
         } else {
-            // else treat like a normal goal
+            // add normal goal to the group of goals
             allGoals.addGoal(type);
         }
         return allGoals;

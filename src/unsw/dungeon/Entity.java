@@ -53,7 +53,7 @@ public class Entity {
      * When a player is on an entity, handle what happens
      * OVERWRITTEN by each respective entity
      * @param p - player object
-     * @return 
+     * @return 1 - if we remove this object, so we can break out of the loop straight away | 0 otherwise
      */
     public int handlePlayer(Player p) {
         throw new java.lang.UnsupportedOperationException("Handle player not yet written for: " + this.getClass());
@@ -63,6 +63,10 @@ public class Entity {
         return;
     }
     
+    /**
+     * Used by enemies to determine whether they can walk over this square
+     * @return
+     */
     public boolean isWall() {
         return false;
     }
