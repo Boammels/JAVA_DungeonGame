@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import javax.swing.text.PlainDocument;
 
 import unsw.dungeon.Door;
 import unsw.dungeon.Dungeon;
@@ -96,14 +95,11 @@ public class EnemyWeaponPotionTest {
         Dungeon dungeon = load.load();
 
         Enemy enemy = null;
-        Potion potion = null;
         Weapon weapon = null;
         Player player = dungeon.getPlayer();
         for (Entity e : dungeon.getEntities()) {
             if(e instanceof Enemy) {
                 enemy = (Enemy)e;
-            } else if (e instanceof Potion) {
-                potion = (Potion)e;
             } else if (e instanceof Weapon) {
                 weapon = (Weapon)e;
             }
@@ -190,7 +186,6 @@ public class EnemyWeaponPotionTest {
         assertEquals(enemy4.getX(),5);  assertEquals(enemy4.getY(),5);
         assertEquals(enemy3.getX(),1);  assertEquals(enemy3.getY(),5);
         assertEquals(enemy2.getX(),5);  assertEquals(enemy2.getY(),1);
-        
     }
 
     @Test
@@ -223,6 +218,23 @@ public class EnemyWeaponPotionTest {
         enemy.move();
         assertEquals(enemy.getX(),1);
         assertEquals(enemy.getY(),1);
+    }
+
+    @Test
+    public void enemyAndOpenDoor() {
+        Dungeon dungeon = new Dungeon(7,7);
+        Player player = new Player(dungeon, 1, 3);
+        Enemy enemy = new Enemy(dungeon, player, 5, 3);
+        Door door = new Door(dungeon, 4, 3, 1);
+        dungeon.addEntity(player);
+        dungeon.addEntity(enemy);
+        dungeon.addEntity(door);
+        Goal goal = new Goal("enemy");
+        dungeon.addGoal(goal);
+        door.openDoor();
+        enemy.move();
+        assertEquals(enemy.getX(),4);  
+        assertEquals(enemy.getY(),3);
     }
     
 }
