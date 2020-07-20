@@ -80,6 +80,28 @@ public class PortalTreasureKeyDoorTest {
         player.moveDown();
         assertEquals(player.getX(), 0);
         assertEquals(player.getY(), 2);
-    }    
+    }  
+    
+    @Test
+    public void doubleKey() {
+        Dungeon dungeon = new Dungeon(3,3);
+        Player player = new Player(dungeon, 1, 1);
+        Key key1 = new Key(dungeon, 0,1,1);
+        Key key2 = new Key(dungeon,2,1,2);
+        Treasure treasure = new Treasure(dungeon, 2, 2);
+        dungeon.addEntity(player);
+        dungeon.addEntity(key1);
+        dungeon.addEntity(key2);
+        dungeon.addEntity(treasure);
+        Goal goal = new Goal("treasure");
+        dungeon.addGoal(goal);
+        player.moveLeft();
+        assertEquals(player.getKey(),1);
+        assert(!dungeon.getEntities().contains(key1));
+        player.moveRight();
+        player.moveRight();
+        assertEquals(player.getKey(),1);
+        assert(dungeon.getEntities().contains(key2));
+    }
     
 }

@@ -140,6 +140,27 @@ public class EnemyWeaponPotionTest {
         assertEquals(enemy.getX(),3);
         assertEquals(3,enemy.getY());
     }
+    
+    @Test
+    public void enemyThroughPortal2() {
+        Dungeon dungeon = new Dungeon(5,5);
+        Player player = new Player(dungeon, 1, 1);
+        Enemy enemy = new Enemy(dungeon, player, 3, 1);
+        Portal portal = new Portal(dungeon, 2, 1);
+        dungeon.addEntity(portal);
+
+        dungeon.addEntity(player);
+        dungeon.addEntity(enemy);
+
+
+        Goal goal = new Goal("enemy");
+        dungeon.addGoal(goal);
+
+        enemy.move();
+        
+        assertEquals(enemy.getX(),2);
+        assertEquals(1,enemy.getY());
+    }
 
     @Test
     public void enemyRunAway() {
