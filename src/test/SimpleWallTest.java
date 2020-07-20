@@ -28,13 +28,13 @@ public class SimpleWallTest {
     
     @Test
     public void testWalls() throws IOException {
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println(currentDirectory);
+        // String currentDirectory = System.getProperty("user.dir");
+        // System.out.println(currentDirectory);
         TestDungeonLoader load = new TestDungeonLoader("dungeons/maze.json");
         Dungeon dungeon = load.load();
-        System.out.println(dungeon.getEntities().size());
+        // System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();
-        System.out.println(player);
+        // System.out.println(player);
 
         assertEquals(player.getX(), 1);
         assertEquals(player.getY(), 1);
