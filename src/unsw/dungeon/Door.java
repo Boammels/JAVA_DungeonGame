@@ -23,7 +23,16 @@ public class Door extends Entity{
             p.setKey(-1);
             System.out.println("Door is Open");
             //what should we do when the door is open?
+        } else if (!this.open) {
+            p.setX(p.getLastX());
+            p.setY(p.getLastY());
+            p.setLastX(getX());
+            p.setLastY(getY());
         }
         return 1;
+    }
+    @Override
+    public boolean isWall() {
+        return !open;
     }
 }
