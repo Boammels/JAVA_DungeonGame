@@ -13,18 +13,28 @@ public class BFSNode {
         this.fatherY = fatherY;
     }
 
+    /**
+     * @return the previous x value
+     */
     public int getfatherX() {
         return fatherX;
     }
-
+    /**
+     * @return the previous y value
+     */
     public int getfatherY() {
         return fatherY;
     }
 
+    /**
+     * @return current x value
+     */
     public int getx() {
         return x;
     }
-
+    /**
+     * @return current y value
+     */
     public int gety() {
         return y;
     }

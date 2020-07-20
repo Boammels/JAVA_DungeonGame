@@ -205,6 +205,11 @@ public class Player extends Entity {
         } else {
             // Call kill player function on the current game state.
             dungeon.killPlayer();
+            for(Entity e: dungeon.getEntities()) {
+                if(e instanceof Enemy) {
+                    e.cancelTimer();
+                }
+            }
         }
     }
     

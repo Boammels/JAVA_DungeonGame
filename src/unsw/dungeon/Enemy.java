@@ -31,7 +31,10 @@ public class Enemy extends Entity {
             }
         },1000,1000);
     }
-
+    
+    /**
+     * Let the enemy move
+     */
     public void move () {
         if (target.havePotion()) {
             leave();
@@ -51,6 +54,17 @@ public class Enemy extends Entity {
         }
     }
 
+    /**
+     * stop the enemy from moving
+     */
+    public void cancelTimer() {
+        timer.cancel();
+    }
+
+    /**
+     * A BFS function to search for the best way towards the player.
+     * regardless of the portal
+     */
     public void towards() {
         BFSNode [][] visited = new BFSNode[dungeon.getWidth()][dungeon.getHeight()];
         for (int i = 0; i < dungeon.getWidth(); i++) {
@@ -108,6 +122,9 @@ public class Enemy extends Entity {
         setY(y);
     }
 
+    /**
+     * Getaway from the player when the player has a potion.
+     */
     public void leave() {
         int x = getX();
         int y = getY();
@@ -130,6 +147,13 @@ public class Enemy extends Entity {
         }
     }
 
+    /**
+     * Four functions handling moving away from the player
+     * @param x current location
+     * @param y current location
+     * @param playerX player's location
+     * @param playerY player's location
+     */
     public void moveLeftUp(int x, int y, int playerX, int playerY) {
         if(!checkWall(x-1,y)) { 
             setX(x-1);
@@ -234,6 +258,12 @@ public class Enemy extends Entity {
         }
     }
 
+    /**
+     * check if it is a wall at coordinate x,y
+     * @param x
+     * @param y
+     * @return true if it is a wall
+     */
     public boolean checkWall(int x,int y) {
         if(x < 0 || y < 0 || x >= dungeon.getWidth() || y >=dungeon.getHeight()) {
             return true;
@@ -256,7 +286,7 @@ public class Enemy extends Entity {
     public int handlePlayer(Player p) {
         // If the player is touching an enemy, this method is called
         if(target.haveWeapon() || target.havePotion()) {
-            timer.cancel();
+            cancelTimer();
             dungeon.getEntities().remove(this);
             dungeon.decreaseEnemyCount();
             // dungeon.checkEnemyGoal();

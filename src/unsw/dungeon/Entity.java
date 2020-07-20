@@ -75,4 +75,7 @@ public class Entity {
     
     public void teleportBoulder(Boulder boulder) {
     }
+
+    public void cancelTimer() {
+    }
 }

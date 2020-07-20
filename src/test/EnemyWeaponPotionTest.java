@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.text.PlainDocument;
 
+import unsw.dungeon.Door;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Enemy;
 import unsw.dungeon.Entity;
@@ -179,6 +180,49 @@ public class EnemyWeaponPotionTest {
         assertEquals(enemy4.getX(),5);  assertEquals(enemy4.getY(),5);
         assertEquals(enemy3.getX(),1);  assertEquals(enemy3.getY(),5);
         assertEquals(enemy2.getX(),5);  assertEquals(enemy2.getY(),1);
+        player.moveRight();
+        player.moveUp();
+        enemy1.move();  enemy2.move();  enemy3.move();  enemy4.move();
+        player.moveDown();
+        player.moveDown();
+        enemy1.move();  enemy2.move();  enemy3.move();  enemy4.move();
+        assertEquals(enemy1.getX(),1);  assertEquals(enemy1.getY(),1);
+        assertEquals(enemy4.getX(),5);  assertEquals(enemy4.getY(),5);
+        assertEquals(enemy3.getX(),1);  assertEquals(enemy3.getY(),5);
+        assertEquals(enemy2.getX(),5);  assertEquals(enemy2.getY(),1);
+        
     }
 
+    @Test
+    public void enemyAndClosedDoor() {
+        Dungeon dungeon = new Dungeon(7,7);
+        Player player = new Player(dungeon, 1, 3);
+        Enemy enemy = new Enemy(dungeon, player, 5, 3);
+        Door door = new Door(dungeon, 4, 3, 1);
+        dungeon.addEntity(player);
+        dungeon.addEntity(enemy);
+        dungeon.addEntity(door);
+        Goal goal = new Goal("enemy");
+        dungeon.addGoal(goal);
+        enemy.move();
+        assertEquals(enemy.getX(),5);  
+        assertEquals(enemy.getY(),2);
+    }
+
+    @Test
+    public void enemyLogicNoBackWay() {
+        Dungeon dungeon = new Dungeon(2,3);
+        Player player = new Player(dungeon, 1, 0);
+        Enemy enemy = new Enemy(dungeon, player, 0, 2);
+        dungeon.addEntity(player);
+        dungeon.addEntity(enemy);
+        Goal goal = new Goal("enemy");
+        dungeon.addGoal(goal);
+        enemy.move();
+        player.moveLeft();
+        enemy.move();
+        assertEquals(enemy.getX(),1);
+        assertEquals(enemy.getY(),1);
+    }
+    
 }
