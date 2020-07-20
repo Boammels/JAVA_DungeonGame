@@ -203,7 +203,8 @@ public class Player extends Entity {
         } else if (this.weapon > 0) {
             this.weapon --;
         } else {
-            dungeon.setGameStatus(-1);
+            // Call kill player function on the current game state.
+            dungeon.killPlayer();
         }
     }
     

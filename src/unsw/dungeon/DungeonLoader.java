@@ -164,7 +164,7 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Boulder boulder);
 
-    public abstract void onLoad(Switch boulder);
+    public abstract void onLoad(Switch switchObject);
 
     public abstract void onLoad(Potion potion);
 
