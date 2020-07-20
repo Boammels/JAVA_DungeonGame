@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 import java.io.File;
 import java.io.IOException;
 
@@ -25,39 +24,8 @@ import unsw.dungeon.Wall;
 import unsw.dungeon.Weapon;
 import unsw.dungeon.Key;
 
-public class TestJunit1 {
-
-    @Test
-    public void playerMove() throws IOException {
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println(currentDirectory);
-        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
-        Dungeon dungeon = load.load();
-        System.out.println(dungeon.getEntities().size());
-        Player player = dungeon.getPlayer();
-        System.out.println(player);
-
-        assertEquals(player.getX(), 1);
-        assertEquals(player.getY(), 1);
-        player.moveRight();
-        assertEquals(player.getX(), 1);
-        assertEquals(player.getY(), 1);
-        player.moveRight();
-        player.moveLeft();
-        player.moveLeft();
-        player.moveUp();
-        player.moveUp();
-        player.moveDown();
-        player.moveDown();
-
-
-        
-
-
-
-
-    }
-
+public class SimpleWallTest {
+    
     @Test
     public void testWalls() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
