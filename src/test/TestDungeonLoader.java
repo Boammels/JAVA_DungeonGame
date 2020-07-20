@@ -24,9 +24,6 @@ import unsw.dungeon.Treasure;
 import unsw.dungeon.Wall;
 import unsw.dungeon.Weapon;
 import unsw.dungeon.Key;
-import unsw.dungeon.GoalComponent;
-import unsw.dungeon.Goal;
-import unsw.dungeon.GoalGroup;
 
 public class TestDungeonLoader {
 
