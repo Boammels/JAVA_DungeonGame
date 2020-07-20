@@ -2,10 +2,11 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+
+import javax.swing.text.PlainDocument;
 
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Enemy;
@@ -14,6 +15,7 @@ import unsw.dungeon.Goal;
 import unsw.dungeon.Player;
 import unsw.dungeon.Portal;
 import unsw.dungeon.Potion;
+import unsw.dungeon.Wall;
 import unsw.dungeon.Weapon;
 
 
@@ -140,6 +142,43 @@ public class EnemyWeaponPotionTest {
         
         assertEquals(enemy.getX(),3);
         assertEquals(3,enemy.getY());
-        
     }
+
+    @Test
+    public void enemyRunAway() {
+        Dungeon dungeon = new Dungeon(7,7);
+        Player player = new Player(dungeon, 3, 3);
+        Enemy enemy1 = new Enemy(dungeon, player, 2, 2);
+        Enemy enemy2 = new Enemy(dungeon, player, 4, 2);
+        Enemy enemy3 = new Enemy(dungeon, player, 2, 4);
+        Enemy enemy4 = new Enemy(dungeon, player, 4, 4);
+        Goal goal = new Goal("Enemy");
+        dungeon.addGoal(goal);
+        dungeon.addEntity(enemy1);  dungeon.addEntity(enemy2);
+        dungeon.addEntity(enemy3);  dungeon.addEntity(enemy4);
+        dungeon.addEntity(player);
+        for (int i = 0; i < 7; i++) {
+            Wall wall1 = new Wall(i,0); Wall wall2 = new Wall(0,6-i);
+            Wall wall3 = new Wall(6,i); Wall wall4 = new Wall(6-i,6);
+            dungeon.addEntity(wall1);   dungeon.addEntity(wall2);
+            dungeon.addEntity(wall3);   dungeon.addEntity(wall4);
+        }
+        player.setPotion(true);
+        enemy1.move();  enemy2.move();    enemy3.move();  enemy4.move();
+        enemy1.move();  enemy2.move();    enemy3.move();  enemy4.move();
+        assertEquals(enemy1.getX(),1);  assertEquals(enemy1.getY(),1);
+        assertEquals(enemy4.getX(),5);  assertEquals(enemy4.getY(),5);
+        assertEquals(enemy3.getX(),1);  assertEquals(enemy3.getY(),5);
+        assertEquals(enemy2.getX(),5);  assertEquals(enemy2.getY(),1);
+        player.moveRight();
+        enemy1.move();  enemy2.move();  enemy3.move();  enemy4.move();
+        player.moveLeft();
+        player.moveLeft();
+        enemy1.move();  enemy2.move();  enemy3.move();  enemy4.move();
+        assertEquals(enemy1.getX(),1);  assertEquals(enemy1.getY(),1);
+        assertEquals(enemy4.getX(),5);  assertEquals(enemy4.getY(),5);
+        assertEquals(enemy3.getX(),1);  assertEquals(enemy3.getY(),5);
+        assertEquals(enemy2.getX(),5);  assertEquals(enemy2.getY(),1);
+    }
+
 }
