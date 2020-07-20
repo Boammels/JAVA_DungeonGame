@@ -30,7 +30,7 @@ public class SimpleWallTest {
     public void testWalls() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
-        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/simpleBoulders.json");
         Dungeon dungeon = load.load();
         System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();

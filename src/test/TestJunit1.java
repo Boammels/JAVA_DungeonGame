@@ -31,7 +31,7 @@ public class TestJunit1 {
     public void playerMove() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
-        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/maze.json");
         Dungeon dungeon = load.load();
         System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();
@@ -62,7 +62,9 @@ public class TestJunit1 {
     public void testWalls() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
-        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
+        // TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/maze.json");
+        //dungeons/maze.json
         Dungeon dungeon = load.load();
         System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();
