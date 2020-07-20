@@ -1,7 +1,14 @@
 package test;
 
-    //TODO import junit
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
+import unsw.dungeon.DungeonController;
 import unsw.dungeon.Boulder;
 import unsw.dungeon.Door;
 import unsw.dungeon.Dungeon;
@@ -17,15 +24,19 @@ import unsw.dungeon.Weapon;
 import unsw.dungeon.Key;
 
 public class TestJunit1 {
-    
+
     @Test
-    public void playerMove() {
-        TestDungeonLoader load = new TestDungeonLoader("movementTest.json");
+    public void playerMove() throws IOException {
+        String currentDirectory = System.getProperty("user.dir");
+        System.out.println(currentDirectory);
+        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
         Dungeon dungeon = load.load();
+        System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();
+        System.out.println(player);
 
         player.moveRight();
-        assert();
+        // assert();
         player.moveRight();
         player.moveLeft();
         player.moveLeft();
