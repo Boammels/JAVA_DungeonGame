@@ -1,5 +1,6 @@
 package test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -20,13 +21,23 @@ import unsw.dungeon.Treasure;
 import unsw.dungeon.Wall;
 import unsw.dungeon.Weapon;
 import unsw.dungeon.Key;
+import unsw.dungeon.GoalComponent;
+import unsw.dungeon.Goal;
+import unsw.dungeon.GoalGroup;
 
 public class TestDungeonLoader {
     
     private JSONObject json;
 
     public TestDungeonLoader(String filename) throws FileNotFoundException {
-        json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
+        // String canonicalPath = "";
+        // try {
+        //     canonicalPath = new File(".").getCanonicalPath();
+        // } catch (Exception e) {
+        //     System.out.println("cadsionc");
+        // }
+        // System.out.println(canonicalPath);
+        json = new JSONObject(new JSONTokener(new FileReader(filename)));
     }
 
     /**
@@ -43,6 +54,17 @@ public class TestDungeonLoader {
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
+        }
+        dungeon.checkSwitchedOn();
+        JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        String type = jsonGoals.getString("goal");
+        if (type.equals("OR") || type.equals("AND")) {
+            GoalGroup allGoals = new GoalGroup(type);
+            allGoals = loadGoals(jsonGoals, allGoals);
+            dungeon.addGoal(allGoals);
+        } else {
+            Goal allGoals = new Goal(type);
+            dungeon.addGoal(allGoals);
         }
         // Must do an initial check on all switches to turn them on if boulders are on them.
         return dungeon;
@@ -109,5 +131,24 @@ public class TestDungeonLoader {
             dungeon.addEntity(key);
             break;    
         }
+    }
+
+    private GoalGroup loadGoals(JSONObject json, GoalGroup allGoals) {
+        String type = json.getString("goal");
+        // If goal is of type OR or AND - this must become a group of goals
+        if (type.equals("OR") || type.equals("AND")) {
+            // Add subgoals to a new goal group - then add this goal group to allGoals
+            // This builds up a logical tree of goals. With groups representing AND/OR
+            GoalGroup goalGroup = new GoalGroup(type);
+            JSONArray subgoals = json.getJSONArray("subgoals");
+            for (int i = 0; i < subgoals.length(); i++) {
+                goalGroup = loadGoals(subgoals.getJSONObject(i), goalGroup);
+            }
+            allGoals.addGoal(goalGroup);
+        } else {
+            // add normal goal to the group of goals
+            allGoals.addGoal(type);
+        }
+        return allGoals;
     }
 }
