@@ -3,6 +3,7 @@ package test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +14,8 @@ import unsw.dungeon.Door;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Enemy;
 import unsw.dungeon.Exit;
+import unsw.dungeon.Goal;
+import unsw.dungeon.GoalGroup;
 import unsw.dungeon.Player;
 import unsw.dungeon.Portal;
 import unsw.dungeon.Potion;
@@ -26,7 +29,7 @@ import unsw.dungeon.Goal;
 import unsw.dungeon.GoalGroup;
 
 public class TestDungeonLoader {
-    
+
     private JSONObject json;
 
     public TestDungeonLoader(String filename) throws FileNotFoundException {
@@ -67,6 +70,17 @@ public class TestDungeonLoader {
             dungeon.addGoal(allGoals);
         }
         // Must do an initial check on all switches to turn them on if boulders are on them.
+        dungeon.checkSwitchedOn();
+        JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        String type = jsonGoals.getString("goal");
+        if (type.equals("OR") || type.equals("AND")) {
+            GoalGroup allGoals = new GoalGroup(type);
+            allGoals = loadGoals(jsonGoals, allGoals);
+            dungeon.addGoal(allGoals);
+        } else {
+            Goal allGoals = new Goal(type);
+            dungeon.addGoal(allGoals);
+        }
         return dungeon;
     }
 
@@ -132,7 +146,6 @@ public class TestDungeonLoader {
             break;    
         }
     }
-
     private GoalGroup loadGoals(JSONObject json, GoalGroup allGoals) {
         String type = json.getString("goal");
         // If goal is of type OR or AND - this must become a group of goals
