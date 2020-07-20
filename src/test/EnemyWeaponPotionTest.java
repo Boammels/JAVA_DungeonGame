@@ -224,5 +224,22 @@ public class EnemyWeaponPotionTest {
         assertEquals(enemy.getX(),1);
         assertEquals(enemy.getY(),1);
     }
+
+    @Test
+    public void enemyAndOpenDoor() {
+        Dungeon dungeon = new Dungeon(7,7);
+        Player player = new Player(dungeon, 1, 3);
+        Enemy enemy = new Enemy(dungeon, player, 5, 3);
+        Door door = new Door(dungeon, 4, 3, 1);
+        dungeon.addEntity(player);
+        dungeon.addEntity(enemy);
+        dungeon.addEntity(door);
+        Goal goal = new Goal("enemy");
+        dungeon.addGoal(goal);
+        door.openDoor();
+        enemy.move();
+        assertEquals(enemy.getX(),4);  
+        assertEquals(enemy.getY(),3);
+    }
     
 }
