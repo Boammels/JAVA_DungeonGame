@@ -28,9 +28,6 @@ public class Enemy extends Entity {
                 // After the enemy moves, the player could potentially be on the enemies square
                 // hence, we need to check this.
                 move();
-                if(getX() == target.getX() && getY() == target.getY()) {
-                    handlePlayer(target);
-                }
             }
         },1000,1000);
     }
@@ -48,7 +45,9 @@ public class Enemy extends Entity {
                     break;
                 }
             }
-
+        }
+        if(getX() == target.getX() && getY() == target.getY()) {
+            handlePlayer(target);
         }
     }
 
