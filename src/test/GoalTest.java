@@ -1,5 +1,6 @@
 package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -199,6 +200,73 @@ public class GoalTest {
         // Exit must come last
         assertEquals(dungeon.getState(), "GameInProgress");
         player.moveRight();
+        assertEquals(dungeon.getState(), "DungeonComplete");
+    }
+
+    @Test
+    public void ComplexGoalWithEnemies() throws IOException {
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/complexGoal3.json");
+        Dungeon dungeon = load.load();
+        Player player = dungeon.getPlayer();
+        // Treasure and enemies or boulders and exit will end the game
+        Enemy enemy = null;
+        for (Entity e : dungeon.getEntities()) {
+            if (e instanceof Enemy) {
+                enemy = (Enemy)e;
+            }
+        }
+
+        player.moveRight();
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 1);
+        assertEquals(dungeon.getState(), "GameInProgress");
+        enemy.move();
+        // Even though most efficient path is straight ahead, a boulder blocks, so the enemy cannot hit this path
+        assertNotEquals(enemy.getX(), 2);
+        assertNotEquals(enemy.getY(), 3);
+        // enemy normally runs on timer, this causes bugs when trying to test without one, hence kill manually
+        // this is handled when checked on frontend, only applicable when enemy is moving onto player, other way around
+        // works, see test below
+        dungeon.decreaseEnemyCount();
+        dungeon.checkEnemyGoal();
+        assertEquals(dungeon.getEnemyCount(), 0);
+        assertEquals(dungeon.getState(), "GameInProgress");
+        player.moveRight();
+        assertEquals(dungeon.getState(), "DungeonComplete");
+    }
+
+    @Test
+    public void ComplexGoalWithEnemies2() throws IOException {
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/complexGoal3.json");
+        Dungeon dungeon = load.load();
+        Player player = dungeon.getPlayer();
+        // Treasure and enemies or boulders and exit will end the game
+        Enemy enemy = null;
+        for (Entity e : dungeon.getEntities()) {
+            if (e instanceof Enemy) {
+                enemy = (Enemy)e;
+            }
+        }
+
+        player.moveRight();
+        // sword collected
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 1);
+        assertEquals(dungeon.getState(), "GameInProgress");
+        enemy.move();
+        player.moveRight();
+        // pickup treasure
+        assertEquals(dungeon.getTreasureCount(), 0);
+        player.moveRight();
+        // player on exit, but this wont cut it for our goal
+        player.moveLeft();
+        player.moveLeft();
+        player.moveLeft();
+        assertEquals(dungeon.getState(), "GameInProgress");
+        player.moveDown();
+        player.moveDown();
+        player.moveDown();
+        //kill enemy gam should now be over
         assertEquals(dungeon.getState(), "DungeonComplete");
     }
 }

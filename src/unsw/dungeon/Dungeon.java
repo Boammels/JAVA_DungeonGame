@@ -154,6 +154,10 @@ public class Dungeon {
     public void decreaseTreasureCount() {
         treasureCount--;
     }
+
+    public int getTreasureCount() {
+        return treasureCount;
+    }
     
     public void checkEnemyGoal() {
         if (enemyCount == 0) {
@@ -163,6 +167,10 @@ public class Dungeon {
 
     public void decreaseEnemyCount() {
         enemyCount--;
+    }
+
+    public int getEnemyCount() {
+        return enemyCount;
     }
 
     public void completeGoal(String goalCompleted) {
