@@ -39,7 +39,7 @@ public class TestJunit1 {
     public void playerMove() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
-        TestDungeonLoader load = new TestDungeonLoader("dungeons/maze.json");
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/movementTest.json");
         Dungeon dungeon = load.load();
         System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();
