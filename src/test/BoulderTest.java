@@ -67,6 +67,55 @@ public class BoulderTest {
     }
 
     @Test
+    public void testTakeOffSwitch() throws IOException {
+        TestDungeonLoader load = new TestDungeonLoader("dungeons/simpleBoulders2.json");
+        Dungeon dungeon = load.load();
+        Player player = dungeon.getPlayer();
+
+        player.moveDown();
+        assertEquals(player.getX(), 1);
+        assertEquals(player.getY(), 2);
+        assertEquals(dungeon.getState(), "GameInProgress");
+        player.moveRight();
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 2);
+        //Now move off the switch and then move back on
+        player.moveUp();
+        player.moveRight();
+        player.moveRight();
+        player.moveDown();
+        player.moveLeft();
+        assertEquals(player.getX(), 3);
+        assertEquals(player.getY(), 2);
+        player.moveUp();
+        player.moveLeft();
+        player.moveLeft();
+        player.moveLeft();
+        player.moveDown();
+        player.moveRight();
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 2);
+
+        player.moveDown();
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 3);
+        player.moveDown();
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 3);
+        player.moveDown();
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 3);
+        player.moveLeft();
+        player.moveDown();
+        player.moveRight();
+        assertEquals(dungeon.getState(), "GameInProgress");
+        player.moveRight();
+        player.moveRight();
+        // Even though boulder was moved off and on switch, all switches are currently on, so the dungeon is complete
+        assertEquals(dungeon.getState(), "DungeonComplete");
+    }
+
+    @Test
     public void testBoulderOnBoulder() throws IOException {
         TestDungeonLoader load = new TestDungeonLoader("dungeons/simpleBoulders.json");
         Dungeon dungeon = load.load();
