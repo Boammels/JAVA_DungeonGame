@@ -21,7 +21,7 @@ public class Door extends Entity{
         if(p.getKey() == this.pairCode && !this.open) {
             this.open = true;
             p.setKey(-1);
-            System.out.println("Door is Open");
+            //System.out.println("Door is Open");
             //what should we do when the door is open?
         } else if (!this.open) {
             p.setX(p.getLastX());

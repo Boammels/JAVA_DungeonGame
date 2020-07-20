@@ -2,6 +2,7 @@ package test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +13,8 @@ import unsw.dungeon.Door;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Enemy;
 import unsw.dungeon.Exit;
+import unsw.dungeon.Goal;
+import unsw.dungeon.GoalGroup;
 import unsw.dungeon.Player;
 import unsw.dungeon.Portal;
 import unsw.dungeon.Potion;
@@ -22,11 +25,20 @@ import unsw.dungeon.Weapon;
 import unsw.dungeon.Key;
 
 public class TestDungeonLoader {
-    
+
     private JSONObject json;
 
     public TestDungeonLoader(String filename) throws FileNotFoundException {
-        json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
+        String current = "";
+        try {
+            current = new java.io.File(".").getCanonicalPath();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("Current dir:"+current);
+        String currentDir = System.getProperty("user.dir");
+        json = new JSONObject(new JSONTokener(new FileReader("resources/"+filename)));
     }
 
     /**
@@ -45,6 +57,17 @@ public class TestDungeonLoader {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
         // Must do an initial check on all switches to turn them on if boulders are on them.
+        dungeon.checkSwitchedOn();
+        JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        String type = jsonGoals.getString("goal");
+        if (type.equals("OR") || type.equals("AND")) {
+            GoalGroup allGoals = new GoalGroup(type);
+            allGoals = loadGoals(jsonGoals, allGoals);
+            dungeon.addGoal(allGoals);
+        } else {
+            Goal allGoals = new Goal(type);
+            dungeon.addGoal(allGoals);
+        }
         return dungeon;
     }
 
@@ -109,5 +132,23 @@ public class TestDungeonLoader {
             dungeon.addEntity(key);
             break;    
         }
+    }
+    private GoalGroup loadGoals(JSONObject json, GoalGroup allGoals) {
+        String type = json.getString("goal");
+        // If goal is of type OR or AND - this must become a group of goals
+        if (type.equals("OR") || type.equals("AND")) {
+            // Add subgoals to a new goal group - then add this goal group to allGoals
+            // This builds up a logical tree of goals. With groups representing AND/OR
+            GoalGroup goalGroup = new GoalGroup(type);
+            JSONArray subgoals = json.getJSONArray("subgoals");
+            for (int i = 0; i < subgoals.length(); i++) {
+                goalGroup = loadGoals(subgoals.getJSONObject(i), goalGroup);
+            }
+            allGoals.addGoal(goalGroup);
+        } else {
+            // add normal goal to the group of goals
+            allGoals.addGoal(type);
+        }
+        return allGoals;
     }
 }
