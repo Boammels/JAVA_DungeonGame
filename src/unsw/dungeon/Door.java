@@ -12,6 +12,10 @@ public class Door extends Entity{
         this.open = false;
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
     @Override
     public int handlePlayer(Player p) {
         if(p.getKey() == this.pairCode && !this.open) {
