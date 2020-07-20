@@ -38,17 +38,17 @@ public class TestJunit1 {
     public void playerMove() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
-        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/maze.json");
+        TestDungeonLoader load = new TestDungeonLoader(currentDirectory + "/bin/test/movementTest.json");
         Dungeon dungeon = load.load();
         System.out.println(dungeon.getEntities().size());
         Player player = dungeon.getPlayer();
         System.out.println(player);
 
         assertEquals(player.getX(), 1);
-        assertEquals(player.getY(), 1);
+        assertEquals(player.getY(), 2);
         player.moveRight();
-        assertEquals(player.getX(), 1);
-        assertEquals(player.getY(), 1);
+        assertEquals(player.getX(), 2);
+        assertEquals(player.getY(), 2);
         player.moveRight();
         assertEquals(player.getX(), 2);
         assertEquals(player.getY(), 2);
@@ -68,6 +68,8 @@ public class TestJunit1 {
         assertEquals(player.getX(), 1);
         assertEquals(player.getY(), 2);
         player.moveDown();
+        assertEquals(player.getX(), 1);
+        assertEquals(player.getY(), 2);
 
 
         

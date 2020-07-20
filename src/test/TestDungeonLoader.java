@@ -70,17 +70,6 @@ public class TestDungeonLoader {
             dungeon.addGoal(allGoals);
         }
         // Must do an initial check on all switches to turn them on if boulders are on them.
-        dungeon.checkSwitchedOn();
-        JSONObject jsonGoals = json.getJSONObject("goal-condition");
-        String type = jsonGoals.getString("goal");
-        if (type.equals("OR") || type.equals("AND")) {
-            GoalGroup allGoals = new GoalGroup(type);
-            allGoals = loadGoals(jsonGoals, allGoals);
-            dungeon.addGoal(allGoals);
-        } else {
-            Goal allGoals = new Goal(type);
-            dungeon.addGoal(allGoals);
-        }
         return dungeon;
     }
 
