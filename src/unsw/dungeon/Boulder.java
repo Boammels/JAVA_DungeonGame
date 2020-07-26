@@ -50,7 +50,15 @@ public class Boulder extends Entity {
                 // Move the player back to its original sqaure
                 p.setX(p.getLastX());
                 p.setY(p.getLastY());
+            } else {
+                // update switches and check goal
+                dungeon.checkSwitchedOn();
+                dungeon.checkSwitchGoal(); 
             }
+        } else {
+            // update switches and check goal
+            dungeon.checkSwitchedOn();
+            dungeon.checkSwitchGoal(); 
         }
 
         return 0;
@@ -62,23 +70,15 @@ public class Boulder extends Entity {
      * @return 2 - hit a wall or another boulder, push back | 0 - nothing eventful | 3 - teleport boulder
      */
     private int checkMoveToSquare() {
-        Switch checkSwitch = null;
         for (Entity e : dungeon.getEntities()) {
             if(e.getX() == getX() && e.getY() == getY() && e != this) {
                 if (e instanceof Wall || e instanceof Boulder || e instanceof Enemy) {
                     return 2;
-                } else if (e instanceof Switch) {
-                    checkSwitch = (Switch) e;
                 } else if (e instanceof Portal) {
                     e.teleportBoulder(this);
                    return 3;
                 }
             }
-        }
-        if (checkSwitch != null) {
-            checkSwitch.setSwitchedOn(true);
-            // Check if this switch turn on has completed a goal
-            dungeon.checkSwitchGoal();   
         }
         return 0;
     }

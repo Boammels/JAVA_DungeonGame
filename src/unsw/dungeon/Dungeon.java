@@ -126,23 +126,37 @@ public class Dungeon {
         // called initially to see if any boulders start on switches
         // slow process - but only called once at the beginning, so should not impact performance
         for (Switch s : switches) {
+            boolean toTurnOn = false;
             for (Boulder b : boulders) {
                 if (b.getX() == s.getX() && b.getY() == s.getY()) {
-                    s.setSwitchedOn(true);
+                    // s.setSwitchedOn(true);
+                    toTurnOn = true;
                 }
             }
+            s.setSwitchedOn(toTurnOn);
         }
     }
 
     
     // Checks if all switches in the dungeon are turned on
     public void checkSwitchGoal() {
+        boolean allOn = true;
         for (Switch s : switches) {
+            System.out.println(s.getSwitchedOn());
             if (!s.getSwitchedOn()) {
-                return;
+                allOn = false;
             }
         }
-        completeGoal("boulders");
+        System.out.println("\n");
+        if (allOn) {
+            completeGoal("boulders");
+        }
+    }
+
+    public void updateSwitches() {
+        for (Switch s : switches) {
+            s.handlePlayer(getPlayer());
+        }
     }
     
     public void checkTreasureGoal() {
