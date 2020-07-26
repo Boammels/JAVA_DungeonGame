@@ -13,7 +13,7 @@ public class MainMenuScreen {
     private MainMenuController controller;
     private Scene scene;
 
-    public MainMenuScreen(Stage stage, DungeonScreen1 dungeonScreen1) throws IOException {
+    public MainMenuScreen(Stage stage, DungeonScreen dungeonScreen1) throws IOException {
         this.stage = stage;
         title = "Start Screen";
 

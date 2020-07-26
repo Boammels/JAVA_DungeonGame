@@ -7,20 +7,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class DungeonScreen1 {
+public class DungeonScreen {
 
     private Stage stage;
     private String title;
     private Scene scene;
+    private DungeonController controller;
 
-    public DungeonScreen1(Stage stage) throws IOException {
+    public DungeonScreen(Stage stage, String dungeonToLoad, DungeonScreen nextDungeon) throws IOException {
         // stage.setTitle("Dungeon");
         this.stage = stage;
         title = "Dungeon";
 
-        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("boulders.json");
+        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(dungeonToLoad);
 
-        DungeonController controller = dungeonLoader.loadController();
+        DungeonController controller = dungeonLoader.loadController(nextDungeon);
+        this.controller = controller;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
@@ -36,6 +38,7 @@ public class DungeonScreen1 {
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
+        controller.startDungeon();
     }
 
 }

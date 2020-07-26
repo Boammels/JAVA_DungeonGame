@@ -6,12 +6,12 @@ import javafx.scene.control.Button;
 
 public class MainMenuController {
     
-    private DungeonScreen1 dungeonScreen;
+    private DungeonScreen dungeonScreen;
 
     @FXML
     private Button play;
 
-    public void setDungeonScreen(DungeonScreen1 dungeonScreen) {
+    public void setDungeonScreen(DungeonScreen dungeonScreen) {
         this.dungeonScreen = dungeonScreen;
     }
 

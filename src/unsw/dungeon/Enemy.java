@@ -27,7 +27,10 @@ public class Enemy extends Entity {
             public void run() {
                 // After the enemy moves, the player could potentially be on the enemies square
                 // hence, we need to check this.
-                move();
+                // Only want the enemy to move if the game is in progress
+                if (dungeon.getState().equals("GameInProgress")) {
+                    move();
+                }
             }
         },1000,1000);
     }

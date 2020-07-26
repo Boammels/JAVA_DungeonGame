@@ -12,8 +12,10 @@ public class DungeonApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        DungeonScreen1 dungeonScreen = new DungeonScreen1(primaryStage);
-        MainMenuScreen mainScreen = new MainMenuScreen(primaryStage, dungeonScreen);
+        DungeonScreen dungeonScreen3 = new DungeonScreen(primaryStage, "advanced.json", null);
+        DungeonScreen dungeonScreen2 = new DungeonScreen(primaryStage, "boulders.json", dungeonScreen3);
+        DungeonScreen dungeonScreen1 = new DungeonScreen(primaryStage, "maze.json", dungeonScreen2);
+        MainMenuScreen mainScreen = new MainMenuScreen(primaryStage, dungeonScreen1);
 
         mainScreen.start();
 
