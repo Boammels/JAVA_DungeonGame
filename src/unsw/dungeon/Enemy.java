@@ -27,7 +27,10 @@ public class Enemy extends Entity {
             public void run() {
                 // After the enemy moves, the player could potentially be on the enemies square
                 // hence, we need to check this.
-                move();
+                // Only want the enemy to move if the game is in progress
+                if (dungeon.getState().equals("GameInProgress")) {
+                    move();
+                }
             }
         },1000,1000);
     }
@@ -51,6 +54,22 @@ public class Enemy extends Entity {
         }
         if(getX() == target.getX() && getY() == target.getY()) {
             handlePlayer(target);
+        }
+        checkSquare();
+    }
+
+    public void checkSquare() {
+        for(Entity e : dungeon.getEntities()) {
+            if(e instanceof HiddenBomb) {
+                HiddenBomb bomb = (HiddenBomb)e;
+                bomb.activate();
+                cancelTimer();
+                dungeon.getEntities().remove(this);
+                dungeon.decreaseEnemyCount();
+                // dungeon.checkEnemyGoal();
+                setX(0);
+                setY(0);
+            }
         }
     }
 

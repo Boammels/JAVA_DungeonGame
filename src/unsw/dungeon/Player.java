@@ -218,13 +218,14 @@ public class Player extends Entity {
      */
     public void checkMoveToSquare() {
         for (Entity e : dungeon.getEntities()) {
-            if(e.getX() == getX() && e.getY() == getY()) {
+            if (e.getX() == getX() && e.getY() == getY()) {
                 int handlePlayerResult = e.handlePlayer(this);
                 if (handlePlayerResult == 1) {
                     break;
-                }
+                } 
             }
         }
+        dungeon.checkSwitchedOn();
         dungeon.checkTreasureGoal();
         dungeon.checkEnemyGoal();
     }

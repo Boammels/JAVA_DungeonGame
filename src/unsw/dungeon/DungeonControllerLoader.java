@@ -36,6 +36,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image enemyImage;
     private Image doorImage;
     private Image keyImage;
+    private Image wayImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -53,6 +54,8 @@ public class DungeonControllerLoader extends DungeonLoader {
         enemyImage = new Image((new File("images/deep_elf_master_archer.png")).toURI().toString());
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
+        wayImage = new Image((new File("images/dirt_0_new.png")).toURI().toString());
+
     }
 
     @Override
@@ -126,6 +129,18 @@ public class DungeonControllerLoader extends DungeonLoader {
         addEntity(key, view);
     }
 
+    @Override
+    public void onLoad(Shelter shelter) {
+        ImageView view = new ImageView(wallImage);
+        addEntity(shelter, view);
+    }
+
+    @Override
+    public void onLoad(HiddenBomb bomb) {
+        ImageView view = new ImageView(wayImage);
+        addEntity(bomb, view);
+    }
+
     private void addEntity(Entity entity, ImageView view) {
         trackPosition(entity, view);
         entities.add(view);
@@ -166,8 +181,8 @@ public class DungeonControllerLoader extends DungeonLoader {
      * @return
      * @throws FileNotFoundException
      */
-    public DungeonController loadController() throws FileNotFoundException {
-        return new DungeonController(load(), entities);
+    public DungeonController loadController(DungeonScreen nextDungeon) throws FileNotFoundException {
+        return new DungeonController(load(), entities, nextDungeon);
     }
 
 

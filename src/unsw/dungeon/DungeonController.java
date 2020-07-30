@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.io.File;
 
@@ -24,13 +25,18 @@ public class DungeonController {
     private List<ImageView> initialEntities;
 
     private Player player;
+    private Player bkpPlayer;
 
     private Dungeon dungeon;
+    private Dungeon bkpDungeon;
 
-    public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
+    private DungeonScreen nextDungeon;
+
+    public DungeonController(Dungeon dungeon, List<ImageView> initialEntities, DungeonScreen nextDungeon) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
+        this.nextDungeon = nextDungeon;
     }
 
     @FXML
@@ -67,6 +73,15 @@ public class DungeonController {
         default:
             break;
         }
+        if (dungeon.getState().equals("DungeonComplete")) {
+            if (nextDungeon != null) {
+                nextDungeon.start();
+            }
+        } 
+    }
+
+    public void startDungeon() {
+        dungeon.setState(dungeon.getDungeonInProgressState());
     }
 
 }

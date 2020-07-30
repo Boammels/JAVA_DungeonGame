@@ -126,7 +126,17 @@ public abstract class DungeonLoader {
             Key key = new Key(dungeon, x, y, 1);
             onLoad(key);
             entity = key;
-            break;    
+            break;
+        case "shelter":
+            Shelter shelter = new Shelter(dungeon, x, y);
+            onLoad(shelter);
+            entity = shelter;
+            break; 
+        case "bomb":
+            HiddenBomb bomb = new HiddenBomb(dungeon, x, y);
+            onLoad(bomb);
+            entity = bomb;
+            break;     
         }
         dungeon.addEntity(entity);
     }
@@ -179,4 +189,8 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Door door);
 
     public abstract void onLoad(Key key);
+
+    public abstract void onLoad(Shelter shelter);
+
+    public abstract void onLoad(HiddenBomb bomb);
 }
