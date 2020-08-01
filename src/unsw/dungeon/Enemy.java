@@ -67,8 +67,9 @@ public class Enemy extends Entity {
                 dungeon.getEntities().remove(this);
                 dungeon.decreaseEnemyCount();
                 // dungeon.checkEnemyGoal();
-                setX(0);
-                setY(0);
+                setShow(false);
+                // setX(0);
+                // setY(0);
             }
         }
     }
@@ -309,8 +310,9 @@ public class Enemy extends Entity {
             dungeon.getEntities().remove(this);
             dungeon.decreaseEnemyCount();
             // dungeon.checkEnemyGoal();
-            setX(0);
-            setY(0);
+            setShow(false);
+            // setX(0);
+            // setY(0);
         }
         target.beAttacked();
         return 1;

@@ -20,8 +20,9 @@ public class Weapon extends Entity{
      */
     public void pickedup() {
         dungeon.getEntities().remove(this);
-        setX(0);
-        setY(0);
+        setShow(false);
+        // setX(0);
+        // setY(0);
     }
 
     @Override

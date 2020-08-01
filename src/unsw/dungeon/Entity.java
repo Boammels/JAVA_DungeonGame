@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -14,6 +16,7 @@ public class Entity {
     // externally observed.
     private IntegerProperty x;
     private IntegerProperty y;
+    private BooleanProperty show;
     private int initX;
     private int initY;
 
@@ -27,6 +30,9 @@ public class Entity {
         this.y = new SimpleIntegerProperty(y);
         this.initX = x;
         this.initY = y;
+        BooleanProperty toShow = new SimpleBooleanProperty();
+        toShow.set(true);
+        this.show = toShow;
     }
 
     public IntegerProperty x() {
@@ -35,6 +41,14 @@ public class Entity {
 
     public IntegerProperty y() {
         return y;
+    }
+
+    public BooleanProperty getShow() {
+        return show;
+    }
+
+    public void setShow(Boolean value) {
+        this.getShow().set(value);
     }
 
     public int getY() {

@@ -20,8 +20,9 @@ public class Treasure extends Entity{
     public void pickedup() {
         dungeon.getEntities().remove(this);
         dungeon.decreaseTreasureCount();
-        setX(0);
-        setY(0);
+        setShow(false);
+        // setX(0);
+        // setY(0);
     }
 
     @Override

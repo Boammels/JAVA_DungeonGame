@@ -173,6 +173,7 @@ public class DungeonControllerLoader extends DungeonLoader {
                 GridPane.setRowIndex(node, newValue.intValue());
             }
         });
+        node.visibleProperty().bind(entity.getShow());
     }
 
     /**
