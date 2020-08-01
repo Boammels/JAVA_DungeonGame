@@ -41,4 +41,8 @@ public class DungeonScreen {
         controller.startDungeon();
     }
 
+    public DungeonController getController() {
+        return controller;
+    }
+
 }

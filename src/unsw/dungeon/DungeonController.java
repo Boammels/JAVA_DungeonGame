@@ -29,6 +29,8 @@ public class DungeonController {
     private Dungeon dungeon;
 
     private DungeonScreen nextDungeon;
+    private GameOverScreen gameOverScreen;
+    private DungeonScreen currentDungeon;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities, DungeonScreen nextDungeon) {
         this.dungeon = dungeon;
@@ -70,6 +72,8 @@ public class DungeonController {
             break;
         case ESCAPE:
             dungeon.restart();
+            gameOverScreen.getController().setDungeonScreen(currentDungeon);
+            gameOverScreen.start();
             break;
         default:
             break;
@@ -78,6 +82,9 @@ public class DungeonController {
             if (nextDungeon != null) {
                 nextDungeon.start();
             }
+        } else if (dungeon.getState().equals("PlayerDead")) {
+            gameOverScreen.getController().setDungeonScreen(currentDungeon);
+            gameOverScreen.start();
         }
     }
 
@@ -85,5 +92,12 @@ public class DungeonController {
         dungeon.setState(dungeon.getDungeonInProgressState());
     }
 
+    public void setGameOverScreen(GameOverScreen gameOver) {
+        this.gameOverScreen = gameOver;
+    }
+
+    public void setDungeonScreen(DungeonScreen dungeon) {
+        this.currentDungeon = dungeon;
+    }
 }
 

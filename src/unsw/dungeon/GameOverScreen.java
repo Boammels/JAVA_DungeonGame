@@ -1,26 +1,25 @@
 package unsw.dungeon;
 
 import java.io.IOException;
-import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LevelSelectScreen {
+public class GameOverScreen {
     private Stage stage;
     private String title;
-    private LevelSelectController controller;
+    private GameOverController controller;
     private Scene scene;
 
-    public LevelSelectScreen(Stage stage, MainMenuScreen mainMenu, List<DungeonScreen> dungeonScreens) throws IOException {
+    public GameOverScreen(Stage stage, MainMenuScreen mainMenuScreen) throws IOException {
         this.stage = stage;
-        title = "Level Select Screen";
+        title = "Game Over";
 
-        controller = new LevelSelectController();
-        controller.setDungeons(mainMenu, dungeonScreens);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelSelectView.fxml"));
+        controller = new GameOverController();
+        controller.setMainMenuScreen(mainMenuScreen);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOverView.fxml"));
         loader.setController(controller);
 
         // load into a Parent node called root
@@ -34,7 +33,8 @@ public class LevelSelectScreen {
         stage.show();
     }
 
-    public LevelSelectController getController() {
+    public GameOverController getController() {
         return controller;
     }
+
 }

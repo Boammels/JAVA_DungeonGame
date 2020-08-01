@@ -1,6 +1,8 @@
 package unsw.dungeon;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +19,19 @@ public class DungeonApplication extends Application {
         DungeonScreen dungeonScreen3 = new DungeonScreen(primaryStage, "advanced.json", dungeonScreen4);
         DungeonScreen dungeonScreen2 = new DungeonScreen(primaryStage, "boulders.json", dungeonScreen3);
         DungeonScreen dungeonScreen1 = new DungeonScreen(primaryStage, "maze.json", dungeonScreen2);
+        List<DungeonScreen> allDungeons = new ArrayList<>();
+        allDungeons.add(dungeonScreen1);
+        allDungeons.add(dungeonScreen2);
+        allDungeons.add(dungeonScreen3);
+        allDungeons.add(dungeonScreen4);
+        allDungeons.add(dungeonScreen5);
         MainMenuScreen mainScreen = new MainMenuScreen(primaryStage, dungeonScreen1);
-        LevelSelectScreen levelSelectScreen = new LevelSelectScreen(primaryStage, mainScreen, dungeonScreen1, dungeonScreen2, dungeonScreen3, dungeonScreen4, dungeonScreen5);
+        GameOverScreen gameOver = new GameOverScreen(primaryStage, mainScreen);
+        for (DungeonScreen d : allDungeons) {
+            d.getController().setGameOverScreen(gameOver);
+            d.getController().setDungeonScreen(d);
+        }
+        LevelSelectScreen levelSelectScreen = new LevelSelectScreen(primaryStage, mainScreen, allDungeons);
         mainScreen.getController().setLevelSelectScreen(levelSelectScreen);
 
         mainScreen.start();

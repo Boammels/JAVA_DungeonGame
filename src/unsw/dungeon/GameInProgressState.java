@@ -8,10 +8,12 @@ public class GameInProgressState implements State {
     }
     
     public void clearDungeon() {
+        dungeon.restart();
         dungeon.setState(dungeon.getDungeonCompleteState());
     }
 
     public void die() {
+        dungeon.restart();
         dungeon.setState(dungeon.getPlayerDeadState());
     }
 

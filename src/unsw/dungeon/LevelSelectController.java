@@ -36,12 +36,11 @@ public class LevelSelectController {
         }
     }
 
-    public void setDungeons(MainMenuScreen mainMenuScreen, DungeonScreen ... dungeonScreens) {
+    public void setDungeons(MainMenuScreen mainMenuScreen, List<DungeonScreen> dungeonScreens) {
         for (DungeonScreen d : dungeonScreens) {
             this.dungeonScreens.add(d);
         }
         this.mainMenuScreen = mainMenuScreen;
-        // startUp();
     }
 
     @FXML
