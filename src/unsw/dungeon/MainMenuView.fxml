@@ -9,7 +9,8 @@
 
 <Pane maxHeight="400" maxWidth="600" minHeight="0" minWidth="0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="play" layoutX="152.0" layoutY="200.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="216.0" onAction="#playGame" text="START" textAlignment="CENTER" />
+      <Button fx:id="play" layoutX="152.0" layoutY="100.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="216.0" onAction="#playGame" text="START" textAlignment="CENTER" />
+      <Button fx:id="levelSelect" layoutX="152.0" layoutY="200.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="216.0" onAction="#gotoLevelSelect" text="LEVEL SELECT" textAlignment="CENTER" />
       <Text layoutX="110.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DUNGEON GAME" textAlignment="CENTER">
          <font>
             <Font size="36.0" />

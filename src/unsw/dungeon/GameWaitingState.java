@@ -8,11 +8,11 @@ public class GameWaitingState implements State{
     }
     
     public void clearDungeon() {
-        ;
+        dungeon.restart();
     }
 
     public void die() {
-        ;
+        dungeon.restart();
     }
 
     @Override

@@ -14,6 +14,8 @@ public class Entity {
     // externally observed.
     private IntegerProperty x;
     private IntegerProperty y;
+    private int initX;
+    private int initY;
 
     /**
      * Create an entity positioned in square (x,y)
@@ -23,6 +25,8 @@ public class Entity {
     public Entity(int x, int y) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
+        this.initX = x;
+        this.initY = y;
     }
 
     public IntegerProperty x() {
@@ -39,6 +43,14 @@ public class Entity {
 
     public int getX() {
         return x().get();
+    }
+
+    public int getInitX() {
+        return initX;
+    }
+
+    public int getInitY() {
+        return initY;
     }
 
     public void setY(int newY) {

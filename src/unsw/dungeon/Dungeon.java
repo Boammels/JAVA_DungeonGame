@@ -100,6 +100,13 @@ public class Dungeon {
         }
     }
 
+    public void restart() {
+        for (Entity e : entities) {
+            e.setX(e.getInitX());
+            e.setY(e.getInitY());
+        }
+    }
+
     public void addGoal(Goal goal) {
         goals = goal;
     }

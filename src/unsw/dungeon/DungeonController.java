@@ -25,10 +25,8 @@ public class DungeonController {
     private List<ImageView> initialEntities;
 
     private Player player;
-    private Player bkpPlayer;
 
     private Dungeon dungeon;
-    private Dungeon bkpDungeon;
 
     private DungeonScreen nextDungeon;
 
@@ -70,6 +68,9 @@ public class DungeonController {
         case RIGHT:
             player.moveRight();
             break;
+        case ESCAPE:
+            dungeon.restart();
+            break;
         default:
             break;
         }
@@ -77,7 +78,7 @@ public class DungeonController {
             if (nextDungeon != null) {
                 nextDungeon.start();
             }
-        } 
+        }
     }
 
     public void startDungeon() {
