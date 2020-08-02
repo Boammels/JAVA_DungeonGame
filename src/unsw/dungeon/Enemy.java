@@ -3,8 +3,6 @@ package unsw.dungeon;
 import javafx.util.Duration;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

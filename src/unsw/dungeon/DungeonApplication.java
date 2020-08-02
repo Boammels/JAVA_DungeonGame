@@ -13,7 +13,7 @@ public class DungeonApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         DungeonScreen dungeonScreen5 = new DungeonScreen(primaryStage, "trickyBombShelterChallenge.json", null);
-        DungeonScreen dungeonScreen4 = new DungeonScreen(primaryStage, "complexGoal3.json", dungeonScreen5);
+        DungeonScreen dungeonScreen4 = new DungeonScreen(primaryStage, "haha.json", dungeonScreen5);
         DungeonScreen dungeonScreen3 = new DungeonScreen(primaryStage, "advanced.json", dungeonScreen4);
         DungeonScreen dungeonScreen2 = new DungeonScreen(primaryStage, "boulders.json", dungeonScreen3);
         DungeonScreen dungeonScreen1 = new DungeonScreen(primaryStage, "maze.json", dungeonScreen2);
