@@ -3,6 +3,8 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.prism.paint.Color;
+
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
@@ -10,7 +12,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -25,6 +30,9 @@ public class DungeonController {
 
     @FXML
     private GridPane squares;
+
+    @FXML
+    private GridPane lol;
 
     private Text gameObjectives;
 
@@ -56,13 +64,16 @@ public class DungeonController {
                 squares.add(new ImageView(ground), x, y);
             }
         }
-
+        
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
-        Text gameObjectives = new Text();
+        // squares.getRowConstraints().add(new RowConstraints(dungeon.getWidth()));
+        gameObjectives = new Text();
+        // gameObjectives.setFont(new Font("Arial", 25));
         gameObjectives.textProperty().bind(dungeon.getGoalText());
-        squares.add(gameObjectives, dungeon.getWidth(), 0);
+        squares.add(gameObjectives, 0, dungeon.getHeight());
+        squares.setColumnSpan(gameObjectives, dungeon.getWidth());
     }
 
     @FXML

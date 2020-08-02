@@ -155,8 +155,7 @@ public class Dungeon {
      */
     public void restart() {
         goals.clear();
-        goalText.set(goals.getGoals());
-        System.out.println(goalText.get());
+        goalText.set("GOALS: " + goals.getGoals());
         player.setWeapon(0);
         player.setPotion(false);
         player.setKey(-1);
@@ -276,7 +275,6 @@ public class Dungeon {
         boolean allComplete = goals.complete(goalCompleted);
         if (allComplete) {
             state.clearDungeon();
-            goalText.set(goals.getGoals());
         }
     }
 
