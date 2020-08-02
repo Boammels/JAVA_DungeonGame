@@ -30,10 +30,15 @@ public class GoalGroup implements GoalComponent {
      * Return a list of all the goals underneath this group
      */
     public String getGoals() {
-        String allGoals = "";
-        for (GoalComponent g : goalComponents){
-            allGoals += g.getGoals();
+        String allGoals = "(";
+        for (GoalComponent g : goalComponents) {
+            if (goalComponents.indexOf(g) == (goalComponents.size() -1)) {
+                allGoals += g.getGoals() + ")";
+            } else {
+                allGoals += g.getGoals() + " " + operator + " ";
+            }
         }
+        System.out.println(allGoals);
         return allGoals;
     }
 

@@ -6,6 +6,9 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * A dungeon in the interactive dungeon player.
  *
@@ -33,6 +36,7 @@ public class Dungeon {
     // Store as an int so we can differentiate in the future between successful completion and a game over
     // private List<String> goals;
     private GoalComponent goals;
+    private StringProperty goalText = new SimpleStringProperty();
     // private int gameStatus;
     State dungeonCompleteState = new DungeonCompleteState(this);
     State gameInProgressState = new GameInProgressState(this);
@@ -151,6 +155,8 @@ public class Dungeon {
      */
     public void restart() {
         goals.clear();
+        goalText.set(goals.getGoals());
+        System.out.println(goalText.get());
         player.setWeapon(0);
         player.setPotion(false);
         player.setKey(-1);
@@ -161,7 +167,10 @@ public class Dungeon {
             e.setX(e.getInitX());
             e.setY(e.getInitY());
             e.setShow(true);
-            if (e instanceof Collectable) {
+            if (e instanceof Door) {
+                Door d = (Door)e;
+                d.closeDoor();
+            } else if (e instanceof Collectable) {
                 Collectable c = (Collectable)e;
                 c.setPickedUp(false);
             }
@@ -173,6 +182,10 @@ public class Dungeon {
     }
     public void addGoal(GoalGroup goal) {
         goals = goal;
+    }
+
+    public StringProperty getGoalText() {
+        return goalText;
     }
 
     public List<Entity> getEntities() {
@@ -263,6 +276,7 @@ public class Dungeon {
         boolean allComplete = goals.complete(goalCompleted);
         if (allComplete) {
             state.clearDungeon();
+            goalText.set(goals.getGoals());
         }
     }
 
