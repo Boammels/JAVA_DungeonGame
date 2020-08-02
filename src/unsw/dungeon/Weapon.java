@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-public class Weapon extends Entity{
+public class Weapon extends Entity implements Collectable{
     public static final int WEAPONSIZE = 5;
     private Dungeon dungeon;
     private boolean pickedUp;
@@ -26,6 +26,10 @@ public class Weapon extends Entity{
         dungeon.moveToInventory(this);
         // setX(0);
         // setY(0);
+    }
+
+    public void setPickedUp(boolean value) {
+        this.pickedUp = value;
     }
 
     @Override

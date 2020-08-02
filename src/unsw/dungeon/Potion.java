@@ -3,7 +3,7 @@ package unsw.dungeon;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Potion extends Entity {
+public class Potion extends Entity implements Collectable{
     private Dungeon dungeon;
     private boolean pickedUp;
 
@@ -27,6 +27,10 @@ public class Potion extends Entity {
         dungeon.moveToInventory(this);
         // setX(0);
         // setY(0);
+    }
+
+    public void setPickedUp(boolean value) {
+        this.pickedUp = value;
     }
 
     @Override

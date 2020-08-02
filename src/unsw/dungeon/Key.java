@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-public class Key extends Entity{
+public class Key extends Entity implements Collectable{
     
     private int pairCode;
     private Dungeon dungeon;
@@ -20,10 +20,14 @@ public class Key extends Entity{
         this.pickedUp = false;
     }
 
+    public void setPickedUp(boolean value) {
+        this.pickedUp = value;
+    }
+
     /**
      * Handles a key getting collected
      */
-    public void pickedup() {
+    public void pickUp() {
         // dungeon.getEntities().remove(this);
         // setShow(false);
         dungeon.moveToInventory(this);
@@ -38,7 +42,7 @@ public class Key extends Entity{
             if (p.getKey() == -1) {
                 p.setKey(pairCode);
                 p.setKeyObject(this);
-                this.pickedup();
+                this.pickUp();
             }
         }
         return 1;

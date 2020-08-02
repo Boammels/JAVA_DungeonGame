@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-public class Treasure extends Entity{
+public class Treasure extends Entity implements Collectable{
     private Dungeon dungeon;
     private boolean pickedUp;
 
@@ -19,7 +19,7 @@ public class Treasure extends Entity{
     /**
      * Handle what happens to treasure when it is picked up
      */
-    public void pickedup() {
+    public void pickUp() {
         // dungeon.getEntities().remove(this);
         dungeon.decreaseTreasureCount();
         dungeon.moveToInventory(this);
@@ -28,11 +28,15 @@ public class Treasure extends Entity{
         // setY(0);
     }
 
+    public void setPickedUp(boolean value) {
+        this.pickedUp = value;
+    }
+
     @Override
     public int handlePlayer(Player p) {
         if (!pickedUp) {
             pickedUp = true;
-            this.pickedup();
+            this.pickUp();
         }
         return 1;
     }

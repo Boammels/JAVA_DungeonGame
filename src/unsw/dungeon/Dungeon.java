@@ -155,14 +155,15 @@ public class Dungeon {
         player.setPotion(false);
         player.setKey(-1);
         enemyCount = initEnemyCount;
+        inventory.clear();
         treasureCount = initTreasureCount;
         for (Entity e : entities) {
             e.setX(e.getInitX());
             e.setY(e.getInitY());
             e.setShow(true);
-            if (e instanceof Door) {
-                Door door = (Door)e;
-                door.closeDoor();
+            if (e instanceof Collectable) {
+                Collectable c = (Collectable)e;
+                c.setPickedUp(false);
             }
         }
     }
