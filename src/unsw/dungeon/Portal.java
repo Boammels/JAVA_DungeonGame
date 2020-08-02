@@ -73,7 +73,6 @@ public class Portal extends Entity{
     @Override
     public void teleportEnemy(Enemy enemy) {
         if(getExit() != null) {
-            System.out.println("WOWOWO");
             enemy.setX(getExitX());
             enemy.setY(getExitY());
         }
@@ -82,7 +81,6 @@ public class Portal extends Entity{
     @Override
     public void teleportBoulder(Boulder boulder) {
         if(getExit() != null) {
-            System.out.println("WOWOWO");
             boulder.setX(getExitX());
             boulder.setY(getExitY());
         }

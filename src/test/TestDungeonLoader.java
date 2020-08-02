@@ -29,13 +29,6 @@ public class TestDungeonLoader {
     private JSONObject json;
 
     public TestDungeonLoader(String filename) throws FileNotFoundException {
-        // String canonicalPath = "";
-        // try {
-        //     canonicalPath = new File(".").getCanonicalPath();
-        // } catch (Exception e) {
-        //     System.out.println("cadsionc");
-        // }
-        // System.out.println(canonicalPath);
         json = new JSONObject(new JSONTokener(new FileReader(filename)));
     }
 

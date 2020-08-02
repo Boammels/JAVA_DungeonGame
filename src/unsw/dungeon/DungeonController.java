@@ -97,6 +97,10 @@ public class DungeonController {
         default:
             break;
         }
+        //String path = "./Woosh_stutter.wav";
+        //Media media = new Media(new File(path).toURI().toString());  
+        //MediaPlayer mediaPlayer = new MediaPlayer(media);  
+        //mediaPlayer.setAutoPlay(true);  
         handleStateChange();
     }
 
@@ -112,7 +116,6 @@ public class DungeonController {
     }
 
     public void startDungeon() {
-        // dungeon.setState(dungeon.getDungeonInProgressState());
         dungeon.start();
     }
 

@@ -107,25 +107,6 @@ public class GoalGroup implements GoalComponent {
         return false;
     }
 
-    // Exit must be the last in its component before we count it
-    // If any goal component empties, then the component above is completed
-    // if (g.getGoalComplete() && g.getGoals().equals("exit")) {
-    //     if (getSize() != 0) {
-    //         g.setGoalComplete(false);
-    //     }
-    // } 
-
-    // public int getSize() {
-    //     int size = 0;
-    //     for (GoalComponent g : goalComponents) {
-    //         if (!g.getGoalComplete()) {
-    //             size++;
-    //         }
-    //     }
-    //     // System.out.println(size);
-    //     return size;
-    // }
-
     /**
      * Sets this groups goalComplete flag
      */
@@ -139,8 +120,4 @@ public class GoalGroup implements GoalComponent {
     public boolean getGoalComplete() {
         return complete;
     }
-
-    // public List<GoalComponent> getGoalComponents() {
-    //     return goalComponents;
-    // }
 }

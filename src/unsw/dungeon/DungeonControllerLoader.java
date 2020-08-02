@@ -37,6 +37,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image doorImage;
     private Image keyImage;
     private Image wayImage;
+    private Image openDoor;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -55,7 +56,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
         wayImage = new Image((new File("images/dirt_0_new.png")).toURI().toString());
-
+        openDoor = new Image((new File("images/open_door.png")).toURI().toString());
     }
 
     @Override
