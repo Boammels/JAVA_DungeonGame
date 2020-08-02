@@ -211,12 +211,10 @@ public class Dungeon {
     public void checkSwitchGoal() {
         boolean allOn = true;
         for (Switch s : switches) {
-            // System.out.println(s.getSwitchedOn());
             if (!s.getSwitchedOn()) {
                 allOn = false;
             }
         }
-        // System.out.println("\n");
         if (allOn) {
             completeGoal("boulders");
         }
@@ -229,7 +227,6 @@ public class Dungeon {
     }
     
     public void checkTreasureGoal() {
-        System.out.println(treasureCount);
         if (treasureCount == 0) {
             completeGoal("treasure");
         }

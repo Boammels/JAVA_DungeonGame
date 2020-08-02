@@ -17,7 +17,6 @@ public class Enemy extends Entity {
     private Player target;
     private int lastX;
     private int lastY;
-    // private Timer timer;
     private final Timeline timeline = new Timeline();
 
     public Enemy (Dungeon dungeon, Player player, int x, int y) {
@@ -29,18 +28,6 @@ public class Enemy extends Entity {
         lastY = 0;
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), e -> move()));
         timeline.setCycleCount(Animation.INDEFINITE);
-        // timer = new Timer();
-        // timer.schedule(new TimerTask() {
-        //     @Override
-        //     public void run() {
-        //         // After the enemy moves, the player could potentially be on the enemies square
-        //         // hence, we need to check this.
-        //         // Only want the enemy to move if the game is in progress
-        //         if (dungeon.getState().equals("GameInProgress")) {
-        //             move();
-        //         }
-        //     }
-        // },1000,1000);
     }
     
     public void go() {
@@ -81,24 +68,11 @@ public class Enemy extends Entity {
                 }
                 HiddenBomb bomb = (HiddenBomb)e;
                 bomb.activate();
-                // cancelTimer();
-                // timeline.stop();
-                // dungeon.getEntities().remove(this);
                 dungeon.decreaseEnemyCount();
-                // dungeon.checkEnemyGoal();
                 setShow(false);
-                // setX(0);
-                // setY(0);
             }
         }
     }
-
-    /**
-     * stop the enemy from moving
-     */
-    // public void cancelTimer() {
-    //     timer.cancel();
-    // }
 
     /**
      * A BFS function to search for the best way towards the player.
@@ -326,14 +300,9 @@ public class Enemy extends Entity {
         if (getShow().get()) {
             // If the player is touching an enemy, this method is called
             if(target.haveWeapon() || target.havePotion()) {
-                // cancelTimer();
-                // timeline.stop();
-                // dungeon.getEntities().remove(this);
                 dungeon.decreaseEnemyCount();
                 dungeon.checkEnemyGoal();
                 setShow(false);
-                // setX(0);
-                // setY(0);
             }
             target.beAttacked();
         }

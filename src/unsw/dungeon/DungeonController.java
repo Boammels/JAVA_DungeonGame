@@ -8,10 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
 
 import java.io.File;
 
@@ -80,6 +76,10 @@ public class DungeonController {
         default:
             break;
         }
+        //String path = "./Woosh_stutter.wav";
+        //Media media = new Media(new File(path).toURI().toString());  
+        //MediaPlayer mediaPlayer = new MediaPlayer(media);  
+        //mediaPlayer.setAutoPlay(true);  
         handleStateChange();
     }
 
@@ -95,7 +95,6 @@ public class DungeonController {
     }
 
     public void startDungeon() {
-        // dungeon.setState(dungeon.getDungeonInProgressState());
         dungeon.start();
     }
 
