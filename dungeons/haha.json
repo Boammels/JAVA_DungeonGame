@@ -410,7 +410,7 @@
       {
         "x": 13,
         "y": 9,
-        "type": "treasure"
+        "type": "door"
       },
       {
         "x": 14,
@@ -458,11 +458,6 @@
         "type": "wall"
       },
       {
-        "x": 6,
-        "y": 6,
-        "type": "wall"
-      },
-      {
         "x": 7,
         "y": 3,
         "type": "wall"
@@ -476,6 +471,91 @@
         "x": 8,
         "y": 3,
         "type": "wall"
+      },
+      {
+        "x": 10,
+        "y": 3,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 3,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 4,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 5,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 6,
+        "type": "wall"
+      },
+      {
+        "x": 10,
+        "y": 6,
+        "type": "door"
+      },
+      {
+        "x": 10,
+        "y": 5,
+        "type": "key"
+      },
+      {
+        "x": 13,
+        "y": 4,
+        "type": "switch"
+      },
+      {
+        "x": 15,
+        "y": 6,
+        "type": "switch"
+      },
+      {
+        "x": 13,
+        "y": 6,
+        "type": "switch"
+      },
+      {
+        "x": 13,
+        "y": 5,
+        "type": "boulder"
+      },
+      {
+        "x": 14,
+        "y": 6,
+        "type": "boulder"
+      },
+      {
+        "x": 14,
+        "y": 4,
+        "type": "boulder"
+      },
+      {
+        "x": 14,
+        "y": 5,
+        "type": "key"
+      },
+      {
+        "x": 16,
+        "y": 5,
+        "type": "switch"
+      },
+      {
+        "x": 15,
+        "y": 5,
+        "type": "boulder"
+      },
+      {
+        "x": 10,
+        "y": 4,
+        "type": "treasure"
       },
       {
         "x": 8,
@@ -508,13 +588,53 @@
         "type": "portal"
       },
       {
-        "x": 4,
+        "x": 1,
         "y": 9,
-        "type": "portal"
+        "type": "wall"
+      },
+      {
+        "x": 2,
+        "y": 9,
+        "type": "wall"
       },
       {
         "x": 3,
-        "y": 8,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 4,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 5,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 6,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 7,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 8,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 4,
+        "y": 12,
+        "type": "portal"
+      },
+      {
+        "x": 6,
+        "y": 6,
         "type": "boulder"
       },
       {
@@ -526,6 +646,11 @@
         "x": 5,
         "y": 5,
         "type": "key"
+      },
+      {
+        "x": 10,
+        "y": 10,
+        "type": "treasure"
       }
       
     ],
