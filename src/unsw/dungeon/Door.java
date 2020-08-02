@@ -18,7 +18,7 @@ public class Door extends Entity{
 
     public void openDoor() {
         open = true;
-        this.setShow(false);
+        //this.setShow(false);
     }
 
     public void closeDoor() {
