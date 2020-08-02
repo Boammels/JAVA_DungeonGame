@@ -11,6 +11,7 @@ public class HiddenBomb extends Entity{
 
     public void activate() {
         dungeon.getEntities().remove(this);
+        setShow(false);
     }
 
     @Override

@@ -61,6 +61,9 @@ public class Enemy extends Entity {
     public void checkSquare() {
         for(Entity e : dungeon.getEntities()) {
             if(e instanceof HiddenBomb) {
+                if(getX()!=e.getX() || getY()!=e.getY()){
+                    return;
+                }
                 HiddenBomb bomb = (HiddenBomb)e;
                 bomb.activate();
                 cancelTimer();
