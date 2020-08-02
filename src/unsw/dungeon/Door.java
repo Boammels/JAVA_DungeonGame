@@ -29,6 +29,7 @@ public class Door extends Entity{
     public int handlePlayer(Player p) {
         if(p.getKey() == this.pairCode && !this.open) {
             this.open = true;
+            setShow(false);
             p.setKey(-1);
             dungeon.removeFromInventory(p.getKeyObject());
             p.setKeyObject(null);

@@ -120,8 +120,11 @@ public class DungeonControllerLoader extends DungeonLoader {
 
     @Override
     public void onLoad(Door door) {
-        ImageView view = new ImageView(doorImage);
-        addEntity(door, view);
+        ImageView closedView = new ImageView(doorImage);
+        ImageView openView = new ImageView(openDoor);
+        addEntity(door, closedView);
+        addEntity(door, openView);
+        openView.visibleProperty().bind(door.getShow().not());
     }
 
     @Override
