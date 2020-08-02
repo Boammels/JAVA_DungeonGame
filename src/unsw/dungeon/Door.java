@@ -20,6 +20,10 @@ public class Door extends Entity{
         open = true;
     }
 
+    public void closeDoor() {
+        open = false;
+    }
+
     @Override
     public int handlePlayer(Player p) {
         if(p.getKey() == this.pairCode && !this.open) {

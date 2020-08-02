@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MainMenuScreen {
+public class MainMenuScreen implements Screen {
     private Stage stage;
     private String title;
     private MainMenuController controller;

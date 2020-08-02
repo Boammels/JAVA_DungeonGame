@@ -21,7 +21,7 @@ public class Potion extends Entity {
      * Handle what the potion does when it gets picked up
      */
     public void pickedup() {
-        dungeon.getEntities().remove(this);
+        // dungeon.getEntities().remove(this);
         setShow(false);
         // setX(0);
         // setY(0);
@@ -29,17 +29,19 @@ public class Potion extends Entity {
 
     @Override
     public int handlePlayer(Player p) {
-        p.setPotion(true);
-        // Create a timer so the potitons effects stop after a certain amount of time has passed
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask(){
-            @Override
-            public void run() {
-                p.setPotion(false);
-                timer.cancel();
-            }
-        },10000);
-        this.pickedup();
+        if (getShow().get()) {
+            p.setPotion(true);
+            // Create a timer so the potitons effects stop after a certain amount of time has passed
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask(){
+                @Override
+                public void run() {
+                    p.setPotion(false);
+                    timer.cancel();
+                }
+            },10000);
+            this.pickedup();
+        }
         return 1;
     }
 }

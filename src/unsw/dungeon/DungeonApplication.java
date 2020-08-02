@@ -26,6 +26,7 @@ public class DungeonApplication extends Application {
         allDungeons.add(dungeonScreen4);
         allDungeons.add(dungeonScreen5);
         MainMenuScreen mainScreen = new MainMenuScreen(primaryStage, dungeonScreen1);
+        dungeonScreen5.getController().setNextDungeon(mainScreen);
         GameOverScreen gameOver = new GameOverScreen(primaryStage, mainScreen);
         for (DungeonScreen d : allDungeons) {
             d.getController().setGameOverScreen(gameOver);

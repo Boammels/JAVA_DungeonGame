@@ -28,15 +28,16 @@ public class DungeonController {
 
     private Dungeon dungeon;
 
-    private DungeonScreen nextDungeon;
+    private Screen nextDungeon;
     private GameOverScreen gameOverScreen;
     private DungeonScreen currentDungeon;
 
-    public DungeonController(Dungeon dungeon, List<ImageView> initialEntities, DungeonScreen nextDungeon) {
+    public DungeonController(Dungeon dungeon, List<ImageView> initialEntities, Screen nextDungeon) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
         this.nextDungeon = nextDungeon;
+        dungeon.setController(this);
     }
 
     @FXML
@@ -71,13 +72,15 @@ public class DungeonController {
             player.moveRight();
             break;
         case ESCAPE:
-            dungeon.restart();
-            gameOverScreen.getController().setDungeonScreen(currentDungeon);
-            gameOverScreen.start();
+            dungeon.start();
             break;
         default:
             break;
         }
+        handleStateChange();
+    }
+
+    public void handleStateChange() {
         if (dungeon.getState().equals("DungeonComplete")) {
             if (nextDungeon != null) {
                 nextDungeon.start();
@@ -89,7 +92,8 @@ public class DungeonController {
     }
 
     public void startDungeon() {
-        dungeon.setState(dungeon.getDungeonInProgressState());
+        // dungeon.setState(dungeon.getDungeonInProgressState());
+        dungeon.start();
     }
 
     public void setGameOverScreen(GameOverScreen gameOver) {
@@ -98,6 +102,10 @@ public class DungeonController {
 
     public void setDungeonScreen(DungeonScreen dungeon) {
         this.currentDungeon = dungeon;
+    }
+
+    public void setNextDungeon(Screen dungeon) {
+        this.nextDungeon = dungeon;
     }
 }
 

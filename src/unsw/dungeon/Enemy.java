@@ -1,9 +1,14 @@
 package unsw.dungeon;
 
+import javafx.util.Duration;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 
 public class Enemy extends Entity {
@@ -12,7 +17,8 @@ public class Enemy extends Entity {
     private Player target;
     private int lastX;
     private int lastY;
-    private Timer timer;
+    // private Timer timer;
+    private final Timeline timeline = new Timeline();
 
     public Enemy (Dungeon dungeon, Player player, int x, int y) {
         super(x,y);
@@ -21,20 +27,26 @@ public class Enemy extends Entity {
         this.target = player;
         lastX = 0;
         lastY = 0;
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // After the enemy moves, the player could potentially be on the enemies square
-                // hence, we need to check this.
-                // Only want the enemy to move if the game is in progress
-                if (dungeon.getState().equals("GameInProgress")) {
-                    move();
-                }
-            }
-        },1000,1000);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), e -> move()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        // timer = new Timer();
+        // timer.schedule(new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         // After the enemy moves, the player could potentially be on the enemies square
+        //         // hence, we need to check this.
+        //         // Only want the enemy to move if the game is in progress
+        //         if (dungeon.getState().equals("GameInProgress")) {
+        //             move();
+        //         }
+        //     }
+        // },1000,1000);
     }
     
+    public void go() {
+        timeline.play();
+    }
+
     /**
      * Let the enemy move
      */
@@ -59,12 +71,16 @@ public class Enemy extends Entity {
     }
 
     public void checkSquare() {
+        if (!getShow().get()) {
+            return;
+        }
         for(Entity e : dungeon.getEntities()) {
             if(e instanceof HiddenBomb) {
                 HiddenBomb bomb = (HiddenBomb)e;
                 bomb.activate();
-                cancelTimer();
-                dungeon.getEntities().remove(this);
+                // cancelTimer();
+                // timeline.stop();
+                // dungeon.getEntities().remove(this);
                 dungeon.decreaseEnemyCount();
                 // dungeon.checkEnemyGoal();
                 setShow(false);
@@ -77,9 +93,9 @@ public class Enemy extends Entity {
     /**
      * stop the enemy from moving
      */
-    public void cancelTimer() {
-        timer.cancel();
-    }
+    // public void cancelTimer() {
+    //     timer.cancel();
+    // }
 
     /**
      * A BFS function to search for the best way towards the player.
@@ -304,17 +320,20 @@ public class Enemy extends Entity {
 
     @Override
     public int handlePlayer(Player p) {
-        // If the player is touching an enemy, this method is called
-        if(target.haveWeapon() || target.havePotion()) {
-            cancelTimer();
-            dungeon.getEntities().remove(this);
-            dungeon.decreaseEnemyCount();
-            // dungeon.checkEnemyGoal();
-            setShow(false);
-            // setX(0);
-            // setY(0);
+        if (getShow().get()) {
+            // If the player is touching an enemy, this method is called
+            if(target.haveWeapon() || target.havePotion()) {
+                // cancelTimer();
+                // timeline.stop();
+                // dungeon.getEntities().remove(this);
+                dungeon.decreaseEnemyCount();
+                dungeon.checkEnemyGoal();
+                setShow(false);
+                // setX(0);
+                // setY(0);
+            }
+            target.beAttacked();
         }
-        target.beAttacked();
         return 1;
     }
     

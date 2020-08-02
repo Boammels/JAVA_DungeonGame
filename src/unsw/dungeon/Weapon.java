@@ -18,17 +18,19 @@ public class Weapon extends Entity{
     /**
      * Handle what happens to a sword when it gets picked up
      */
-    public void pickedup() {
-        dungeon.getEntities().remove(this);
-        setShow(false);
-        // setX(0);
-        // setY(0);
-    }
+    // public void pickedup() {
+    //     // dungeon.getEntities().remove(this);
+        
+    //     // setX(0);
+    //     // setY(0);
+    // }
 
     @Override
     public int handlePlayer(Player p) {
-        p.setWeapon(p.getWeapon() + WEAPONSIZE);
-        this.pickedup();
+        if (getShow().get()) {
+            p.setWeapon(p.getWeapon() + WEAPONSIZE);
+            setShow(false);
+        }
         return 1;
     }
 }

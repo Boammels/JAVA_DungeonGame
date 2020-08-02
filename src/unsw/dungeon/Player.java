@@ -201,15 +201,15 @@ public class Player extends Entity {
         if (this.potion == true) {
             return;
         } else if (this.weapon > 0) {
-            this.weapon --;
+            this.weapon--;
         } else {
             // Call kill player function on the current game state.
             dungeon.killPlayer();
-            for(Entity e: dungeon.getEntities()) {
-                if(e instanceof Enemy) {
-                    e.cancelTimer();
-                }
-            }
+            // for(Entity e: dungeon.getEntities()) {
+            //     if(e instanceof Enemy) {
+            //         e.cancelTimer();
+            //     }
+            // }
         }
     }
     

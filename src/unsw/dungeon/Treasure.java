@@ -18,7 +18,7 @@ public class Treasure extends Entity{
      * Handle what happens to treasure when it is picked up
      */
     public void pickedup() {
-        dungeon.getEntities().remove(this);
+        // dungeon.getEntities().remove(this);
         dungeon.decreaseTreasureCount();
         setShow(false);
         // setX(0);
@@ -27,7 +27,9 @@ public class Treasure extends Entity{
 
     @Override
     public int handlePlayer(Player p) {
-        this.pickedup();
+        if (getShow().get()) {
+            this.pickedup();
+        }
         return 1;
     }
     

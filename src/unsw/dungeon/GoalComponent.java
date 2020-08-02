@@ -12,4 +12,5 @@ public interface GoalComponent {
     // public int getSize();
     public void setGoalComplete(boolean complete);
     public boolean getGoalComplete();
+    public void clear();
 }

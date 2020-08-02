@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LevelSelectScreen {
+public class LevelSelectScreen implements Screen {
     private Stage stage;
     private String title;
     private LevelSelectController controller;

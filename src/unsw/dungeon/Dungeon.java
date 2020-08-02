@@ -21,9 +21,14 @@ public class Dungeon {
     private List<Entity> entities = new ArrayList<>();
     private List<Switch> switches = new ArrayList<>();
     private List <Boulder> boulders = new ArrayList<>();
+    private List <Enemy> enemies = new ArrayList<>();
+    private int initTreasureCount = 0;
     private int treasureCount = 0;
+    private int initEnemyCount = 0;
     private int enemyCount = 0;
     private Player player;
+    // Limit the use the controller in this class, only call methods
+    private DungeonController controller;
     // Store as an int so we can differentiate in the future between successful completion and a game over
     // private List<String> goals;
     private GoalComponent goals;
@@ -59,8 +64,13 @@ public class Dungeon {
         return gameInProgressState;
     }
 
+    public void setController(DungeonController dc) {
+        controller = dc;
+    }
+
     public void setState(State state) {
         this.state = state;
+        controller.handleStateChange();
     }
 
     public String getState() {
@@ -95,15 +105,40 @@ public class Dungeon {
             boulders.add((Boulder) entity);
         } else if (entity instanceof Treasure) {
             treasureCount++;
+            initTreasureCount = treasureCount;
         } else if (entity instanceof Enemy) {
+            enemies.add((Enemy)entity);
             enemyCount++;
+            initEnemyCount = enemyCount;
         }
     }
 
+    public void start() {
+        restart();
+        setState(getDungeonInProgressState());
+        for (Enemy e : enemies) {
+            e.go();
+        }
+    }
+
+    /**
+     * Function which restarts the state of the dungeon back to its original
+     */
     public void restart() {
+        goals.clear();
+        player.setWeapon(0);
+        player.setPotion(false);
+        player.setKey(-1);
+        enemyCount = initEnemyCount;
+        treasureCount = initTreasureCount;
         for (Entity e : entities) {
             e.setX(e.getInitX());
             e.setY(e.getInitY());
+            e.setShow(true);
+            if (e instanceof Door) {
+                Door door = (Door)e;
+                door.closeDoor();
+            }
         }
     }
 
@@ -168,6 +203,7 @@ public class Dungeon {
     }
     
     public void checkTreasureGoal() {
+        System.out.println(treasureCount);
         if (treasureCount == 0) {
             completeGoal("treasure");
         }
@@ -201,7 +237,6 @@ public class Dungeon {
         boolean allComplete = goals.complete(goalCompleted);
         if (allComplete) {
             state.clearDungeon();
-            // setGameStatus(GAME_COMPLETE);
         }
     }
 

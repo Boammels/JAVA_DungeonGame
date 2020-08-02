@@ -22,7 +22,7 @@ public class Key extends Entity{
      * Handles a key getting collected
      */
     public void pickedup() {
-        dungeon.getEntities().remove(this);
+        // dungeon.getEntities().remove(this);
         setShow(false);
         // setX(0);
         // setY(0);
@@ -31,9 +31,11 @@ public class Key extends Entity{
     @Override
     public int handlePlayer(Player p) {
         // Player can only pick up a key if they are not already holding one
-        if(p.getKey() == -1) {
-            p.setKey(pairCode);
-            this.pickedup();
+        if (getShow().get()) {
+            if (p.getKey() == -1) {
+                p.setKey(pairCode);
+                this.pickedup();
+            }
         }
         return 1;
     }
