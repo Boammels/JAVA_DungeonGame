@@ -13,7 +13,7 @@ public class GameInProgressState implements State {
     }
 
     public void die() {
-        dungeon.restart();
+        // dungeon.restart();
         dungeon.setState(dungeon.getPlayerDeadState());
     }
 

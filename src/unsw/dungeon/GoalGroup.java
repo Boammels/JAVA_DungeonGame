@@ -38,6 +38,16 @@ public class GoalGroup implements GoalComponent {
     }
 
     /**
+     * Reset all goals to incomplete
+     */
+    public void clear() {
+        for (GoalComponent g : goalComponents){
+            complete = false;
+            g.clear();
+        }
+    }
+
+    /**
      * Create a new Goal from the string given and it to this GoalGroup
      * @param goal
      */

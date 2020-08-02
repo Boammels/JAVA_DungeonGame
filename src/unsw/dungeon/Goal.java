@@ -45,6 +45,13 @@ public class Goal implements GoalComponent {
         }
     }
 
+    /**
+     * Reset all goals to incomplete
+     */
+    public void clear() {
+        this.complete = false;
+    }
+
     // public int getSize() {
     //     if (getGoalComplete()) {
     //         return 0;

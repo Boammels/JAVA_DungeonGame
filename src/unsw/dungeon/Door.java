@@ -20,13 +20,17 @@ public class Door extends Entity{
         open = true;
     }
 
+    public void closeDoor() {
+        open = false;
+    }
+
     @Override
     public int handlePlayer(Player p) {
         if(p.getKey() == this.pairCode && !this.open) {
             this.open = true;
             p.setKey(-1);
-            //System.out.println("Door is Open");
-            //what should we do when the door is open?
+            dungeon.removeFromInventory(p.getKeyObject());
+            p.setKeyObject(null);
         } else if (!this.open) {
             p.setX(p.getLastX());
             p.setY(p.getLastY());
