@@ -10,9 +10,11 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private boolean potion;
     private int weapon;
+    private Weapon weaponObject;
     private int lastX;
     private int lastY;
     private int key;
+    private Key keyObject;
 
     /**
      * Create a player positioned in square (x,y)
@@ -51,6 +53,14 @@ public class Player extends Entity {
      */
     public void setWeapon(int weapon) {
         this.weapon = weapon;
+    }
+
+    public void setWeaponObject(Weapon w) {
+        this.weaponObject = w;
+    }
+
+    public Weapon getWeaponObject() {
+        return weaponObject;
     }
 
     /**
@@ -115,6 +125,18 @@ public class Player extends Entity {
      */
     public int getKey() {
         return key;
+    }
+
+    public Key getKeyObject() {
+        return keyObject;
+    }
+
+    /**
+     * Set the key object the player is currently holding
+     * @param key
+     */
+    public void setKeyObject(Key key) {
+        this.keyObject = key;
     }
 
     /**
@@ -202,6 +224,9 @@ public class Player extends Entity {
             return;
         } else if (this.weapon > 0) {
             this.weapon--;
+            if (this.weapon == 0) {
+                dungeon.removeFromInventory(weaponObject);
+            }
         } else {
             // Call kill player function on the current game state.
             dungeon.killPlayer();

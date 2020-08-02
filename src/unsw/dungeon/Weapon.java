@@ -3,6 +3,7 @@ package unsw.dungeon;
 public class Weapon extends Entity{
     public static final int WEAPONSIZE = 5;
     private Dungeon dungeon;
+    private boolean pickedUp;
 
     /**
      * Create a weapon at position (x, y)
@@ -13,23 +14,27 @@ public class Weapon extends Entity{
     public Weapon (Dungeon dungeon, int x, int y) {
         super(x,y);
         this.dungeon = dungeon;
+        this.pickedUp = false;
     }
 
     /**
      * Handle what happens to a sword when it gets picked up
      */
-    // public void pickedup() {
-    //     // dungeon.getEntities().remove(this);
-        
-    //     // setX(0);
-    //     // setY(0);
-    // }
+    public void pickUp() {
+        // dungeon.getEntities().remove(this);
+        // setShow(false);
+        dungeon.moveToInventory(this);
+        // setX(0);
+        // setY(0);
+    }
 
     @Override
     public int handlePlayer(Player p) {
-        if (getShow().get()) {
+        if (!pickedUp) {
+            pickedUp = true;
             p.setWeapon(p.getWeapon() + WEAPONSIZE);
-            setShow(false);
+            p.setWeaponObject(this);
+            this.pickUp();
         }
         return 1;
     }

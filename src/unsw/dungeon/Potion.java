@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 public class Potion extends Entity {
     private Dungeon dungeon;
+    private boolean pickedUp;
 
     /**
      * Creates a potion at position (x, y)
@@ -15,32 +16,36 @@ public class Potion extends Entity {
     public Potion (Dungeon dungeon, int x, int y) {
         super(x,y);
         this.dungeon = dungeon;
+        this.pickedUp = false;
     }
 
     /**
      * Handle what the potion does when it gets picked up
      */
-    public void pickedup() {
+    public void pickUp() {
         // dungeon.getEntities().remove(this);
-        setShow(false);
+        dungeon.moveToInventory(this);
         // setX(0);
         // setY(0);
     }
 
     @Override
     public int handlePlayer(Player p) {
-        if (getShow().get()) {
+        if (!pickedUp) {
             p.setPotion(true);
+            pickedUp = true;
             // Create a timer so the potitons effects stop after a certain amount of time has passed
             Timer timer = new Timer();
+            Potion thisPotion = this;
             timer.schedule(new TimerTask(){
                 @Override
                 public void run() {
                     p.setPotion(false);
                     timer.cancel();
+                    dungeon.removeFromInventory(thisPotion);
                 }
             },10000);
-            this.pickedup();
+            this.pickUp();
         }
         return 1;
     }

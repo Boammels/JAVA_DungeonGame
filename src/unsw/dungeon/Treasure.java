@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 public class Treasure extends Entity{
     private Dungeon dungeon;
+    private boolean pickedUp;
 
     /**
      * Create treasure at position (x, y)
@@ -12,6 +13,7 @@ public class Treasure extends Entity{
     public Treasure (Dungeon dungeon, int x, int y) {
         super (x,y);
         this.dungeon = dungeon;
+        this.pickedUp = false;
     }
 
     /**
@@ -20,14 +22,16 @@ public class Treasure extends Entity{
     public void pickedup() {
         // dungeon.getEntities().remove(this);
         dungeon.decreaseTreasureCount();
-        setShow(false);
+        dungeon.moveToInventory(this);
+        // setShow(false);
         // setX(0);
         // setY(0);
     }
 
     @Override
     public int handlePlayer(Player p) {
-        if (getShow().get()) {
+        if (!pickedUp) {
+            pickedUp = true;
             this.pickedup();
         }
         return 1;

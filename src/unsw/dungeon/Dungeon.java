@@ -27,6 +27,7 @@ public class Dungeon {
     private int initEnemyCount = 0;
     private int enemyCount = 0;
     private Player player;
+    private List <Entity> inventory = new ArrayList<>();
     // Limit the use the controller in this class, only call methods
     private DungeonController controller;
     // Store as an int so we can differentiate in the future between successful completion and a game over
@@ -95,6 +96,30 @@ public class Dungeon {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void moveToInventory(Entity e) {
+        // e.setX(inventorySlot);
+        // e.setY(0);
+        // inventorySlot++;
+        inventory.add(e);
+        int i = 0;
+        for (Entity entity : inventory) {
+            entity.setX(i);
+            entity.setY(0);
+            i++;
+        }
+    }
+
+    public void removeFromInventory(Entity e) {
+        e.setShow(false);
+        inventory.remove(e);
+        int i = 0;
+        for (Entity entity : inventory) {
+            entity.setX(i);
+            entity.setY(0);
+            i++;
+        }
     }
 
     public void addEntity(Entity entity) {
