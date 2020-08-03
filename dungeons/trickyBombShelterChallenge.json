@@ -505,15 +505,36 @@
         "type": "sword"
       },
       {
-        "x": 16,
-        "y": 14,
+        "x": 14,
+        "y": 12,
         "type": "treasure"
       },
       {
-        "x": 15,
-        "y": 14,
+        "x": 13,
+        "y": 12,
         "type": "bomb"
+      },
+      {
+        "x": 15,
+        "y": 12,
+        "type": "bomb"
+      },
+      {
+        "x": 14,
+        "y": 11,
+        "type": "bomb"
+      },
+      {
+        "x": 14,
+        "y": 13,
+        "type": "bomb"
+      },
+      {
+        "x": 10,
+        "y": 10,
+        "type": "shield"
       }
+
     ],
     "goal-condition": {
       "goal": "AND",

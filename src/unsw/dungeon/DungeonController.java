@@ -50,7 +50,7 @@ public class DungeonController {
 
     @FXML
     public void initialize() {
-        Image ground = new Image((new File("images/dirt_0_new.png")).toURI().toString());
+        Image ground = new Image((new File("images/ground.png")).toURI().toString());
 
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {

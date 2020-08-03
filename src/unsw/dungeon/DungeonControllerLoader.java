@@ -53,7 +53,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         entities = new ArrayList<>();
         playerImage = new Image((new File("images/human_new.png")).toURI().toString());
         playerImage2 = new Image((new File("images/human_new2.png")).toURI().toString());
-        wallImage = new Image((new File("images/brick_brown_0.png")).toURI().toString());
+        wallImage = new Image((new File("images/wall.png")).toURI().toString());
         exitImage = new Image((new File("images/exit.png")).toURI().toString());
         boulderImage = new Image((new File("images/boulder.png")).toURI().toString());
         switchImage = new Image((new File("images/pressure_plate.png")).toURI().toString());
@@ -65,7 +65,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         enemyImage2 = new Image((new File("images/deep_elf_master_archer2.png")).toURI().toString());
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
-        wayImage = new Image((new File("images/dirt_0_new.png")).toURI().toString());
+        wayImage = new Image((new File("images/ground.png")).toURI().toString());
         openDoor = new Image((new File("images/open_door.png")).toURI().toString());
         wolfImage = new Image((new File("images/hound.png")).toURI().toString());
         wolfImage2 = new Image((new File("images/hound2.png")).toURI().toString());
