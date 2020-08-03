@@ -33,8 +33,12 @@ public class DungeonApplication extends Application {
         for (DungeonScreen d : allDungeons) {
             d.getController().setGameOverScreen(gameOver);
             d.getController().setDungeonScreen(d);
+            d.getController().setMainMenuScreen(mainScreen);
         }
         LevelSelectScreen levelSelectScreen = new LevelSelectScreen(primaryStage, mainScreen, allDungeons);
+        for (DungeonScreen d : allDungeons) {
+            d.getController().setLevelSelectScreen(levelSelectScreen);
+        }
         mainScreen.getController().setLevelSelectScreen(levelSelectScreen);
 
         mainScreen.start();
