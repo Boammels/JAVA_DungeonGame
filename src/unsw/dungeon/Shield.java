@@ -34,9 +34,4 @@ public class Shield extends Entity implements Collectable {
         }
         return 1;
     }
-
-    @Override
-    public boolean isWall() {
-        return true;
-    }
 }
