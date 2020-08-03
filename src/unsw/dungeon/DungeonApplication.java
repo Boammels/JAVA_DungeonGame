@@ -12,9 +12,10 @@ public class DungeonApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        DungeonScreen dungeonScreen5 = new DungeonScreen(primaryStage, "trickyBombShelterChallenge.json", null);
+        DungeonScreen dungeonScreen6 = new DungeonScreen(primaryStage, "wolf_and_wooden.json", null);
+        DungeonScreen dungeonScreen5 = new DungeonScreen(primaryStage, "trickyBombShelterChallenge.json", dungeonScreen6);
         DungeonScreen dungeonScreen4 = new DungeonScreen(primaryStage, "haha.json", dungeonScreen5);
-        DungeonScreen dungeonScreen3 = new DungeonScreen(primaryStage, "wolf_and_wooden.json", dungeonScreen4);
+        DungeonScreen dungeonScreen3 = new DungeonScreen(primaryStage, "advanced.json", dungeonScreen4);
         DungeonScreen dungeonScreen2 = new DungeonScreen(primaryStage, "boulders.json", dungeonScreen3);
         DungeonScreen dungeonScreen1 = new DungeonScreen(primaryStage, "maze.json", dungeonScreen2);
         List<DungeonScreen> allDungeons = new ArrayList<>();
@@ -23,8 +24,9 @@ public class DungeonApplication extends Application {
         allDungeons.add(dungeonScreen3);
         allDungeons.add(dungeonScreen4);
         allDungeons.add(dungeonScreen5);
+        allDungeons.add(dungeonScreen6);
         MainMenuScreen mainScreen = new MainMenuScreen(primaryStage, dungeonScreen1);
-        dungeonScreen5.getController().setNextDungeon(mainScreen);
+        dungeonScreen6.getController().setNextDungeon(mainScreen);
         GameOverScreen gameOver = new GameOverScreen(primaryStage, mainScreen);
         for (DungeonScreen d : allDungeons) {
             d.getController().setGameOverScreen(gameOver);
