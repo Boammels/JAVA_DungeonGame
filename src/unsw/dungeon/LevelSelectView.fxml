@@ -12,7 +12,7 @@
 
 <Pane maxHeight="400" maxWidth="600" minHeight="0" minWidth="0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane fx:id="buttonGrid" layoutX="50.0" layoutY="125.0">
+      <GridPane fx:id="buttonGrid" layoutX="20.0" layoutY="125.0">
       </GridPane>
       <Button fx:id="backToMainMenu" layoutX="102.0" layoutY="250.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="60.0" onAction="#backToMainMenu" text="BACK" textAlignment="CENTER" />
       <Text layoutX="110.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LEVEL SELECT" textAlignment="CENTER">
