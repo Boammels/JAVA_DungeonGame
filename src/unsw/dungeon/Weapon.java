@@ -1,7 +1,7 @@
 package unsw.dungeon;
 
 public class Weapon extends Entity implements Collectable{
-    public static final int WEAPONSIZE = 5;
+    private int hitPoints;
     private Dungeon dungeon;
     private boolean pickedUp;
 
@@ -11,8 +11,9 @@ public class Weapon extends Entity implements Collectable{
      * @param x
      * @param y
      */
-    public Weapon (Dungeon dungeon, int x, int y) {
+    public Weapon (Dungeon dungeon, int x, int y, int hitPoints) {
         super(x,y);
+        this.hitPoints = hitPoints;
         this.dungeon = dungeon;
         this.pickedUp = false;
     }
@@ -36,7 +37,7 @@ public class Weapon extends Entity implements Collectable{
     public int handlePlayer(Player p) {
         if (!pickedUp) {
             pickedUp = true;
-            p.setWeapon(p.getWeapon() + WEAPONSIZE);
+            p.setWeapon(p.getWeapon() + hitPoints);
             p.setWeaponObject(this);
             this.pickUp();
         }

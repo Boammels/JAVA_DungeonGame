@@ -17,14 +17,14 @@ public class Enemy extends Entity {
     private int lastY;
     private final Timeline timeline = new Timeline();
 
-    public Enemy (Dungeon dungeon, Player player, int x, int y) {
+    public Enemy (Dungeon dungeon, Player player, int x, int y, int moveSpeed) {
         super(x,y);
         this.dungeon = dungeon;
         
         this.target = player;
         lastX = 0;
         lastY = 0;
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), e -> move()));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(moveSpeed), e -> move()));
         timeline.setCycleCount(Animation.INDEFINITE);
     }
     

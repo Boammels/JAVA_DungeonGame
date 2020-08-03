@@ -107,15 +107,25 @@ public abstract class DungeonLoader {
             onLoad(portal);
             entity = portal;
             break;
+        case "woodenSword":
+            Weapon woodSword = new Weapon(dungeon, x, y, 1);
+            onLoad(woodSword, 0);
+            entity = woodSword;
+            break;
         case "sword":
-            Weapon weapon = new Weapon(dungeon, x, y);
-            onLoad(weapon);
+            Weapon weapon = new Weapon(dungeon, x, y, 5);
+            onLoad(weapon, 1);
             entity = weapon;
             break;
         case "enemy":
-            Enemy enemy = new Enemy(dungeon, dungeon.getPlayer(), x, y);
-            onLoad(enemy);
+            Enemy enemy = new Enemy(dungeon, dungeon.getPlayer(), x, y, 1000);
+            onLoad(enemy, 0);
             entity = enemy;
+            break;
+        case "wolf":
+            Enemy wolf = new Enemy(dungeon, dungeon.getPlayer(), x, y, 400);
+            onLoad(wolf, 1);
+            entity = wolf;
             break;
         case "door":
             Door door = new Door(dungeon, x, y, 1);
@@ -182,9 +192,9 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Portal portal);
 
-    public abstract void onLoad(Weapon weapon);
+    public abstract void onLoad(Weapon weapon, int type);
 
-    public abstract void onLoad(Enemy enemy);
+    public abstract void onLoad(Enemy enemy, int type);
 
     public abstract void onLoad(Door door);
 

@@ -38,6 +38,8 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image keyImage;
     private Image wayImage;
     private Image openDoor;
+    private Image wolfImage;
+    private Image woodenSword;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -57,6 +59,8 @@ public class DungeonControllerLoader extends DungeonLoader {
         keyImage = new Image((new File("images/key.png")).toURI().toString());
         wayImage = new Image((new File("images/dirt_0_new.png")).toURI().toString());
         openDoor = new Image((new File("images/open_door.png")).toURI().toString());
+        wolfImage = new Image((new File("images/hound.png")).toURI().toString());
+        woodenSword = new Image((new File("images/wooden_sword.png")).toURI().toString());
     }
 
     @Override
@@ -107,14 +111,24 @@ public class DungeonControllerLoader extends DungeonLoader {
     }
 
     @Override
-    public void onLoad(Weapon weapon) {
-        ImageView view = new ImageView(weaponImage);
+    public void onLoad(Weapon weapon, int type) {
+        ImageView view;
+        if (type == 1) {
+            view = new ImageView(weaponImage);
+        } else {
+            view = new ImageView(woodenSword);
+        }
         addEntity(weapon, view);
     }
 
     @Override
-    public void onLoad(Enemy enemy) {
-        ImageView view = new ImageView(enemyImage);
+    public void onLoad(Enemy enemy, int type) {
+        ImageView view;
+        if (type == 0) {
+            view = new ImageView(enemyImage);
+        } else {
+            view = new ImageView(wolfImage);
+        }
         addEntity(enemy, view);
     }
 
