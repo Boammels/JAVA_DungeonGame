@@ -30,6 +30,7 @@ public class HiddenBomb extends Entity implements Collectable{
     @Override
     public void pickUp() {
         dungeon.moveToInventory(this);
+        dungeon.removeFromInventory(this);
         setShow(false);
     }
 
