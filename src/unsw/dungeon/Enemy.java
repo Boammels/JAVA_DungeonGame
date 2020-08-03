@@ -65,8 +65,9 @@ public class Enemy extends Entity {
         }
         for(Entity e : dungeon.getEntities()) {
             if(getX() == e.getX() && getY() == e.getY()) {
-                if(!e.equals(this)) {
-                    e.teleportEnemy(this);
+                if(e instanceof Portal) {
+                    Portal p = (Portal)e;
+                    p.teleportEnemy(this);
                     break;
                 }
             }
