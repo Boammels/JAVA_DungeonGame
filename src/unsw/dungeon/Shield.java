@@ -26,7 +26,7 @@ public class Shield extends Entity implements Collectable {
 
     @Override
     public int handlePlayer(Player p) {
-        if (!pickedUp) {
+        if (!pickedUp && !p.haveShield()) {
             pickedUp = true;
             p.setShield(p.getShield() + 2);
             p.setShieldObject(this);
