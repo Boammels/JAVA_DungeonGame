@@ -186,7 +186,6 @@ public class Dungeon {
         goals.clear();
         goalText.set("GOALS: " + goals.getGoals());
         player.setWeapon(0);
-        player.setPotion(false);
         player.setKey(-1);
         enemyCount = initEnemyCount;
         inventory.clear();
@@ -203,7 +202,15 @@ public class Dungeon {
             } else if (e instanceof Collectable) {
                 Collectable c = (Collectable)e;
                 c.setPickedUp(false);
+            } else if (e instanceof Potion) {
+                if (player.havePotion()) {
+                    Potion p = (Potion)e;
+                    p.getTimer().cancel();
+                }
             }
+        }
+        if (player.havePotion()) {
+            player.setPotion(false);
         }
     }
 
