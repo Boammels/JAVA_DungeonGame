@@ -15,6 +15,8 @@ public class Player extends Entity {
     private int lastY;
     private int key;
     private Key keyObject;
+    private int shield;
+    private Shield shieldObject;
 
     /**
      * Create a player positioned in square (x,y)
@@ -29,6 +31,7 @@ public class Player extends Entity {
         potion = false;
         weapon = 0;
         key = -1;
+        shield = 0;
     }
 
     /**
@@ -227,7 +230,12 @@ public class Player extends Entity {
             if (this.weapon == 0) {
                 dungeon.removeFromInventory(weaponObject);
             }
-        } else {
+        } else if (this.shield > 0) {
+            this.shield--;
+            if (this.shield == 0) {
+                dungeon.removeFromInventory(shieldObject);
+            }
+        }else {
             // Call kill player function on the current game state.
             dungeon.killPlayer();
             // for(Entity e: dungeon.getEntities()) {
@@ -257,4 +265,24 @@ public class Player extends Entity {
         dungeon.checkTreasureGoal();
         dungeon.checkEnemyGoal();
     }
+
+	public void setShieldObject(Shield shield) {
+        this.shieldObject = shield;
+	}
+
+	public int getShield() {
+		return shield;
+	}
+
+	public void setShield(int i) {
+        this.shield = i;
+	}
+
+	public boolean haveShield() {
+		return shield > 0;
+	}
+
+	public Entity getShieldObject() {
+		return shieldObject;
+	}
 }

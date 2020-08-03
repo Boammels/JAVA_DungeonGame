@@ -146,7 +146,12 @@ public abstract class DungeonLoader {
             HiddenBomb bomb = new HiddenBomb(dungeon, x, y);
             onLoad(bomb);
             entity = bomb;
-            break;     
+            break;
+        case "shield":
+            Shield shield = new Shield(dungeon, x, y);
+            onLoad(shield);
+            entity = shield;
+            break;  
         }
         dungeon.addEntity(entity);
     }
@@ -203,4 +208,6 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Shelter shelter);
 
     public abstract void onLoad(HiddenBomb bomb);
+
+    public abstract void onLoad(Shield shield);
 }

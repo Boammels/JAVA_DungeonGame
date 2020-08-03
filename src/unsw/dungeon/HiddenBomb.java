@@ -17,7 +17,13 @@ public class HiddenBomb extends Entity implements Collectable{
     @Override
     public int handlePlayer(Player player) {
         pickUp();
-        dungeon.killPlayer();
+        if(player.haveShield()) {
+            player.setShield(0);
+            dungeon.removeFromInventory(player.getShieldObject());
+        }
+        else {
+            dungeon.killPlayer();
+        }
         return 1;
     }
 
