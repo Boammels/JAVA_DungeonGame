@@ -207,7 +207,11 @@ public class Dungeon {
                     Potion p = (Potion)e;
                     p.getTimer().cancel();
                 }
-            }
+            } 
+        }
+        for (Enemy en : enemies) {
+            en.setLastX(-1);
+            en.setLastY(-1);
         }
         if (player.havePotion()) {
             player.setPotion(false);

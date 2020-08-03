@@ -25,8 +25,8 @@ public class Enemy extends Entity {
         super(x,y);
         this.dungeon = dungeon;
         this.target = player;
-        lastX = 0;
-        lastY = 0;
+        lastX = -1;
+        lastY = -1;
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(moveSpeed), e -> move()));
         timeline.setCycleCount(Animation.INDEFINITE);
         animationTimeline.getKeyFrames().add(new KeyFrame(Duration.millis(moveSpeed/4), e -> animate()));
@@ -38,6 +38,14 @@ public class Enemy extends Entity {
         if (getShow().get()) {
             animationFrame.set(!animationFrame.get());
         } 
+    }
+
+    public void setLastX(int x) {
+        lastX = x;
+    }
+
+    public void setLastY(int y) {
+        lastY = y;
     }
 
     public void stop() {
