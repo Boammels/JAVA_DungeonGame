@@ -3,27 +3,16 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.prism.paint.Color;
-
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.File;
-import java.net.URL;
+
 
 
 /**
@@ -48,8 +37,8 @@ public class DungeonController {
     private GameOverScreen gameOverScreen;
     private DungeonScreen currentDungeon;
 
-    private MediaPlayer musicPlayer;
-    private AudioClip audio;
+    //private MediaPlayer musicPlayer;
+    //private AudioClip audio;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities, Screen nextDungeon) {
         this.dungeon = dungeon;

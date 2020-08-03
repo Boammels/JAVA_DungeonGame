@@ -128,12 +128,14 @@ public abstract class DungeonLoader {
             entity = wolf;
             break;
         case "door":
-            Door door = new Door(dungeon, x, y, 1);
+            int paircode1 = json.getInt("paircode");
+            Door door = new Door(dungeon, x, y, paircode1);
             onLoad(door);
             entity = door;
             break; 
         case "key":
-            Key key = new Key(dungeon, x, y, 1);
+            int paircode2 = json.getInt("paircode");
+            Key key = new Key(dungeon, x, y, paircode2);
             onLoad(key);
             entity = key;
             break;

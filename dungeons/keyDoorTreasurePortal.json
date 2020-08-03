@@ -105,11 +105,13 @@
       {
         "x": 1,
         "y": 2,
+        "paircode": 1,
         "type": "key"
       },
       {
         "x": 2,
         "y": 1,
+        "paircode": 1,
         "type": "door"
       },
       {

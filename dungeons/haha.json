@@ -410,6 +410,7 @@
       {
         "x": 13,
         "y": 9,
+        "paircode": 3,
         "type": "door"
       },
       {
@@ -500,11 +501,13 @@
       {
         "x": 10,
         "y": 6,
+        "paircode": 2,
         "type": "door"
       },
       {
         "x": 10,
         "y": 5,
+        "paircode": 3,
         "type": "key"
       },
       {
@@ -540,6 +543,7 @@
       {
         "x": 14,
         "y": 5,
+        "paircode": 2,
         "type": "key"
       },
       {
@@ -640,11 +644,13 @@
       {
         "x": 9,
         "y": 7,
+        "paircode": 1,
         "type": "door"
       },
       {
         "x": 5,
         "y": 5,
+        "paircode": 1,
         "type": "key"
       },
       {
