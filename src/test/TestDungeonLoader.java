@@ -107,11 +107,11 @@ public class TestDungeonLoader {
             dungeon.addEntity(portal);
             break;
         case "sword":
-            Weapon weapon = new Weapon(dungeon, x, y);
+            Weapon weapon = new Weapon(dungeon, x, y, 5);
             dungeon.addEntity(weapon);
             break;
         case "enemy":
-            Enemy enemy = new Enemy(dungeon, dungeon.getPlayer(), x, y);
+            Enemy enemy = new Enemy(dungeon, dungeon.getPlayer(), x, y, 1000);
             dungeon.addEntity(enemy);
             break;
         case "door":

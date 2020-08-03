@@ -24,7 +24,7 @@ public class EnemyWeaponPotionTest {
     public void enemyTestKilled() {
         Dungeon dungeon = new Dungeon(3,3);
         Player player = new Player(dungeon, 0, 1);
-        Enemy enemy = new Enemy(dungeon, player, 2, 1);
+        Enemy enemy = new Enemy(dungeon, player, 2, 1, 1000);
         Goal goal = new Goal("enemy");
         dungeon.addGoal(goal);
         dungeon.addEntity(player);
@@ -124,7 +124,7 @@ public class EnemyWeaponPotionTest {
     public void enemyThroughPortal() {
         Dungeon dungeon = new Dungeon(5,5);
         Player player = new Player(dungeon, 1, 1);
-        Enemy enemy = new Enemy(dungeon, player, 3, 1);
+        Enemy enemy = new Enemy(dungeon, player, 3, 1, 1000);
         Portal portal = new Portal(dungeon, 2, 1);
         dungeon.addEntity(portal);
         Portal portal2 = new Portal(dungeon, 3, 3);
@@ -145,7 +145,7 @@ public class EnemyWeaponPotionTest {
     public void enemyThroughPortal2() {
         Dungeon dungeon = new Dungeon(5,5);
         Player player = new Player(dungeon, 1, 1);
-        Enemy enemy = new Enemy(dungeon, player, 3, 1);
+        Enemy enemy = new Enemy(dungeon, player, 3, 1, 1000);
         Portal portal = new Portal(dungeon, 2, 1);
         dungeon.addEntity(portal);
 
@@ -166,10 +166,10 @@ public class EnemyWeaponPotionTest {
     public void enemyRunAway() {
         Dungeon dungeon = new Dungeon(7,7);
         Player player = new Player(dungeon, 3, 3);
-        Enemy enemy1 = new Enemy(dungeon, player, 2, 2);
-        Enemy enemy2 = new Enemy(dungeon, player, 4, 2);
-        Enemy enemy3 = new Enemy(dungeon, player, 2, 4);
-        Enemy enemy4 = new Enemy(dungeon, player, 4, 4);
+        Enemy enemy1 = new Enemy(dungeon, player, 2, 2, 1000);
+        Enemy enemy2 = new Enemy(dungeon, player, 4, 2, 1000);
+        Enemy enemy3 = new Enemy(dungeon, player, 2, 4, 1000);
+        Enemy enemy4 = new Enemy(dungeon, player, 4, 4, 1000);
         Goal goal = new Goal("Enemy");
         dungeon.addGoal(goal);
         dungeon.addEntity(enemy1);  dungeon.addEntity(enemy2);
@@ -213,7 +213,7 @@ public class EnemyWeaponPotionTest {
     public void enemyAndClosedDoor() {
         Dungeon dungeon = new Dungeon(7,7);
         Player player = new Player(dungeon, 1, 3);
-        Enemy enemy = new Enemy(dungeon, player, 5, 3);
+        Enemy enemy = new Enemy(dungeon, player, 5, 3, 1000);
         Door door = new Door(dungeon, 4, 3, 1);
         dungeon.addEntity(player);
         dungeon.addEntity(enemy);
@@ -229,7 +229,7 @@ public class EnemyWeaponPotionTest {
     public void enemyLogicNoBackWay() {
         Dungeon dungeon = new Dungeon(2,3);
         Player player = new Player(dungeon, 1, 0);
-        Enemy enemy = new Enemy(dungeon, player, 0, 2);
+        Enemy enemy = new Enemy(dungeon, player, 0, 2, 1000);
         dungeon.addEntity(player);
         dungeon.addEntity(enemy);
         Goal goal = new Goal("enemy");
@@ -245,7 +245,7 @@ public class EnemyWeaponPotionTest {
     public void enemyAndOpenDoor() {
         Dungeon dungeon = new Dungeon(7,7);
         Player player = new Player(dungeon, 1, 3);
-        Enemy enemy = new Enemy(dungeon, player, 5, 3);
+        Enemy enemy = new Enemy(dungeon, player, 5, 3, 1000);
         Door door = new Door(dungeon, 4, 3, 1);
         dungeon.addEntity(player);
         dungeon.addEntity(enemy);
