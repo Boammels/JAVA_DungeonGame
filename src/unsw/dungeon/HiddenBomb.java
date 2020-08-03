@@ -40,6 +40,10 @@ public class HiddenBomb extends Entity implements Collectable{
         setShow(false);
     }
 
+    public void hide() {
+        setShow(false);  
+    }
+
     
     
 }

@@ -59,7 +59,9 @@ public class Enemy extends Entity {
         if (target.havePotion()) {
             leave();
         } else {
-            towards();
+            if(getX() != target.getX() || getY() != target.getY()) {
+                towards();
+            }
         }
         for(Entity e : dungeon.getEntities()) {
             if(getX() == e.getX() && getY() == e.getY()) {
