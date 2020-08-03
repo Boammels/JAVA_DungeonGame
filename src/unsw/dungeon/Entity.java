@@ -96,12 +96,5 @@ public class Entity {
         return false;
     }
 
-	public void teleportEnemy(Enemy enemy) {
-    }
-    
-    public void teleportBoulder(Boulder boulder) {
-    }
 
-    public void cancelTimer() {
-    }
 }

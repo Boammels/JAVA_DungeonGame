@@ -147,6 +147,26 @@ public class Player extends Entity {
         return keyObject;
     }
 
+    public void setShieldObject(Shield shield) {
+        this.shieldObject = shield;
+	}
+
+	public int getShield() {
+		return shield;
+	}
+
+	public void setShield(int i) {
+        this.shield = i;
+	}
+
+	public boolean haveShield() {
+		return shield > 0;
+	}
+
+	public Entity getShieldObject() {
+		return shieldObject;
+	}
+
     /**
      * Set the key object the player is currently holding
      * @param key
@@ -272,6 +292,9 @@ public class Player extends Entity {
             } else if(e instanceof Shelter) {
                 Shelter shelter = (Shelter)e;
                 shelter.checkPlayerPosition(this);
+            } else if(e instanceof HiddenBomb) {
+                HiddenBomb bomb = (HiddenBomb)e;
+                bomb.hide();
             }
         }
         dungeon.checkSwitchedOn();
@@ -279,23 +302,5 @@ public class Player extends Entity {
         dungeon.checkEnemyGoal();
     }
 
-	public void setShieldObject(Shield shield) {
-        this.shieldObject = shield;
-	}
 
-	public int getShield() {
-		return shield;
-	}
-
-	public void setShield(int i) {
-        this.shield = i;
-	}
-
-	public boolean haveShield() {
-		return shield > 0;
-	}
-
-	public Entity getShieldObject() {
-		return shieldObject;
-	}
 }

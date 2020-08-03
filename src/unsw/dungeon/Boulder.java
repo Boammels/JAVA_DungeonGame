@@ -75,7 +75,8 @@ public class Boulder extends Entity {
                 if (e instanceof Wall || e instanceof Boulder || e instanceof Enemy) {
                     return 2;
                 } else if (e instanceof Portal) {
-                    e.teleportBoulder(this);
+                    Portal p = (Portal)e;
+                    p.teleportBoulder(this);
                    return 3;
                 }
             }

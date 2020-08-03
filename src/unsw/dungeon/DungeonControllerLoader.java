@@ -40,7 +40,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image enemyImage2;
     private Image doorImage;
     private Image keyImage;
-    private Image wayImage;
+    private Image bombImage;
     private Image openDoor;
     private Image wolfImage;
     private Image wolfImage2;
@@ -65,7 +65,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         enemyImage2 = new Image((new File("images/deep_elf_master_archer2.png")).toURI().toString());
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
-        wayImage = new Image((new File("images/ground.png")).toURI().toString());
+        bombImage = new Image((new File("images/bomb.png")).toURI().toString());
         openDoor = new Image((new File("images/open_door.png")).toURI().toString());
         wolfImage = new Image((new File("images/hound.png")).toURI().toString());
         wolfImage2 = new Image((new File("images/hound2.png")).toURI().toString());
@@ -180,7 +180,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 
     @Override
     public void onLoad(HiddenBomb bomb) {
-        ImageView view = new ImageView(wayImage);
+        ImageView view = new ImageView(bombImage);
         addEntity(bomb, view);
     }
 
