@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
@@ -35,11 +37,13 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image portalImage;
     private Image weaponImage;
     private Image enemyImage;
+    private Image enemyImage2;
     private Image doorImage;
     private Image keyImage;
     private Image wayImage;
     private Image openDoor;
     private Image wolfImage;
+    private Image wolfImage2;
     private Image woodenSword;
     private Image shieldImage;
 
@@ -58,11 +62,13 @@ public class DungeonControllerLoader extends DungeonLoader {
         portalImage = new Image((new File("images/portal.png")).toURI().toString());
         weaponImage = new Image((new File("images/greatsword_1_new.png")).toURI().toString());
         enemyImage = new Image((new File("images/deep_elf_master_archer.png")).toURI().toString());
+        enemyImage2 = new Image((new File("images/deep_elf_master_archer2.png")).toURI().toString());
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
         wayImage = new Image((new File("images/dirt_0_new.png")).toURI().toString());
         openDoor = new Image((new File("images/open_door.png")).toURI().toString());
         wolfImage = new Image((new File("images/hound.png")).toURI().toString());
+        wolfImage2 = new Image((new File("images/hound2.png")).toURI().toString());
         woodenSword = new Image((new File("images/wooden_sword.png")).toURI().toString());
         shieldImage = new Image((new File("images/shield.png")).toURI().toString());
     }
@@ -131,12 +137,18 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Enemy enemy, int type) {
         ImageView view;
+        ImageView view2;
         if (type == 0) {
             view = new ImageView(enemyImage);
+            view2 = new ImageView(enemyImage2);
         } else {
             view = new ImageView(wolfImage);
+            view2 = new ImageView(wolfImage2);
         }
         addEntity(enemy, view);
+        addEntity(enemy, view2);
+        view.visibleProperty().bind(Bindings.when(enemy.getShow()).then(enemy.showAnimation()).otherwise(enemy.getShow()));
+        view2.visibleProperty().bind(Bindings.when(enemy.getShow()).then(enemy.showAnimation().not()).otherwise(enemy.getShow()));
     }
 
     @Override

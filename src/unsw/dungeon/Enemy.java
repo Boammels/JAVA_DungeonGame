@@ -7,6 +7,8 @@ import java.util.Queue;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 
 public class Enemy extends Entity {
@@ -15,19 +17,34 @@ public class Enemy extends Entity {
     private Player target;
     private int lastX;
     private int lastY;
+    private BooleanProperty animationFrame = new SimpleBooleanProperty();
     private final Timeline timeline = new Timeline();
+    private final Timeline animationTimeline = new Timeline();
 
     public Enemy (Dungeon dungeon, Player player, int x, int y, int moveSpeed) {
         super(x,y);
         this.dungeon = dungeon;
-        
         this.target = player;
         lastX = 0;
         lastY = 0;
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(moveSpeed), e -> move()));
         timeline.setCycleCount(Animation.INDEFINITE);
+        animationTimeline.getKeyFrames().add(new KeyFrame(Duration.millis(moveSpeed/4), e -> animate()));
+        animationTimeline.setCycleCount(Animation.INDEFINITE);
+        animationTimeline.play();
     }
     
+    public void animate() {
+        if (getShow().get()) {
+            animationFrame.set(!animationFrame.get());
+        } 
+    }
+
+
+    public BooleanProperty showAnimation() {
+        return animationFrame;
+    }
+
     public void go() {
         timeline.play();
     }
