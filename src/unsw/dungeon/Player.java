@@ -248,6 +248,9 @@ public class Player extends Entity {
                 if (handlePlayerResult == 1) {
                     break;
                 } 
+            } else if(e instanceof Shelter) {
+                Shelter shelter = (Shelter)e;
+                shelter.checkPlayerPosition(this);
             }
         }
         dungeon.checkSwitchedOn();
