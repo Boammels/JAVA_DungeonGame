@@ -25,6 +25,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 
     //Images
     private Image playerImage;
+    private Image playerImage2;
     private Image wallImage;
     private Image exitImage;
     private Image boulderImage;
@@ -47,6 +48,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         super(filename);
         entities = new ArrayList<>();
         playerImage = new Image((new File("images/human_new.png")).toURI().toString());
+        playerImage2 = new Image((new File("images/human_new2.png")).toURI().toString());
         wallImage = new Image((new File("images/brick_brown_0.png")).toURI().toString());
         exitImage = new Image((new File("images/exit.png")).toURI().toString());
         boulderImage = new Image((new File("images/boulder.png")).toURI().toString());
@@ -68,7 +70,10 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
+        ImageView view2 = new ImageView(playerImage2);
         addEntity(player, view);
+        addEntity(player, view2);
+        view2.visibleProperty().bind(player.getShow().not());
     }
 
     @Override
