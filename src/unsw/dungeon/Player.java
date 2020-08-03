@@ -1,5 +1,10 @@
 package unsw.dungeon;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
 /**
  * The player entity
  * @author Robert Clifton-Everest
@@ -15,6 +20,7 @@ public class Player extends Entity {
     private int lastY;
     private int key;
     private Key keyObject;
+    private final Timeline timeline = new Timeline();
 
     /**
      * Create a player positioned in square (x,y)
@@ -29,6 +35,13 @@ public class Player extends Entity {
         potion = false;
         weapon = 0;
         key = -1;
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500), e -> switchFrame()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    private void switchFrame() {
+        setShow(!getShow().get());
     }
 
     /**
