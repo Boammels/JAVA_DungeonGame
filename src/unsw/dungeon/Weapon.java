@@ -35,7 +35,7 @@ public class Weapon extends Entity implements Collectable{
 
     @Override
     public int handlePlayer(Player p) {
-        if (!pickedUp) {
+        if (!pickedUp && !p.haveWeapon()) {
             pickedUp = true;
             p.setWeapon(p.getWeapon() + hitPoints);
             p.setWeaponObject(this);
