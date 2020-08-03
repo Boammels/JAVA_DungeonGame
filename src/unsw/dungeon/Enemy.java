@@ -40,6 +40,9 @@ public class Enemy extends Entity {
         } 
     }
 
+    public void stop() {
+        timeline.stop();
+    }
 
     public BooleanProperty showAnimation() {
         return animationFrame;

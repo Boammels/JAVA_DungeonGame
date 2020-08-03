@@ -147,6 +147,12 @@ public class Dungeon {
         }
     }
 
+    public void stopEnemies() {
+        for (Enemy e : enemies) {
+            e.stop();
+        }
+    }
+
     /**
      * Function is called when a this dungeon is switched to
      */

@@ -3,7 +3,10 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -26,6 +29,9 @@ public class DungeonController {
     private GridPane squares;
 
     private Text gameObjectives;
+    private Button retry;
+    private Button mainMenu;
+    private Button levelSelect;
 
     private List<ImageView> initialEntities;
 
@@ -36,6 +42,8 @@ public class DungeonController {
     private Screen nextDungeon;
     private GameOverScreen gameOverScreen;
     private DungeonScreen currentDungeon;
+    private MainMenuScreen mainMenuScreen;
+    private LevelSelectScreen levelSelectScreen;
 
     //private MediaPlayer musicPlayer;
     //private AudioClip audio;
@@ -67,6 +75,38 @@ public class DungeonController {
         gameObjectives.textProperty().bind(dungeon.getGoalText());
         squares.add(gameObjectives, 0, dungeon.getHeight());
         squares.setColumnSpan(gameObjectives, dungeon.getWidth());
+        retry = new Button("RETRY");
+        retry.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                dungeon.start();
+                squares.requestFocus();
+            }
+        });
+        squares.add(retry, 0, dungeon.getHeight() + 1);
+        squares.setColumnSpan(retry, dungeon.getWidth());
+
+        mainMenu = new Button("MAIN MENU");
+        mainMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                mainMenuScreen.start();
+                dungeon.stopEnemies();
+                squares.requestFocus();
+            }
+        });
+        squares.add(mainMenu, 2, dungeon.getHeight() + 1);
+        squares.setColumnSpan(mainMenu, dungeon.getWidth());
+
+        levelSelect = new Button("LEVEL SELECT");
+        levelSelect.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                levelSelectScreen.start();
+                dungeon.stopEnemies();
+                squares.requestFocus();
+            }
+        });
+        squares.add(levelSelect, 5, dungeon.getHeight() + 1);
+        squares.setColumnSpan(levelSelect, dungeon.getWidth());
+
         //URL sound = getClass().getResource("music/Woosh_stutter.wav");
         //final Media media = new Media(sound.toString());
         //musicPlayer = new MediaPlayer(media);
@@ -121,6 +161,14 @@ public class DungeonController {
 
     public void setGameOverScreen(GameOverScreen gameOver) {
         this.gameOverScreen = gameOver;
+    }
+
+    public void setMainMenuScreen(MainMenuScreen mainMenu) {
+        this.mainMenuScreen = mainMenu;
+    }
+
+    public void setLevelSelectScreen(LevelSelectScreen levelSelect) {
+        this.levelSelectScreen = levelSelect;
     }
 
     public void setDungeonScreen(DungeonScreen dungeon) {
