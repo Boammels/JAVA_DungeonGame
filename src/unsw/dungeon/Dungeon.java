@@ -31,8 +31,9 @@ public class Dungeon {
     private int enemyCount = 0;
     private Player player;
     private List <Entity> inventory = new ArrayList<>();
+    private List<StateObserver> observers = new ArrayList<>();
     // Limit the use the controller in this class, only call methods
-    private DungeonController controller;
+    // private DungeonController controller;
     // Store as an int so we can differentiate in the future between successful completion and a game over
     // private List<String> goals;
     private GoalComponent goals;
@@ -69,13 +70,22 @@ public class Dungeon {
         return gameInProgressState;
     }
 
-    public void setController(DungeonController dc) {
-        controller = dc;
+    // public void setController(DungeonController dc) {
+    //     controller = dc;
+    // }
+
+    public void attatchObserver(StateObserver o) {
+        if (!observers.contains(o)) {
+            observers.add(o);
+        }
     }
 
     public void setState(State state) {
         this.state = state;
-        controller.handleStateChange();
+        for (StateObserver o : observers) {
+            o.updateState(this);
+        }
+        // controller.handleStateChange();
     }
 
     public String getState() {

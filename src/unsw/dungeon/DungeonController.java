@@ -53,7 +53,7 @@ public class DungeonController {
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
         this.nextDungeon = nextDungeon;
-        dungeon.setController(this);
+        // dungeon.setController(this);
     }
 
     @FXML
@@ -70,6 +70,9 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
+        StateObserver stateHandler = new ControllerStateObserver(this);
+        dungeon.attatchObserver(stateHandler);
+
         gameObjectives = new Text();
         gameObjectives.setFont(new Font("Arial", 15));
         gameObjectives.textProperty().bind(dungeon.getGoalText());
@@ -141,15 +144,30 @@ public class DungeonController {
         //mediaPlayer.setAutoPlay(true);  
         //audio = new AudioClip(getClass().getResource("Woosh_stutter.wav").toString());
         //audio.play();
-        handleStateChange();
+        // handleStateChange();
     }
 
-    public void handleStateChange() {
-        if (dungeon.getState().equals("DungeonComplete")) {
+    // public void handleStateChange() {
+    //     if (dungeon.getState().equals("DungeonComplete")) {
+    //         if (nextDungeon != null) {
+    //             nextDungeon.start();
+    //         }
+    //     } else if (dungeon.getState().equals("PlayerDead")) {
+    //         gameOverScreen.getController().setDungeonScreen(currentDungeon);
+    //         gameOverScreen.start();
+    //     }
+    // }
+
+    /**
+     * When observer tells us the dungeon state has changed, handle accordingly 
+     * @param newState
+     */
+    public void handleStateChange(String newState) {
+        if (newState.equals("DungeonComplete")) {
             if (nextDungeon != null) {
                 nextDungeon.start();
             }
-        } else if (dungeon.getState().equals("PlayerDead")) {
+        } else if (newState.equals("PlayerDead")) {
             gameOverScreen.getController().setDungeonScreen(currentDungeon);
             gameOverScreen.start();
         }
