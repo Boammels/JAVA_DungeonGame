@@ -31,9 +31,6 @@ public class DungeonController {
     @FXML
     private GridPane squares;
 
-    @FXML
-    private GridPane lol;
-
     private Text gameObjectives;
 
     private List<ImageView> initialEntities;
@@ -68,9 +65,8 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
-        // squares.getRowConstraints().add(new RowConstraints(dungeon.getWidth()));
         gameObjectives = new Text();
-        // gameObjectives.setFont(new Font("Arial", 25));
+        gameObjectives.setFont(new Font("Arial", 15));
         gameObjectives.textProperty().bind(dungeon.getGoalText());
         squares.add(gameObjectives, 0, dungeon.getHeight());
         squares.setColumnSpan(gameObjectives, dungeon.getWidth());

@@ -102,10 +102,11 @@ public class Dungeon {
         this.player = player;
     }
 
+    /**
+     * Add an entity to the inventory and update the inventory display
+     * @param e
+     */
     public void moveToInventory(Entity e) {
-        // e.setX(inventorySlot);
-        // e.setY(0);
-        // inventorySlot++;
         inventory.add(e);
         int i = 0;
         for (Entity entity : inventory) {
@@ -115,6 +116,10 @@ public class Dungeon {
         }
     }
 
+    /**
+     * Remove an item from the inventory and update the inventory display
+     * @param e
+     */
     public void removeFromInventory(Entity e) {
         e.setShow(false);
         inventory.remove(e);
@@ -142,9 +147,13 @@ public class Dungeon {
         }
     }
 
+    /**
+     * Function is called when a this dungeon is switched to
+     */
     public void start() {
         restart();
         setState(getDungeonInProgressState());
+        // Make sure when we start up a dungeon: all the enemies are moving
         for (Enemy e : enemies) {
             e.go();
         }
@@ -154,6 +163,7 @@ public class Dungeon {
      * Function which restarts the state of the dungeon back to its original
      */
     public void restart() {
+        // All goals that may have been completed are turned back to uncompleted
         goals.clear();
         goalText.set("GOALS: " + goals.getGoals());
         player.setWeapon(0);
@@ -162,6 +172,8 @@ public class Dungeon {
         enemyCount = initEnemyCount;
         inventory.clear();
         treasureCount = initTreasureCount;
+        // For all entities, move them back to there original position, make sure they are all being displayed
+        // Handle the special cases for certain objects
         for (Entity e : entities) {
             e.setX(e.getInitX());
             e.setY(e.getInitY());
@@ -195,17 +207,10 @@ public class Dungeon {
         return switches;
     }
 
-    // public void setGameStatus(int gameStatus) {
-    //     this.gameStatus = gameStatus;
-    // }
-
-    // public int getGameStatus() {
-    //     return gameStatus;
-    // }
-
+    /**
+     * For each switch, turns it on if a boulder is on it
+     */
     public void checkSwitchedOn() {
-        // called initially to see if any boulders start on switches
-        // slow process - but only called once at the beginning, so should not impact performance
         for (Switch s : switches) {
             boolean toTurnOn = false;
             for (Boulder b : boulders) {
@@ -232,18 +237,27 @@ public class Dungeon {
         }
     }
 
+    /**
+     * Handles player interaction for switch?
+     */
     public void updateSwitches() {
         for (Switch s : switches) {
             s.handlePlayer(getPlayer());
         }
     }
     
+    /**
+     * Check if all treasure on the map has been collected
+     */
     public void checkTreasureGoal() {
         if (treasureCount == 0) {
             completeGoal("treasure");
         }
     }
     
+    /**
+     * Treasure has been collected, decrease its count
+     */
     public void decreaseTreasureCount() {
         treasureCount--;
     }
@@ -252,12 +266,18 @@ public class Dungeon {
         return treasureCount;
     }
     
+    /**
+     * Checks if the enemy goal of defeating all enemies has been completed
+     */
     public void checkEnemyGoal() {
         if (enemyCount == 0) {
             completeGoal("enemies");
         }
     }
 
+    /**
+     * lowers the count of enemies currently alive by one
+     */
     public void decreaseEnemyCount() {
         enemyCount--;
     }
@@ -266,6 +286,10 @@ public class Dungeon {
         return enemyCount;
     }
 
+    /**
+     * Completes a goal and checks if this goal completion has completed the dungeon
+     * @param goalCompleted
+     */
     public void completeGoal(String goalCompleted) {
         // Finish the goal, the return value will indicate whether this change resulted in
         // the dungeon completing
