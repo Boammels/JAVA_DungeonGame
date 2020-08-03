@@ -15,11 +15,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URL;
+
 
 /**
  * A JavaFX controller for the dungeon.
@@ -45,6 +50,9 @@ public class DungeonController {
     private Screen nextDungeon;
     private GameOverScreen gameOverScreen;
     private DungeonScreen currentDungeon;
+
+    private MediaPlayer musicPlayer;
+    private AudioClip audio;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities, Screen nextDungeon) {
         this.dungeon = dungeon;
@@ -74,7 +82,12 @@ public class DungeonController {
         gameObjectives.textProperty().bind(dungeon.getGoalText());
         squares.add(gameObjectives, 0, dungeon.getHeight());
         squares.setColumnSpan(gameObjectives, dungeon.getWidth());
+        //URL sound = getClass().getResource("music/Woosh_stutter.wav");
+        //final Media media = new Media(sound.toString());
+        //musicPlayer = new MediaPlayer(media);
+        
     }
+
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
@@ -101,6 +114,8 @@ public class DungeonController {
         //Media media = new Media(new File(path).toURI().toString());  
         //MediaPlayer mediaPlayer = new MediaPlayer(media);  
         //mediaPlayer.setAutoPlay(true);  
+        //audio = new AudioClip(getClass().getResource("Woosh_stutter.wav").toString());
+        //audio.play();
         handleStateChange();
     }
 
