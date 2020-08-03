@@ -314,7 +314,7 @@ public class Enemy extends Entity {
     public int handlePlayer(Player p) {
         if (getShow().get()) {
             // If the player is touching an enemy, this method is called
-            if(target.haveWeapon() || target.havePotion() || target.haveShield()) {
+            if(target.haveWeapon() || target.havePotion()) {
                 dungeon.decreaseEnemyCount();
                 dungeon.checkEnemyGoal();
                 setShow(false);
