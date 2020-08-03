@@ -157,6 +157,9 @@ public class Dungeon {
         }
     }
 
+    /**
+     * Stops all the enemies in the current dungeon from moving
+     */
     public void stopEnemies() {
         for (Enemy e : enemies) {
             e.stop();

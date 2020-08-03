@@ -53,7 +53,6 @@ public class DungeonController {
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
         this.nextDungeon = nextDungeon;
-        // dungeon.setController(this);
     }
 
     @FXML
@@ -73,6 +72,8 @@ public class DungeonController {
         StateObserver stateHandler = new ControllerStateObserver(this);
         dungeon.attatchObserver(stateHandler);
 
+        // Set up the buttons on the dungeon screen that will either restart the dungeon
+        // or navigate to another screen.
         gameObjectives = new Text();
         gameObjectives.setFont(new Font("Arial", 15));
         gameObjectives.textProperty().bind(dungeon.getGoalText());
@@ -193,6 +194,11 @@ public class DungeonController {
         this.currentDungeon = dungeon;
     }
 
+    /**
+     * Next "dungeon" is really the screen that will be navigated 
+     * to if this dungeon were to be completed
+     * @param dungeon
+     */
     public void setNextDungeon(Screen dungeon) {
         this.nextDungeon = dungeon;
     }

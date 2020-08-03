@@ -20,8 +20,8 @@ public class Shelter extends Entity {
     }
 
     public void checkPlayerPosition(Player player) {
-        if(player.getX()>=this.getX()-2 && player.getX()<= this.getX()+2) {
-            if(player.getY()>=this.getY()-2 && player.getY() <= this.getY()+2) {
+        if(player.getX() >= this.getX() - 2 && player.getX() <= this.getX() + 2) {
+            if(player.getY() >= this.getY() - 2 && player.getY() <= this.getY() + 2) {
                 setShow(false);
             } else {
                 setShow(true);
