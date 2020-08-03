@@ -187,6 +187,7 @@ public class Dungeon {
         goalText.set("GOALS: " + goals.getGoals());
         player.setWeapon(0);
         player.setKey(-1);
+        player.setShield(0);
         enemyCount = initEnemyCount;
         inventory.clear();
         treasureCount = initTreasureCount;
